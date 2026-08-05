@@ -59,12 +59,14 @@ export function computeConsumption(items, recipeLinesByDish, sales) {
  * @param {Map<number,number>} [args.opening] itemId -> opening stock (native)
  * @param {Map<number,number>} [args.received]itemId -> received that day (native)
  * @param {Map<number,number>} [args.counted] itemId -> actual closing count (native)
+ * @param {Map<number,number>} [args.declaredWaste] itemId -> declared ingredient waste (native)
  * @returns {Array} one row per tracked food item involved, sorted by name
  */
-export function reconcile({ items, recipeLinesByDish, sales, opening, received, counted }) {
+export function reconcile({ items, recipeLinesByDish, sales, opening, received, counted, declaredWaste }) {
   opening = opening || new Map();
   received = received || new Map();
   counted = counted || new Map();
+  declaredWaste = declaredWaste || new Map();
 
   const consumption = computeConsumption(items, recipeLinesByDish, sales);
   const itemById = new Map(items.map((i) => [i.id, i]));
@@ -76,6 +78,7 @@ export function reconcile({ items, recipeLinesByDish, sales, opening, received, 
   for (const id of opening.keys()) ids.add(id);
   for (const id of received.keys()) ids.add(id);
   for (const id of counted.keys()) ids.add(id);
+  for (const id of declaredWaste.keys()) ids.add(id);
 
   const rows = [];
   for (const id of ids) {
@@ -86,16 +89,18 @@ export function reconcile({ items, recipeLinesByDish, sales, opening, received, 
     const op = opening.get(id) || 0;
     const rec = received.get(id) || 0;
     const cons = consumption.get(id) || 0;
+    const declared = declaredWaste.get(id) || 0; // declared ingredient waste
     const expected = op + rec - cons;
     const hasCount = counted.has(id);
     const cnt = hasCount ? counted.get(id) : null;
-    const waste = hasCount ? expected - cnt : null;
+    // Unexplained variance = expected − counted − declared ingredient waste.
+    const waste = hasCount ? expected - cnt - declared : null;
 
     const flags = [];
     if (!hasCount) flags.push('not_counted');
     if (hasCount && cnt === 0) flags.push('possible_stockout'); // never call it "perfect"
     if (expected < -1e-9) flags.push('expected_negative'); // sold more than available -> lost sales / bad data
-    if (waste !== null && waste < -1e-9) flags.push('negative_waste'); // counted more than expected
+    if (waste !== null && waste < -1e-9) flags.push('negative_waste'); // counted+declared more than expected
 
     rows.push({
       itemId: id,
@@ -107,6 +112,7 @@ export function reconcile({ items, recipeLinesByDish, sales, opening, received, 
       consumption: roundNative(item.unit, cons),
       expectedClosing: roundNative(item.unit, expected),
       counted: cnt === null ? null : roundNative(item.unit, cnt),
+      declaredWaste: roundNative(item.unit, declared),
       waste: waste === null ? null : roundNative(item.unit, waste),
       flags,
     });

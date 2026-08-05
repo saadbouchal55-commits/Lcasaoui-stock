@@ -46,6 +46,11 @@ enum OrderStatus {
   CONFIRMED_SENT  // a human confirmed it went out; system of record + learning input
 }
 
+enum WasteRefType {
+  ITEM     // raw ingredient waste (subtracts from that item's variance)
+  PRODUCT  // finished-product waste (kept product-level; shown separately)
+}
+
 model Location {
   id        Int      @id @default(autoincrement())
   code      String   @unique          // "L1", "L2"
@@ -56,6 +61,7 @@ model Location {
   users     User[]
   suggestions OrderSuggestion[]
   buffers   Buffer[]
+  wasteDeclarations WasteDeclaration[]
 }
 
 model Item {
@@ -73,6 +79,7 @@ model Item {
   countLines  CountLine[]
   orderLines  OrderLine[]
   buffers     Buffer[]
+  wasteDeclarations WasteDeclaration[]
 }
 
 model Dish {
@@ -82,6 +89,7 @@ model Dish {
   recipes   Recipe[]
   posNames  PosMapping[]
   salesLines SalesLine[]
+  wasteDeclarations WasteDeclaration[]
 }
 
 // A Dish has one active Recipe; each edit creates a new RecipeVersion.
@@ -207,6 +215,26 @@ model Buffer {
   itemId     Int
   pct        Float    @default(0)
   @@unique([locationId, itemId])
+}
+
+// Manager/shift-leader declared waste. ITEM waste subtracts from that item's
+// variance (unexplained gap); PRODUCT waste is kept product-level and shown
+// separately (never exploded into ingredients).
+model WasteDeclaration {
+  id         Int          @id @default(autoincrement())
+  location   Location     @relation(fields: [locationId], references: [id])
+  locationId Int
+  date       DateTime
+  refType    WasteRefType
+  item       Item?        @relation(fields: [itemId], references: [id])
+  itemId     Int?
+  dish       Dish?        @relation(fields: [dishId], references: [id])
+  dishId     Int?
+  qty        Float
+  reason     String?      @db.Text
+  createdBy  Int?
+  createdAt  DateTime     @default(now())
+  @@index([locationId, date])
 }
 
 model User {

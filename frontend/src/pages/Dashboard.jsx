@@ -8,8 +8,11 @@ export default function Dashboard() {
 
   const tiles = [];
   if (isFloor) {
-    tiles.push(['/night-count', t('nav.nightcount'), 'Le point de départ chaque soir : compter le stock. La première fois = stock initial ; ensuite = clôture + gaspillage.']);
-    tiles.push(['/daily', t('nav.daily'), 'Saisir les ventes et le comptage de clôture (comptage à l\'aveugle pour les managers).']);
+    tiles.push(['/sales', t('nav.sales'), 'Saisir les quantités vendues par produit.']);
+    tiles.push(['/stock', t('nav.stock'), 'Comptage à l\'aveugle de tout le stock (aliments + emballages).']);
+    tiles.push(['/pertes', t('nav.pertes'), 'Déclarer les pertes : ingrédient ou produit + quantité + raison.']);
+    tiles.push(['/emballage', t('nav.emballage'), 'Commander les emballages (indice basé sur l\'historique).']);
+    tiles.push(['/pertes-view', t('nav.pertesView'), 'Voir les pertes déclarées.']);
   }
   if (canOrders) {
     tiles.push(['/orders', t('nav.orders'), 'Commande auto-générée (aliments) à vérifier puis confirmer envoyée ; emballages manuels.']);

@@ -1,32 +1,44 @@
-// i18n context. Strings come from the backend (locales/fr.json) so there is a
-// single source of truth and Arabic can be added later with no code change.
+// i18n context with live language switching (FR / AR) and RTL support.
+// Strings come from the backend (locales/fr.json, locales/ar.json). Product and
+// item NAMES stay French in both languages — only interface chrome is translated.
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api } from './api.js';
 
-const I18nContext = createContext({ t: (k) => k, lang: 'fr' });
+const I18nContext = createContext({ t: (k) => k, lang: 'fr', setLang: () => {}, dir: 'ltr' });
+
+const cache = {}; // lang -> strings
 
 export function I18nProvider({ children }) {
+  const [lang, setLangState] = useState(() => localStorage.getItem('lang') || 'fr');
   const [strings, setStrings] = useState(null);
-  const [lang, setLang] = useState('fr');
 
   useEffect(() => {
+    const dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', dir);
+    localStorage.setItem('lang', lang);
+
+    if (cache[lang]) { setStrings(cache[lang]); return; }
     api
-      .get('/api/meta/i18n?lang=fr')
-      .then((d) => {
-        setStrings(d.strings);
-        setLang(d.lang);
-      })
-      .catch(() => setStrings({}));
-  }, []);
+      .get(`/api/meta/i18n?lang=${lang}`)
+      .then((d) => { cache[lang] = d.strings; setStrings(d.strings); })
+      .catch(() => setStrings(cache[lang] || {}));
+  }, [lang]);
+
+  const setLang = (l) => setLangState(l);
 
   const t = (key) => {
     if (!strings) return '';
     return key.split('.').reduce((o, k) => (o && o[k] != null ? o[k] : null), strings) ?? key;
   };
 
-  if (!strings) return null; // brief blank while strings load
+  if (!strings) return null; // brief blank while the first language loads
 
-  return <I18nContext.Provider value={{ t, lang }}>{children}</I18nContext.Provider>;
+  return (
+    <I18nContext.Provider value={{ t, lang, setLang, dir: lang === 'ar' ? 'rtl' : 'ltr' }}>
+      {children}
+    </I18nContext.Provider>
+  );
 }
 
 export const useI18n = () => useContext(I18nContext);

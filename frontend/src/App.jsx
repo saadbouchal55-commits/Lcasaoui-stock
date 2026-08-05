@@ -4,9 +4,12 @@ import Layout from './components/Layout.jsx';
 import Login from './pages/Login.jsx';
 import ChangePassword from './pages/ChangePassword.jsx';
 import Dashboard from './pages/Dashboard.jsx';
-import NightCount from './pages/NightCount.jsx';
+import Sales from './pages/Sales.jsx';
+import Stock from './pages/Stock.jsx';
+import Pertes from './pages/Pertes.jsx';
+import Emballage from './pages/Emballage.jsx';
+import PertesView from './pages/PertesView.jsx';
 import InitialStock from './pages/InitialStock.jsx';
-import Daily from './pages/Daily.jsx';
 import Waste from './pages/Waste.jsx';
 import Orders from './pages/Orders.jsx';
 import Items from './pages/Items.jsx';
@@ -39,9 +42,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/change-password" element={<ChangePassword />} />
-        <Route path="/night-count" element={<RequireFloor><NightCount /></RequireFloor>} />
-        <Route path="/daily" element={<RequireFloor><Daily /></RequireFloor>} />
+        {/* Floor: Manager / Shift-Leader / Direction */}
+        <Route path="/sales" element={<RequireFloor><Sales /></RequireFloor>} />
+        <Route path="/stock" element={<RequireFloor><Stock /></RequireFloor>} />
+        <Route path="/pertes" element={<RequireFloor><Pertes /></RequireFloor>} />
+        <Route path="/emballage" element={<RequireFloor><Emballage /></RequireFloor>} />
+        <Route path="/pertes-view" element={<RequireFloor><PertesView /></RequireFloor>} />
+        {/* Orders: Direction / Order Manager */}
         <Route path="/orders" element={<RequireOrders><Orders /></RequireOrders>} />
+        {/* Direction only */}
         <Route path="/waste" element={<RequireDirection><Waste /></RequireDirection>} />
         <Route path="/initial-stock" element={<RequireDirection><InitialStock /></RequireDirection>} />
         <Route path="/items" element={<RequireDirection><Items /></RequireDirection>} />

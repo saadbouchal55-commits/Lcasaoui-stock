@@ -20,6 +20,8 @@ import orderRoutes from './routes/orders.js';
 import bufferRoutes from './routes/buffers.js';
 import auditRoutes from './routes/audit.js';
 import userRoutes from './routes/users.js';
+import wasteDeclRoutes from './routes/wastedecl.js';
+import packagingRoutes from './routes/packaging.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -58,6 +60,8 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/buffers', bufferRoutes);
 app.use('/api/audit', auditRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/waste-declarations', wasteDeclRoutes);
+app.use('/api/packaging', packagingRoutes);
 
 // Unknown API route -> JSON 404 (don't fall through to the SPA).
 app.use('/api', (req, res) => res.status(404).json({ error: t('errors.notFound') }));

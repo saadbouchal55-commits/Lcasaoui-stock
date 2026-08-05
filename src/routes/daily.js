@@ -50,9 +50,20 @@ async function receivedOnDay(locationId, date) {
   return received;
 }
 
+/** Declared INGREDIENT (item) waste for a day, summed per item. */
+async function declaredItemWaste(locationId, date) {
+  const decls = await prisma.wasteDeclaration.findMany({
+    where: { locationId, date, refType: 'ITEM', itemId: { not: null } },
+    select: { itemId: true, qty: true },
+  });
+  const m = new Map();
+  for (const d of decls) m.set(d.itemId, (m.get(d.itemId) || 0) + d.qty);
+  return m;
+}
+
 /** Recompute (without persisting) the waste rows for one (location, date). */
 async function reconcileDay(locationId, date) {
-  const [items, recipeLinesByDish, entry, opening, received] = await Promise.all([
+  const [items, recipeLinesByDish, entry, opening, received, declaredWaste] = await Promise.all([
     prisma.item.findMany(),
     getEffectiveRecipeLines(date),
     prisma.dailyEntry.findUnique({
@@ -61,12 +72,13 @@ async function reconcileDay(locationId, date) {
     }),
     openingStock(locationId, date),
     receivedOnDay(locationId, date),
+    declaredItemWaste(locationId, date),
   ]);
 
   const sales = (entry?.salesLines || []).map((s) => ({ dishId: s.dishId, qtySold: s.qtySold }));
   const counted = new Map((entry?.countLines || []).map((c) => [c.itemId, c.countedQty]));
 
-  const rows = reconcile({ items, recipeLinesByDish, sales, opening, received, counted });
+  const rows = reconcile({ items, recipeLinesByDish, sales, opening, received, counted, declaredWaste });
   return { entry, rows };
 }
 
@@ -93,6 +105,7 @@ async function persistReconcile(locationId, date, userId) {
   await prisma.$transaction(async (tx) => {
     await tx.stockMovement.deleteMany({ where: { locationId, ref, type: { in: RECON_TYPES } } });
     const toCreate = [];
+    // Consumption + UNEXPLAINED variance are FOOD-only (recipes are food-only).
     for (const row of rows) {
       if (row.consumption > 0) {
         toCreate.push({ locationId, itemId: row.itemId, type: 'CONSUMPTION', qty: row.consumption, date, ref, createdBy: userId });
@@ -103,9 +116,12 @@ async function persistReconcile(locationId, date, userId) {
         } else if (row.waste < 0) {
           toCreate.push({ locationId, itemId: row.itemId, type: 'ADJUSTMENT', qty: -row.waste, date, ref, createdBy: userId });
         }
-        // Authoritative closing baseline (also next day's opening). Written LAST.
-        toCreate.push({ locationId, itemId: row.itemId, type: 'COUNT_SET', qty: row.counted, date, ref, createdBy: userId });
       }
+    }
+    // COUNT_SET for EVERY counted item (food AND packaging) so packaging stock is
+    // known too. Written LAST so it is the authoritative on-hand baseline.
+    for (const cl of entry.countLines) {
+      toCreate.push({ locationId, itemId: cl.itemId, type: 'COUNT_SET', qty: cl.countedQty, date, ref, createdBy: userId });
     }
     if (toCreate.length) await tx.stockMovement.createMany({ data: toCreate });
     await tx.dailyEntry.update({ where: { id: entry.id }, data: { status: 'reconciled' } });
@@ -372,11 +388,12 @@ async function wasteReport(locationId, from, to) {
     for (const r of rows) {
       const cur = agg.get(r.itemId) || {
         itemId: r.itemId, name: r.name, unit: r.unit, category: r.category,
-        opening: 0, received: 0, consumption: 0, expectedClosing: 0, counted: 0, waste: 0, flags: new Set(),
+        opening: 0, received: 0, consumption: 0, expectedClosing: 0, counted: 0, declaredWaste: 0, waste: 0, flags: new Set(),
       };
       cur.received += r.received;
       cur.consumption += r.consumption;
       if (r.counted !== null) cur.counted += r.counted;
+      cur.declaredWaste += r.declaredWaste || 0;
       if (r.waste !== null) cur.waste += r.waste;
       r.flags.forEach((f) => cur.flags.add(f));
       agg.set(r.itemId, cur);
@@ -399,7 +416,17 @@ router.get(
     const to = parseDate(req.query.to || req.query.date);
     if (!from || !to) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
     const rows = await wasteReport(locationId, from, to);
-    res.json({ locationId, from: ymd(from), to: ymd(to), rows });
+
+    // Product-level declared waste, kept separate (never exploded into ingredients).
+    const toEnd = new Date(to); toEnd.setUTCDate(toEnd.getUTCDate() + 1);
+    const prodDecls = await prisma.wasteDeclaration.findMany({
+      where: { locationId, refType: 'PRODUCT', date: { gte: from, lt: toEnd } },
+      include: { dish: true },
+      orderBy: { date: 'desc' },
+    });
+    const productWaste = prodDecls.map((d) => ({ date: ymd(d.date), name: d.dish?.name || '—', qty: d.qty, reason: d.reason || '' }));
+
+    res.json({ locationId, from: ymd(from), to: ymd(to), rows, productWaste });
   }),
 );
 
@@ -430,7 +457,8 @@ router.get(
         { key: 'consumption', header: t('waste.consumption') },
         { key: 'expectedClosing', header: t('waste.expected') },
         { key: 'counted', header: t('waste.counted') },
-        { key: 'waste', header: t('waste.waste') },
+        { key: 'declaredWaste', header: t('waste.declared') },
+        { key: 'waste', header: t('waste.unexplained') },
         { key: 'flags', header: t('waste.flags'), width: 30 },
       ],
       rows: rows.map((r) => ({
@@ -438,6 +466,7 @@ router.get(
         opening: r.opening ?? '',
         expectedClosing: r.expectedClosing ?? '',
         counted: r.counted ?? '',
+        declaredWaste: r.declaredWaste ?? '',
         waste: r.waste ?? '',
         flags: (r.flags || []).map((f) => t(`flags.${f}`)).join(', '),
       })),

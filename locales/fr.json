@@ -5,8 +5,11 @@
   },
   "nav": {
     "dashboard": "Tableau de bord",
-    "nightcount": "Comptage du soir",
-    "daily": "Saisie journalière",
+    "sales": "Déclarer les Ventes",
+    "stock": "Déclarer le Stock",
+    "pertes": "Déclarer les Pertes",
+    "emballage": "Commander Emballage",
+    "pertesView": "Pertes déclarées",
     "waste": "Rapport gaspillage",
     "orders": "Commandes",
     "items": "Articles",
@@ -83,7 +86,7 @@
   "daily": {
     "title": "Saisie journalière",
     "sales": "Ventes du jour",
-    "counts": "Comptage de clôture",
+    "counts": "Comptage",
     "opening": "Stock d'ouverture",
     "received": "Reçu",
     "reconcile": "Calculer le gaspillage",
@@ -92,13 +95,55 @@
     "import_sales": "Importer les ventes (CSV)",
     "carried": "Reporté de la veille"
   },
+  "sales": {
+    "saved": "Ventes enregistrées.",
+    "imported": "Importé",
+    "skipped": "Ignorés"
+  },
+  "stock": {
+    "baseline": "Stock initial (baseline)",
+    "closing": "Comptage de clôture",
+    "baselineHint": "Première utilisation pour ce restaurant : saisissez le stock réel compté. Aucun gaspillage n'est calculé — ce comptage devient l'ouverture de demain.",
+    "blindHint": "Comptez tout le stock (aliments et emballages). Comptage à l'aveugle : aucun chiffre attendu n'est affiché.",
+    "saveBaseline": "Enregistrer le stock initial",
+    "saveCount": "Enregistrer le comptage",
+    "baselineSaved": "Stock initial enregistré. Il servira d'ouverture pour demain.",
+    "saved": "Comptage enregistré."
+  },
+  "pertes": {
+    "type": "Type",
+    "ingredient": "Ingrédient (matière première)",
+    "product": "Produit fini",
+    "reason": "Raison (facultatif)",
+    "reasonPlaceholder": "ex. abîmé, tombé, périmé…",
+    "declare": "Déclarer la perte",
+    "saved": "Perte déclarée.",
+    "recent": "Pertes récentes"
+  },
+  "emballage": {
+    "hint": "Saisissez les quantités d'emballage à commander. Indice basé sur l'historique — vide = non commandé.",
+    "locked": "La commande est déjà confirmée envoyée — non modifiable.",
+    "saved": "Emballages enregistrés.",
+    "save": "Enregistrer la commande d'emballage"
+  },
+  "pertesView": {
+    "by": "Déclaré par",
+    "directionNote": "Vous voyez les pertes déclarées des deux restaurants."
+  },
   "waste": {
     "title": "Rapport de gaspillage",
     "consumption": "Consommé (recette)",
     "expected": "Clôture attendue",
     "counted": "Compté",
+    "declared": "Perte déclarée",
+    "unexplained": "Écart inexpliqué",
     "waste": "Gaspillage",
-    "flags": "Alertes"
+    "flags": "Alertes",
+    "from": "Du",
+    "to": "Au",
+    "formula": "Écart inexpliqué = attendu − compté − perte déclarée.",
+    "ingredientVariance": "Écart par ingrédient",
+    "productWaste": "Pertes de produits finis (déclarées)"
   },
   "flags": {
     "not_counted": "Non compté",
@@ -107,7 +152,7 @@
     "negative_waste": "Écart négatif (compté > attendu ?)"
   },
   "orders": {
-    "title": "Suggestion de commande",
+    "title": "Commandes",
     "suggested": "Suggéré",
     "actualSent": "Réellement envoyé",
     "mode": "Type",
