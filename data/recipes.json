@@ -1,0 +1,718 @@
+{
+ "Poke Bowl Crousty": [
+  {
+   "item": "Poke Bowl Salade",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Croutons",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet Crousty",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Salade",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "Sesam",
+   "qty": 3,
+   "unit": "g"
+  }
+ ],
+ "Poke Bowl Nature": [
+  {
+   "item": "Poke Bowl Salade",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Croutons",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Salade",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "Sesam",
+   "qty": 3,
+   "unit": "g"
+  }
+ ],
+ "Atlas Crousty M": [
+  {
+   "item": "Riz Atlas M",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Poulet Crousty",
+   "qty": 50,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Barbecue",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Sesam",
+   "qty": 3,
+   "unit": "g"
+  }
+ ],
+ "Atlas Crousty XL": [
+  {
+   "item": "Riz Atlas Xl",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Poulet Crousty",
+   "qty": 100,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Barbecue",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Sesam",
+   "qty": 3,
+   "unit": "g"
+  }
+ ],
+ "Pasticcio Poulet": [
+  {
+   "item": "Sauce Fromagère",
+   "qty": 200,
+   "unit": "g"
+  },
+  {
+   "item": "Frites",
+   "qty": 200,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Mozzarella",
+   "qty": 60,
+   "unit": "g"
+  }
+ ],
+ "Pasticcio Bolognaise": [
+  {
+   "item": "Sauce Fromagère",
+   "qty": 200,
+   "unit": "g"
+  },
+  {
+   "item": "Frites",
+   "qty": 200,
+   "unit": "g"
+  },
+  {
+   "item": "Viande Hachée B",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Mozzarella",
+   "qty": 60,
+   "unit": "g"
+  }
+ ],
+ "Pizza Marinara": [
+  {
+   "item": "Pate Pizza",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Tomate",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Tomate cerise S",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Epinard",
+   "qty": 5,
+   "unit": "g"
+  },
+  {
+   "item": "Mozzarella",
+   "qty": 50,
+   "unit": "g"
+  },
+  {
+   "item": "Olive Noir",
+   "qty": 6,
+   "unit": "g"
+  },
+  {
+   "item": "Origan",
+   "qty": 1,
+   "unit": "g"
+  }
+ ],
+ "Pizza Boufallo": [
+  {
+   "item": "Pate Pizza",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Tomate",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Epinard",
+   "qty": 5,
+   "unit": "g"
+  },
+  {
+   "item": "Mozzarella",
+   "qty": 50,
+   "unit": "g"
+  },
+  {
+   "item": "Viande Hachée B",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Champignon",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Olive Noir",
+   "qty": 6,
+   "unit": "g"
+  },
+  {
+   "item": "Origan",
+   "qty": 1,
+   "unit": "g"
+  }
+ ],
+ "Pizza Mexicaan": [
+  {
+   "item": "Pate Pizza",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Tomate",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Mozzarella",
+   "qty": 50,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Piment",
+   "qty": 5,
+   "unit": "g"
+  },
+  {
+   "item": "Jalapenos",
+   "qty": 5,
+   "unit": "g"
+  },
+  {
+   "item": "Olive Noir",
+   "qty": 6,
+   "unit": "g"
+  },
+  {
+   "item": "Origan",
+   "qty": 1,
+   "unit": "g"
+  }
+ ],
+ "Pizza Poulet BBQ": [
+  {
+   "item": "Pate Pizza",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Fromagère",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Mozzarella",
+   "qty": 50,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Champignon",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Barbecue",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Olive Noir",
+   "qty": 6,
+   "unit": "g"
+  },
+  {
+   "item": "Origan",
+   "qty": 1,
+   "unit": "g"
+  }
+ ],
+ "Chicken Burger": [
+  {
+   "item": "Pain Burger",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Tartare",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Laitue",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Tomate",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "oignon",
+   "qty": 15,
+   "unit": "g"
+  },
+  {
+   "item": "Cornichons",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet Crousty",
+   "qty": 120,
+   "unit": "g"
+  },
+  {
+   "item": "Cheddar",
+   "qty": 1,
+   "unit": "pc"
+  },
+  {
+   "item": "Jalapenos",
+   "qty": 7,
+   "unit": "g"
+  },
+  {
+   "item": "oignon Crunchy",
+   "qty": 15,
+   "unit": "g"
+  }
+ ],
+ "Cheese Burger": [
+  {
+   "item": "Pain Burger",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Burger",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "Laitue",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Tomate",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "oignon",
+   "qty": 15,
+   "unit": "g"
+  },
+  {
+   "item": "Cornichons",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Viande Haché Burger",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Cheddar",
+   "qty": 1,
+   "unit": "pc"
+  },
+  {
+   "item": "oignon Crunchy",
+   "qty": 15,
+   "unit": "g"
+  }
+ ],
+ "Mexican Haar Burger": [
+  {
+   "item": "Pain Burger",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Burger",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "Laitue",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Tomate",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "oignon",
+   "qty": 15,
+   "unit": "g"
+  },
+  {
+   "item": "Cornichons",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Viande Haché Burger",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Cheddar",
+   "qty": 1,
+   "unit": "pc"
+  },
+  {
+   "item": "Jalapenos",
+   "qty": 7,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Piment",
+   "qty": 15,
+   "unit": "g"
+  },
+  {
+   "item": "oignon Crunchy",
+   "qty": 15,
+   "unit": "g"
+  }
+ ],
+ "Tacos Poulet": [
+  {
+   "item": "Pain Tacos",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Biggy",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Algérienne",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet",
+   "qty": 100,
+   "unit": "g"
+  },
+  {
+   "item": "Frites",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Fromagère",
+   "qty": 30,
+   "unit": "g"
+  }
+ ],
+ "Tacos Poulet Crousty": [
+  {
+   "item": "Pain Tacos",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Biggy",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Algérienne",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet Crousty",
+   "qty": 80,
+   "unit": "g"
+  },
+  {
+   "item": "Frites",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Fromagère",
+   "qty": 30,
+   "unit": "g"
+  }
+ ],
+ "Sandwich Grec": [
+  {
+   "item": "Pain Grec",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Tartare",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "Laitue",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "Tomate",
+   "qty": 30,
+   "unit": "g"
+  },
+  {
+   "item": "oignon",
+   "qty": 25,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet",
+   "qty": 80,
+   "unit": "g"
+  }
+ ],
+ "Parisien Poulet Crousty": [
+  {
+   "item": "Pain Spécial",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sauce Tartare",
+   "qty": 40,
+   "unit": "g"
+  },
+  {
+   "item": "Laitue",
+   "qty": 20,
+   "unit": "g"
+  },
+  {
+   "item": "Roquette",
+   "qty": 4,
+   "unit": "g"
+  },
+  {
+   "item": "Poulet Crousty",
+   "qty": 80,
+   "unit": "g"
+  },
+  {
+   "item": "Tomate cerise S",
+   "qty": 40,
+   "unit": "g"
+  },
+  {
+   "item": "oignon Crunchy",
+   "qty": 15,
+   "unit": "g"
+  }
+ ],
+ "Pasta Bolognaise": [
+  {
+   "item": "tagliatelle",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Viande Hachée B",
+   "qty": 120,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce truffes",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Edam",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "fromage parmesan",
+   "qty": 5,
+   "unit": "g"
+  }
+ ],
+ "Pasta Alfredo": [
+  {
+   "item": "tagliatelle",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Poulet",
+   "qty": 60,
+   "unit": "g"
+  },
+  {
+   "item": "Champignon",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce Fromagère",
+   "qty": 120,
+   "unit": "g"
+  },
+  {
+   "item": "Beure",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "Sauce truffes",
+   "qty": 10,
+   "unit": "g"
+  },
+  {
+   "item": "fromage parmesan",
+   "qty": 5,
+   "unit": "g"
+  }
+ ],
+ "Dopamina Oreo": [
+  {
+   "item": "Génoise",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Crème chocolat",
+   "qty": 40,
+   "unit": "g"
+  },
+  {
+   "item": "Crème caramel",
+   "qty": 40,
+   "unit": "g"
+  },
+  {
+   "item": "Oreo entier (PS)",
+   "qty": 2,
+   "unit": "pc"
+  }
+ ],
+ "Jus de Mangue": [
+  {
+   "item": "Mangue",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Sucre",
+   "qty": 0.03,
+   "unit": "kg"
+  }
+ ],
+ "Jus Avocat": [
+  {
+   "item": "Avocat",
+   "qty": 1,
+   "unit": "U"
+  },
+  {
+   "item": "Lait",
+   "qty": 0.15,
+   "unit": "L"
+  },
+  {
+   "item": "Sucre",
+   "qty": 0.03,
+   "unit": "kg"
+  }
+ ],
+ "Jus de Citron": [
+  {
+   "item": "Citrons",
+   "qty": 0.15,
+   "unit": "L"
+  },
+  {
+   "item": "Sucre",
+   "qty": 0.03,
+   "unit": "kg"
+  }
+ ]
+}

@@ -1,0 +1,776 @@
+[
+ {
+  "name": "Avocat",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Beure",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Boite Pasticcio",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Boite Pizza M",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Bowl Pasta",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Champignon",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Cheddar",
+  "unit": "package",
+  "pack_size": 88,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Citrons",
+  "unit": "L",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Cornichons",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Croutons",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Crème caramel",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Crème chocolat",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Cuillères",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Edam",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Epinard",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Farine",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Finot",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Fourchette",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Frites",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": 0.65,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Glacons",
+  "unit": "untracked",
+  "pack_size": null,
+  "yield": null,
+  "tracked": false,
+  "in_recipes": false,
+  "category": "ingredient"
+ },
+ {
+  "name": "Gobelet Jus",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Génoise",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Hot Sauce",
+  "unit": "package",
+  "pack_size": 220,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Huil de Table",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Jalapenos",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Jus de Bœufs",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Ketchup",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Lait",
+  "unit": "L",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Laitue",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Mangue",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Mayonnaise",
+  "unit": "package",
+  "pack_size": 220,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Moutarde",
+  "unit": "package",
+  "pack_size": 220,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Mozzarella",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Olive Noir",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Oreo entier (PS)",
+  "unit": "package",
+  "pack_size": 144,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Origan",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Pailles",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Pain Burger",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Pain Grec",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Pain Spécial",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Pain Tacos",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Papier Cuisine",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Papier Toilet",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Pate Pizza",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Poke Bowl Salade",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Pot de sauce",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Pot de sauce Biggy + Alg",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Pot de sauce Ket + May",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Poulet",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Poulet Crousty",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Riz Atlas M",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Riz Atlas Xl",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Roquette",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sac emporter",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sachet Burger",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sachet Emporté",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sachet Fourchette",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sachet Frite",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sachet Sandwich",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sauce Algérienne",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Barbecue",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Biggy",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Burger",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Fromagère",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Huil D'herbe",
+  "unit": "untracked",
+  "pack_size": null,
+  "yield": null,
+  "tracked": false,
+  "in_recipes": false,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Piment",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Salade",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Tartare",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce Tomate",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Sauce truffes",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Savon Lave Main",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Serviette",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sesam",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Set de Table",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Souloufan",
+  "unit": "piece",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": false,
+  "category": "packaging"
+ },
+ {
+  "name": "Sucre",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Tomate",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Tomate cerise S",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Viande Haché Burger",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Viande Hachée B",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Yaourt Grec",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "sold_as_is"
+ },
+ {
+  "name": "fromage parmesan",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "oignon",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "oignon Crunchy",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "tagliatelle",
+  "unit": "unit",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ },
+ {
+  "name": "Épices Frite",
+  "unit": "kg",
+  "pack_size": null,
+  "yield": null,
+  "tracked": true,
+  "in_recipes": true,
+  "category": "ingredient"
+ }
+]

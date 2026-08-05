@@ -1,0 +1,175 @@
+{
+  "app": {
+    "name": "L'Casaoui — Stock & Gaspillage",
+    "tagline": "Le système suggère, un humain décide."
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "nightcount": "Comptage du soir",
+    "daily": "Saisie journalière",
+    "waste": "Rapport gaspillage",
+    "orders": "Commandes",
+    "items": "Articles",
+    "recipes": "Recettes",
+    "buffers": "Marges (buffer)",
+    "initialstock": "Stock initial",
+    "users": "Utilisateurs",
+    "audit": "Journal des modifications",
+    "changePassword": "Mot de passe",
+    "logout": "Déconnexion"
+  },
+  "users": {
+    "title": "Utilisateurs",
+    "new": "Nouvel utilisateur",
+    "role": "Rôle",
+    "tempPassword": "Mot de passe temporaire",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "mustChange": "Doit changer le mot de passe",
+    "noLocationForDirection": "La Direction voit les deux restaurants (pas de restaurant à choisir).",
+    "createdInfo": "L'utilisateur devra définir son propre mot de passe à la première connexion."
+  },
+  "common": {
+    "location": "Restaurant",
+    "date": "Date",
+    "item": "Article",
+    "unit": "Unité",
+    "qty": "Quantité",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "delete": "Désactiver",
+    "search": "Rechercher",
+    "export": "Exporter Excel",
+    "loading": "Chargement…",
+    "none": "Aucun",
+    "yes": "Oui",
+    "no": "Non",
+    "actions": "Actions",
+    "all": "Tous",
+    "total": "Total"
+  },
+  "auth": {
+    "login": "Connexion",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "invalid": "Nom d'utilisateur ou mot de passe incorrect.",
+    "required": "Veuillez saisir vos identifiants."
+  },
+  "roles": {
+    "DIRECTION": "Direction",
+    "ORDER_MANAGER": "Responsable commandes",
+    "MANAGER": "Manager"
+  },
+  "orderStatus": {
+    "GENERATED": "Générée",
+    "HELD": "En attente (à vérifier)",
+    "CONFIRMED_SENT": "Envoi confirmé"
+  },
+  "units": {
+    "KG": "kg",
+    "UNIT": "unité",
+    "PIECE": "pièce",
+    "PACKAGE": "paquet",
+    "L": "L",
+    "UNTRACKED": "non suivi"
+  },
+  "category": {
+    "INGREDIENT": "Ingrédient",
+    "PACKAGING": "Emballage",
+    "SOLD_AS_IS": "Vendu tel quel"
+  },
+  "daily": {
+    "title": "Saisie journalière",
+    "sales": "Ventes du jour",
+    "counts": "Comptage de clôture",
+    "opening": "Stock d'ouverture",
+    "received": "Reçu",
+    "reconcile": "Calculer le gaspillage",
+    "status_open": "Ouvert",
+    "status_reconciled": "Réconcilié",
+    "import_sales": "Importer les ventes (CSV)",
+    "carried": "Reporté de la veille"
+  },
+  "waste": {
+    "title": "Rapport de gaspillage",
+    "consumption": "Consommé (recette)",
+    "expected": "Clôture attendue",
+    "counted": "Compté",
+    "waste": "Gaspillage",
+    "flags": "Alertes"
+  },
+  "flags": {
+    "not_counted": "Non compté",
+    "possible_stockout": "Rupture possible (compté = 0)",
+    "expected_negative": "Attendu négatif (ventes > stock ?)",
+    "negative_waste": "Écart négatif (compté > attendu ?)"
+  },
+  "orders": {
+    "title": "Suggestion de commande",
+    "suggested": "Suggéré",
+    "actualSent": "Réellement envoyé",
+    "mode": "Type",
+    "mode_daily": "Journalier",
+    "mode_bulk": "En vrac (périodique)",
+    "reason": "Explication",
+    "flag": "Signaler anomalie",
+    "flagged": "Signalé",
+    "avgDaily": "Moyenne/jour",
+    "saveActual": "Enregistrer l'envoi réel",
+    "regenerate": "Régénérer la suggestion",
+    "excludeLearning": "Exclu de l'apprentissage",
+    "food": "Aliments (suggéré)",
+    "packaging": "Emballages (manuel)",
+    "packagingNote": "Les emballages sont saisis manuellement. L'indice ci-dessous vient de l'historique des commandes — non contraignant, aucune valeur pré-remplie. Vide = non envoyé.",
+    "hint": "Indice historique",
+    "hintAvg": "Moy.",
+    "hintLast": "Dernière",
+    "manualQty": "Quantité à envoyer",
+    "ordered": "Commandé",
+    "status": "Statut",
+    "generate": "Générer la commande",
+    "regenerateFood": "Régénérer (aliments)",
+    "confirmSent": "Confirmer l'envoi",
+    "confirmedInfo": "Commande confirmée envoyée — c'est le registre officiel et la base d'apprentissage.",
+    "heldAlert": "Commande en attente — à vérifier par la Direction avant envoi :",
+    "notGenerated": "Aucune commande générée pour ce jour.",
+    "savePackaging": "Enregistrer les emballages",
+    "editHint": "Modifiez les quantités puis confirmez l'envoi."
+  },
+  "initialstock": {
+    "title": "Stock initial",
+    "intro": "Saisissez le stock réel au lancement du logiciel pour ce restaurant. Chaque champ vide = 0. Ceci crée la base d'ouverture du grand livre (COUNT_SET).",
+    "locked": "Le stock initial a déjà été défini pour ce restaurant. Il ne peut pas être relancé. Toute correction passe par un ajustement (Direction).",
+    "goLiveDate": "Date de lancement",
+    "submit": "Enregistrer le stock initial",
+    "done": "Stock initial enregistré. Le grand livre est initialisé pour ce restaurant."
+  },
+  "items": {
+    "title": "Articles",
+    "name": "Nom",
+    "packSize": "Taille paquet",
+    "yield": "Rendement",
+    "tracked": "Suivi",
+    "inRecipes": "Dans recettes",
+    "active": "Actif",
+    "new": "Nouvel article"
+  },
+  "recipes": {
+    "title": "Recettes",
+    "dish": "Plat",
+    "version": "Version",
+    "lines": "Ingrédients (aliments uniquement)",
+    "recipeUnit": "Unité recette",
+    "newVersion": "Nouvelle version",
+    "foodOnly": "Les recettes ne contiennent que des aliments — jamais d'emballage.",
+    "active": "Actif"
+  },
+  "errors": {
+    "forbidden": "Accès refusé.",
+    "notFound": "Introuvable.",
+    "server": "Erreur serveur.",
+    "validation": "Données invalides."
+  }
+}

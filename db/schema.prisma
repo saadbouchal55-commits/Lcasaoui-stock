@@ -1,0 +1,241 @@
+// L'Casaoui Stock Tool — Prisma schema
+// DB: MySQL now (Hostinger Business) → PostgreSQL later (VPS). Keep all access via Prisma.
+// Principles: append-only stock ledger, food-only recipes, versioned recipes, soft-delete.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"            // change to "postgresql" at VPS migration
+  url      = env("DATABASE_URL")
+}
+
+enum Unit {
+  KG
+  UNIT
+  PIECE
+  PACKAGE
+  L
+  UNTRACKED
+}
+
+enum ItemCategory {
+  INGREDIENT
+  PACKAGING
+  SOLD_AS_IS
+}
+
+enum MovementType {
+  RECEIVED       // stock in (delivery / order received)
+  CONSUMPTION    // sold × recipe
+  WASTE          // spoilage / loss
+  ADJUSTMENT     // management correction
+  COUNT_SET      // a physical count that resets the on-hand baseline
+}
+
+enum Role {
+  DIRECTION      // both locations, full edit
+  ORDER_MANAGER  // both locations, ORDERS ONLY (view/edit/confirm-sent) — nothing else
+  MANAGER        // one location; no order access
+}
+
+enum OrderStatus {
+  GENERATED       // auto-generated, awaiting human review
+  HELD            // guardrail tripped (missing inputs / absurd qty) — Direction must review
+  CONFIRMED_SENT  // a human confirmed it went out; system of record + learning input
+}
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique          // "L1", "L2"
+  name      String                     // "Narjiss", "Ain Chekef"
+  active    Boolean  @default(true)
+  movements StockMovement[]
+  entries   DailyEntry[]
+  users     User[]
+  suggestions OrderSuggestion[]
+  buffers   Buffer[]
+}
+
+model Item {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  unit       Unit
+  packSize   Int?                        // pieces per package (Cheddar 88, Oreo 144, sauces 220)
+  yieldPct   Float?                      // frying yield (Frites 0.65); null = no loss
+  isTracked  Boolean      @default(true) // false = ignored (Glaçons, Sauce Huil d'herbe)
+  inRecipes  Boolean      @default(true) // false = packaging (order-tracked only)
+  category   ItemCategory @default(INGREDIENT)
+  active     Boolean      @default(true)
+  recipeLines RecipeLine[]
+  movements   StockMovement[]
+  countLines  CountLine[]
+  orderLines  OrderLine[]
+  buffers     Buffer[]
+}
+
+model Dish {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  active    Boolean   @default(true)
+  recipes   Recipe[]
+  posNames  PosMapping[]
+  salesLines SalesLine[]
+}
+
+// A Dish has one active Recipe; each edit creates a new RecipeVersion.
+model Recipe {
+  id            Int             @id @default(autoincrement())
+  dish          Dish            @relation(fields: [dishId], references: [id])
+  dishId        Int
+  versions      RecipeVersion[]
+  activeVersion Int?            // points to current RecipeVersion.id
+}
+
+model RecipeVersion {
+  id        Int          @id @default(autoincrement())
+  recipe    Recipe       @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+  version   Int
+  createdAt DateTime     @default(now())
+  createdBy Int?
+  lines     RecipeLine[]
+  // reconciliation for a given date uses the version active on that date
+  effectiveFrom DateTime @default(now())
+}
+
+model RecipeLine {
+  id              Int           @id @default(autoincrement())
+  recipeVersion   RecipeVersion @relation(fields: [recipeVersionId], references: [id])
+  recipeVersionId Int
+  item            Item          @relation(fields: [itemId], references: [id])
+  itemId          Int
+  qty             Float         // in item's native unit; grams for weight items (unit="g" logic in app)
+  unitNote        String?       // "g" | "unit" | "pc" | "L" — how qty is expressed vs stock unit
+}
+
+model PosMapping {
+  id      Int    @id @default(autoincrement())
+  posName String @unique          // exact POS product string
+  dish    Dish   @relation(fields: [dishId], references: [id])
+  dishId  Int
+}
+
+// Append-only ledger. Stock on hand = SUM(qty) per (location,item), signed by type.
+model StockMovement {
+  id         Int          @id @default(autoincrement())
+  location   Location     @relation(fields: [locationId], references: [id])
+  locationId Int
+  item       Item         @relation(fields: [itemId], references: [id])
+  itemId     Int
+  type       MovementType
+  qty        Float        // native unit; sign convention handled in app (+received, -consumption/waste)
+  date       DateTime
+  ref        String?      // e.g. daily entry id, order id
+  createdBy  Int?
+  createdAt  DateTime     @default(now())
+  @@index([locationId, itemId, date])
+}
+
+model DailyEntry {
+  id         Int         @id @default(autoincrement())
+  location   Location    @relation(fields: [locationId], references: [id])
+  locationId Int
+  date       DateTime
+  status     String      @default("open")   // open | reconciled
+  createdBy  Int?
+  createdAt  DateTime    @default(now())
+  salesLines SalesLine[]
+  countLines CountLine[]
+  @@unique([locationId, date])
+}
+
+model SalesLine {
+  id           Int        @id @default(autoincrement())
+  dailyEntry   DailyEntry @relation(fields: [dailyEntryId], references: [id])
+  dailyEntryId Int
+  dish         Dish       @relation(fields: [dishId], references: [id])
+  dishId       Int
+  qtySold      Float
+}
+
+model CountLine {
+  id           Int        @id @default(autoincrement())
+  dailyEntry   DailyEntry @relation(fields: [dailyEntryId], references: [id])
+  dailyEntryId Int
+  item         Item       @relation(fields: [itemId], references: [id])
+  itemId       Int
+  countedQty   Float      // actual physical closing count, native unit
+}
+
+// The daily order per (location, date). Auto-generated (food), reviewed/edited by
+// Direction or Order Manager, then confirmed-sent — the confirmed order is the
+// system of record AND the learning input (replaces the old ActualSent table).
+model OrderSuggestion {
+  id          Int         @id @default(autoincrement())
+  location    Location    @relation(fields: [locationId], references: [id])
+  locationId  Int
+  date        DateTime
+  status      OrderStatus @default(GENERATED)
+  holdReason  String?     @db.Text        // why the guardrail HELD it (Direction alert)
+  editedBy    Int?                          // last user to edit a line/packaging
+  confirmedBy Int?                          // who confirmed it was sent
+  confirmedAt DateTime?
+  createdAt   DateTime    @default(now())
+  lines       OrderLine[]
+  @@unique([locationId, date])
+}
+
+model OrderLine {
+  id          Int             @id @default(autoincrement())
+  suggestion  OrderSuggestion @relation(fields: [suggestionId], references: [id])
+  suggestionId Int
+  item        Item            @relation(fields: [itemId], references: [id])
+  itemId      Int
+  suggestedQty Float                          // system-generated (food); 0 for packaging
+  orderedQty  Float?                          // human-set qty to send; null until set. On
+                                              // confirm this is the sent qty = learning input.
+  flagged     Boolean         @default(false) // flagged as abnormal
+}
+
+model Buffer {
+  id         Int      @id @default(autoincrement())
+  location   Location @relation(fields: [locationId], references: [id])
+  locationId Int
+  item       Item     @relation(fields: [itemId], references: [id])
+  itemId     Int
+  pct        Float    @default(0)
+  @@unique([locationId, itemId])
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  passwordHash String
+  role         Role
+  location     Location?  @relation(fields: [locationId], references: [id]) // null for DIRECTION
+  locationId   Int?
+  active       Boolean   @default(true)
+  mustChangePassword Boolean @default(false) // force a password change on next login
+}
+
+// Server-side session storage (via Prisma, so it is Postgres-portable — no
+// MySQL-specific session store). Written by src/lib/sessionstore.js.
+model Session {
+  sid       String   @id
+  data      String   @db.Text
+  expiresAt DateTime
+  @@index([expiresAt])
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  entity    String            // "item" | "recipe" | "stock" | ...
+  entityId  String
+  action    String            // "edit" | "deactivate" | "adjust" ...
+  oldValue  String?  @db.Text
+  newValue  String?  @db.Text
+  createdAt DateTime @default(now())
+}

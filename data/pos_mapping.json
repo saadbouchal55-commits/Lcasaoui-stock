@@ -1,0 +1,54 @@
+{
+ "map": {
+  "Chicken Burger": "Chicken Burger",
+  "Cheese Burger": "Cheese Burger",
+  "Mexicain Burger": "Mexican Haar Burger",
+  "Crousty Atlas XL": "Atlas Crousty XL",
+  "Crousty Atlas M": "Atlas Crousty M",
+  "Dopamina Oreo": "Dopamina Oreo",
+  "Jus de Mangue": "Jus de Mangue",
+  "Jus de Citron": "Jus de Citron",
+  "Jus D'Avocat": "Jus Avocat",
+  "Pasta Alfredo": "Pasta Alfredo",
+  "Pasta Bolognaise": "Pasta Bolognaise",
+  "Pasticcio Poulet": "Pasticcio Poulet",
+  "Pasticcio Bolognaise": "Pasticcio Bolognaise",
+  "Pizza Bufallo M": "Pizza Boufallo",
+  "POULET BBQ M": "Pizza Poulet BBQ",
+  "Pizza Marinara M": "Pizza Marinara",
+  "Pizza Poulet Mexicain Haaar M": "Pizza Mexicaan",
+  "Pizza Margaritta M": "Pizza Marinara",
+  "Tacos Poulet": "Tacos Poulet",
+  "Tacos Poulet Crousty": "Tacos Poulet Crousty",
+  "Sandwich le Grec Poulet": "Sandwich Grec",
+  "Sandwich Poulet Crousty": "Parisien Poulet Crousty",
+  "Poke Bowl Poulet Crousty": "Poke Bowl Crousty",
+  "Poke Bowl Nature": "Poke Bowl Nature",
+  "Dopamina Chocolat": "Dopamina Oreo"
+ },
+ "special_frites": {
+  "Frites Maison": {
+   "item": "Frites",
+   "fried_g": 150
+  },
+  "Frites Maison Epicees": {
+   "item": "Frites",
+   "fried_g": 150,
+   "plus": "Épices Frite"
+  }
+ },
+ "ignore": [
+  "MENU 79 COUPE DU MONDE",
+  "Sauce Algerienne",
+  "Sauce Biggy"
+ ],
+ "drinks": [
+  "Coca 33 cl",
+  "Hawai Tropical 33 cl",
+  "Poms 33 cl",
+  "Sprit 33 cl",
+  "Sidi Ali 50 cl",
+  "Schwepps Citron 33 cl",
+  "Hawai Ananas 33 cl"
+ ]
+}

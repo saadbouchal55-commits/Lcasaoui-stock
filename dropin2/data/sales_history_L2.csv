@@ -1,0 +1,438 @@
+date,location,dish,qty_sold
+2026-07-18,L2,Cheese Burger,13
+2026-07-18,L2,Chicken Burger,17
+2026-07-18,L2,Crousty Atlas M,15
+2026-07-18,L2,Crousty Atlas XL,16
+2026-07-18,L2,Dopamina Oreo,51
+2026-07-18,L2,Frites Maison,56
+2026-07-18,L2,Frites Maison Epicees,26
+2026-07-18,L2,Jus D'Avocat,1
+2026-07-18,L2,Jus de Citron,3
+2026-07-18,L2,Jus de Mangue,9
+2026-07-18,L2,Mexicain Burger,10
+2026-07-18,L2,POULET BBQ M,11
+2026-07-18,L2,Pasta Alfredo,14
+2026-07-18,L2,Pasta Bolognaise,3
+2026-07-18,L2,Pasticcio Bolognaise,3
+2026-07-18,L2,Pasticcio Poulet,11
+2026-07-18,L2,Pizza Bufallo M,6
+2026-07-18,L2,Pizza Marinara M,12
+2026-07-18,L2,Pizza Poulet Mexicain Haaar M,13
+2026-07-18,L2,Poke Bowl Nature,1
+2026-07-18,L2,Poke Bowl Poulet Crousty,8
+2026-07-18,L2,Sandwich Poulet Crousty,24
+2026-07-18,L2,Sandwich le Grec Poulet,28
+2026-07-18,L2,Tacos Poulet,33
+2026-07-18,L2,Tacos Poulet Crousty,49
+2026-07-18,L2,Yaourt GREC,8
+2026-07-19,L2,Cheese Burger,15
+2026-07-19,L2,Chicken Burger,13
+2026-07-19,L2,Crousty Atlas M,20
+2026-07-19,L2,Crousty Atlas XL,15
+2026-07-19,L2,Dopamina Oreo,41
+2026-07-19,L2,Frites Maison,82
+2026-07-19,L2,Frites Maison Epicees,30
+2026-07-19,L2,Jus D'Avocat,1
+2026-07-19,L2,Jus de Citron,7
+2026-07-19,L2,Jus de Mangue,14
+2026-07-19,L2,Mexicain Burger,13
+2026-07-19,L2,POULET BBQ M,7
+2026-07-19,L2,Pasta Alfredo,11
+2026-07-19,L2,Pasta Bolognaise,5
+2026-07-19,L2,Pasticcio Bolognaise,3
+2026-07-19,L2,Pasticcio Poulet,4
+2026-07-19,L2,Pizza Bufallo M,3
+2026-07-19,L2,Pizza Marinara M,6
+2026-07-19,L2,Pizza Poulet Mexicain Haaar M,11
+2026-07-19,L2,Poke Bowl Nature,1
+2026-07-19,L2,Poke Bowl Poulet Crousty,8
+2026-07-19,L2,Sandwich Poulet Crousty,24
+2026-07-19,L2,Sandwich le Grec Poulet,29
+2026-07-19,L2,Tacos Poulet,39
+2026-07-19,L2,Tacos Poulet Crousty,42
+2026-07-19,L2,Yaourt GREC,8
+2026-07-20,L2,Cheese Burger,15
+2026-07-20,L2,Chicken Burger,18
+2026-07-20,L2,Crousty Atlas M,13
+2026-07-20,L2,Crousty Atlas XL,10
+2026-07-20,L2,Dopamina Oreo,32
+2026-07-20,L2,Frites Maison,68
+2026-07-20,L2,Frites Maison Epicees,28
+2026-07-20,L2,Jus D'Avocat,2
+2026-07-20,L2,Jus de Citron,8
+2026-07-20,L2,Jus de Mangue,14
+2026-07-20,L2,Mexicain Burger,11
+2026-07-20,L2,POULET BBQ M,9
+2026-07-20,L2,Pasta Alfredo,4
+2026-07-20,L2,Pasta Bolognaise,4
+2026-07-20,L2,Pasticcio Bolognaise,5
+2026-07-20,L2,Pasticcio Poulet,7
+2026-07-20,L2,Pizza Bufallo M,3
+2026-07-20,L2,Pizza Marinara M,11
+2026-07-20,L2,Pizza Poulet Mexicain Haaar M,8
+2026-07-20,L2,Poke Bowl Nature,1
+2026-07-20,L2,Poke Bowl Poulet Crousty,12
+2026-07-20,L2,Sandwich Poulet Crousty,26
+2026-07-20,L2,Sandwich le Grec Poulet,32
+2026-07-20,L2,Tacos Poulet,21
+2026-07-20,L2,Tacos Poulet Crousty,42
+2026-07-20,L2,Yaourt GREC,12
+2026-07-21,L2,Cheese Burger,11
+2026-07-21,L2,Chicken Burger,18
+2026-07-21,L2,Crousty Atlas M,10
+2026-07-21,L2,Crousty Atlas XL,13
+2026-07-21,L2,Dopamina Oreo,18
+2026-07-21,L2,Frites Maison,47
+2026-07-21,L2,Frites Maison Epicees,30
+2026-07-21,L2,Jus D'Avocat,1
+2026-07-21,L2,Jus de Citron,8
+2026-07-21,L2,Jus de Mangue,12
+2026-07-21,L2,Mexicain Burger,3
+2026-07-21,L2,POULET BBQ M,4
+2026-07-21,L2,Pasta Alfredo,5
+2026-07-21,L2,Pasta Bolognaise,5
+2026-07-21,L2,Pasticcio Bolognaise,7
+2026-07-21,L2,Pasticcio Poulet,3
+2026-07-21,L2,Pizza Bufallo M,9
+2026-07-21,L2,Pizza Marinara M,4
+2026-07-21,L2,Pizza Poulet Mexicain Haaar M,8
+2026-07-21,L2,Poke Bowl Nature,4
+2026-07-21,L2,Poke Bowl Poulet Crousty,12
+2026-07-21,L2,Sandwich Poulet Crousty,15
+2026-07-21,L2,Sandwich le Grec Poulet,26
+2026-07-21,L2,Tacos Poulet,26
+2026-07-21,L2,Tacos Poulet Crousty,21
+2026-07-21,L2,Yaourt GREC,6
+2026-07-22,L2,Cheese Burger,13
+2026-07-22,L2,Chicken Burger,24
+2026-07-22,L2,Crousty Atlas M,12
+2026-07-22,L2,Crousty Atlas XL,13
+2026-07-22,L2,Dopamina Oreo,38
+2026-07-22,L2,Frites Maison,80
+2026-07-22,L2,Frites Maison Epicees,39
+2026-07-22,L2,Jus D'Avocat,2
+2026-07-22,L2,Jus de Citron,2
+2026-07-22,L2,Jus de Mangue,18
+2026-07-22,L2,Mexicain Burger,11
+2026-07-22,L2,POULET BBQ M,14
+2026-07-22,L2,Pasta Alfredo,10
+2026-07-22,L2,Pasta Bolognaise,4
+2026-07-22,L2,Pasticcio Bolognaise,2
+2026-07-22,L2,Pasticcio Poulet,11
+2026-07-22,L2,Pizza Bufallo M,9
+2026-07-22,L2,Pizza Marinara M,7
+2026-07-22,L2,Pizza Poulet Mexicain Haaar M,13
+2026-07-22,L2,Poke Bowl Nature,5
+2026-07-22,L2,Poke Bowl Poulet Crousty,6
+2026-07-22,L2,Sandwich Poulet Crousty,35
+2026-07-22,L2,Sandwich le Grec Poulet,39
+2026-07-22,L2,Tacos Poulet,34
+2026-07-22,L2,Tacos Poulet Crousty,62
+2026-07-22,L2,Yaourt GREC,10
+2026-07-23,L2,Cheese Burger,20
+2026-07-23,L2,Chicken Burger,30
+2026-07-23,L2,Crousty Atlas M,15
+2026-07-23,L2,Crousty Atlas XL,21
+2026-07-23,L2,Dopamina Oreo,37
+2026-07-23,L2,Frites Maison,76
+2026-07-23,L2,Frites Maison Epicees,48
+2026-07-23,L2,Jus D'Avocat,1
+2026-07-23,L2,Jus de Mangue,23
+2026-07-23,L2,Mexicain Burger,17
+2026-07-23,L2,POULET BBQ M,5
+2026-07-23,L2,Pasta Alfredo,15
+2026-07-23,L2,Pasta Bolognaise,7
+2026-07-23,L2,Pasticcio Bolognaise,7
+2026-07-23,L2,Pasticcio Poulet,7
+2026-07-23,L2,Pizza Bufallo M,6
+2026-07-23,L2,Pizza Marinara M,8
+2026-07-23,L2,Pizza Poulet Mexicain Haaar M,11
+2026-07-23,L2,Poke Bowl Nature,5
+2026-07-23,L2,Poke Bowl Poulet Crousty,6
+2026-07-23,L2,Sandwich Poulet Crousty,39
+2026-07-23,L2,Sandwich le Grec Poulet,48
+2026-07-23,L2,Tacos Poulet,33
+2026-07-23,L2,Tacos Poulet Crousty,47
+2026-07-23,L2,Yaourt GREC,13
+2026-07-24,L2,Cheese Burger,9
+2026-07-24,L2,Chicken Burger,15
+2026-07-24,L2,Crousty Atlas M,16
+2026-07-24,L2,Crousty Atlas XL,18
+2026-07-24,L2,Dopamina Oreo,36
+2026-07-24,L2,Frites Maison,78
+2026-07-24,L2,Frites Maison Epicees,48
+2026-07-24,L2,Jus de Mangue,23
+2026-07-24,L2,Mexicain Burger,14
+2026-07-24,L2,POULET BBQ M,15
+2026-07-24,L2,Pasta Alfredo,12
+2026-07-24,L2,Pasta Bolognaise,3
+2026-07-24,L2,Pasticcio Bolognaise,8
+2026-07-24,L2,Pasticcio Poulet,7
+2026-07-24,L2,Pizza Bufallo M,10
+2026-07-24,L2,Pizza Marinara M,16
+2026-07-24,L2,Pizza Poulet Mexicain Haaar M,23
+2026-07-24,L2,Poke Bowl Nature,3
+2026-07-24,L2,Poke Bowl Poulet Crousty,7
+2026-07-24,L2,Sandwich Poulet Crousty,48
+2026-07-24,L2,Sandwich le Grec Poulet,27
+2026-07-24,L2,Tacos Poulet,26
+2026-07-24,L2,Tacos Poulet Crousty,56
+2026-07-24,L2,Yaourt GREC,8
+2026-07-25,L2,Cheese Burger,11
+2026-07-25,L2,Chicken Burger,31
+2026-07-25,L2,Crousty Atlas M,22
+2026-07-25,L2,Crousty Atlas XL,20
+2026-07-25,L2,Dopamina Oreo,51
+2026-07-25,L2,Frites Maison,75
+2026-07-25,L2,Frites Maison Epicees,32
+2026-07-25,L2,Jus D'Avocat,2
+2026-07-25,L2,Jus de Mangue,17
+2026-07-25,L2,Mexicain Burger,9
+2026-07-25,L2,POULET BBQ M,11
+2026-07-25,L2,Pasta Alfredo,12
+2026-07-25,L2,Pasta Bolognaise,7
+2026-07-25,L2,Pasticcio Bolognaise,10
+2026-07-25,L2,Pasticcio Poulet,12
+2026-07-25,L2,Pizza Bufallo M,7
+2026-07-25,L2,Pizza Marinara M,16
+2026-07-25,L2,Pizza Poulet Mexicain Haaar M,16
+2026-07-25,L2,Poke Bowl Nature,4
+2026-07-25,L2,Poke Bowl Poulet Crousty,7
+2026-07-25,L2,Sandwich Poulet Crousty,30
+2026-07-25,L2,Sandwich le Grec Poulet,32
+2026-07-25,L2,Tacos Poulet,39
+2026-07-25,L2,Tacos Poulet Crousty,59
+2026-07-25,L2,Yaourt GREC,15
+2026-07-26,L2,Cheese Burger,17
+2026-07-26,L2,Chicken Burger,24
+2026-07-26,L2,Crousty Atlas M,16
+2026-07-26,L2,Crousty Atlas XL,21
+2026-07-26,L2,Dopamina Oreo,39
+2026-07-26,L2,Frites Maison,83
+2026-07-26,L2,Frites Maison Epicees,42
+2026-07-26,L2,Jus D'Avocat,2
+2026-07-26,L2,Jus de Citron,20
+2026-07-26,L2,Jus de Mangue,27
+2026-07-26,L2,Mexicain Burger,13
+2026-07-26,L2,POULET BBQ M,11
+2026-07-26,L2,Pasta Alfredo,9
+2026-07-26,L2,Pasta Bolognaise,9
+2026-07-26,L2,Pasticcio Bolognaise,8
+2026-07-26,L2,Pasticcio Poulet,6
+2026-07-26,L2,Pizza Bufallo M,15
+2026-07-26,L2,Pizza Marinara M,7
+2026-07-26,L2,Pizza Poulet Mexicain Haaar M,12
+2026-07-26,L2,Poke Bowl Nature,4
+2026-07-26,L2,Poke Bowl Poulet Crousty,9
+2026-07-26,L2,Sandwich Poulet Crousty,40
+2026-07-26,L2,Sandwich le Grec Poulet,31
+2026-07-26,L2,Tacos Poulet,32
+2026-07-26,L2,Tacos Poulet Crousty,58
+2026-07-26,L2,Yaourt GREC,11
+2026-07-27,L2,Cheese Burger,22
+2026-07-27,L2,Chicken Burger,32
+2026-07-27,L2,Crousty Atlas M,20
+2026-07-27,L2,Crousty Atlas XL,11
+2026-07-27,L2,Dopamina Oreo,56
+2026-07-27,L2,Frites Maison,66
+2026-07-27,L2,Frites Maison Epicees,49
+2026-07-27,L2,Jus D'Avocat,6
+2026-07-27,L2,Jus de Citron,14
+2026-07-27,L2,Jus de Mangue,26
+2026-07-27,L2,Mexicain Burger,8
+2026-07-27,L2,POULET BBQ M,14
+2026-07-27,L2,Pasta Alfredo,10
+2026-07-27,L2,Pasta Bolognaise,4
+2026-07-27,L2,Pasticcio Bolognaise,7
+2026-07-27,L2,Pasticcio Poulet,6
+2026-07-27,L2,Pizza Bufallo M,10
+2026-07-27,L2,Pizza Marinara M,10
+2026-07-27,L2,Pizza Poulet Mexicain Haaar M,19
+2026-07-27,L2,Poke Bowl Nature,4
+2026-07-27,L2,Poke Bowl Poulet Crousty,4
+2026-07-27,L2,Sandwich Poulet Crousty,32
+2026-07-27,L2,Sandwich le Grec Poulet,35
+2026-07-27,L2,Tacos Poulet,51
+2026-07-27,L2,Tacos Poulet Crousty,28
+2026-07-27,L2,Yaourt GREC,13
+2026-07-28,L2,Cheese Burger,15
+2026-07-28,L2,Chicken Burger,33
+2026-07-28,L2,Crousty Atlas M,19
+2026-07-28,L2,Crousty Atlas XL,19
+2026-07-28,L2,Dopamina Oreo,50
+2026-07-28,L2,Frites Maison,86
+2026-07-28,L2,Frites Maison Epicees,59
+2026-07-28,L2,Jus D'Avocat,2
+2026-07-28,L2,Jus de Citron,8
+2026-07-28,L2,Jus de Mangue,20
+2026-07-28,L2,Mexicain Burger,5
+2026-07-28,L2,POULET BBQ M,11
+2026-07-28,L2,Pasta Alfredo,13
+2026-07-28,L2,Pasta Bolognaise,10
+2026-07-28,L2,Pasticcio Bolognaise,3
+2026-07-28,L2,Pasticcio Poulet,7
+2026-07-28,L2,Pizza Bufallo M,13
+2026-07-28,L2,Pizza Marinara M,4
+2026-07-28,L2,Pizza Poulet Mexicain Haaar M,10
+2026-07-28,L2,Poke Bowl Nature,7
+2026-07-28,L2,Poke Bowl Poulet Crousty,6
+2026-07-28,L2,Sandwich Poulet Crousty,37
+2026-07-28,L2,Sandwich le Grec Poulet,45
+2026-07-28,L2,Tacos Poulet,38
+2026-07-28,L2,Tacos Poulet Crousty,39
+2026-07-28,L2,Yaourt GREC,3
+2026-07-29,L2,Cheese Burger,21
+2026-07-29,L2,Chicken Burger,36
+2026-07-29,L2,Crousty Atlas M,16
+2026-07-29,L2,Crousty Atlas XL,18
+2026-07-29,L2,Dopamina Oreo,48
+2026-07-29,L2,Frites Maison,81
+2026-07-29,L2,Frites Maison Epicees,40
+2026-07-29,L2,Jus D'Avocat,4
+2026-07-29,L2,Jus de Citron,14
+2026-07-29,L2,Jus de Mangue,27
+2026-07-29,L2,Mexicain Burger,7
+2026-07-29,L2,POULET BBQ M,13
+2026-07-29,L2,Pasta Alfredo,8
+2026-07-29,L2,Pasta Bolognaise,7
+2026-07-29,L2,Pasticcio Bolognaise,5
+2026-07-29,L2,Pasticcio Poulet,10
+2026-07-29,L2,Pizza Bufallo M,9
+2026-07-29,L2,Pizza Marinara M,7
+2026-07-29,L2,Pizza Poulet Mexicain Haaar M,20
+2026-07-29,L2,Poke Bowl Nature,3
+2026-07-29,L2,Poke Bowl Poulet Crousty,9
+2026-07-29,L2,Sandwich Poulet Crousty,36
+2026-07-29,L2,Sandwich le Grec Poulet,39
+2026-07-29,L2,Tacos Poulet,44
+2026-07-29,L2,Tacos Poulet Crousty,35
+2026-07-29,L2,Yaourt GREC,14
+2026-07-30,L2,Cheese Burger,17
+2026-07-30,L2,Chicken Burger,44
+2026-07-30,L2,Crousty Atlas M,13
+2026-07-30,L2,Crousty Atlas XL,25
+2026-07-30,L2,Dopamina Oreo,42
+2026-07-30,L2,Frites Maison,97
+2026-07-30,L2,Frites Maison Epicees,48
+2026-07-30,L2,Jus D'Avocat,3
+2026-07-30,L2,Jus de Citron,19
+2026-07-30,L2,Jus de Mangue,34
+2026-07-30,L2,Mexicain Burger,13
+2026-07-30,L2,POULET BBQ M,15
+2026-07-30,L2,Pasta Alfredo,12
+2026-07-30,L2,Pasta Bolognaise,2
+2026-07-30,L2,Pasticcio Bolognaise,5
+2026-07-30,L2,Pasticcio Poulet,6
+2026-07-30,L2,Pizza Bufallo M,9
+2026-07-30,L2,Pizza Marinara M,7
+2026-07-30,L2,Pizza Poulet Mexicain Haaar M,25
+2026-07-30,L2,Poke Bowl Nature,6
+2026-07-30,L2,Poke Bowl Poulet Crousty,12
+2026-07-30,L2,Sandwich Poulet Crousty,33
+2026-07-30,L2,Sandwich le Grec Poulet,32
+2026-07-30,L2,Tacos Poulet,29
+2026-07-30,L2,Tacos Poulet Crousty,56
+2026-07-30,L2,Yaourt GREC,23
+2026-07-31,L2,Cheese Burger,17
+2026-07-31,L2,Chicken Burger,44
+2026-07-31,L2,Crousty Atlas M,13
+2026-07-31,L2,Crousty Atlas XL,25
+2026-07-31,L2,Dopamina Oreo,42
+2026-07-31,L2,Frites Maison,97
+2026-07-31,L2,Frites Maison Epicees,48
+2026-07-31,L2,Jus D'Avocat,3
+2026-07-31,L2,Jus de Citron,19
+2026-07-31,L2,Jus de Mangue,34
+2026-07-31,L2,Mexicain Burger,13
+2026-07-31,L2,POULET BBQ M,15
+2026-07-31,L2,Pasta Alfredo,12
+2026-07-31,L2,Pasta Bolognaise,2
+2026-07-31,L2,Pasticcio Bolognaise,5
+2026-07-31,L2,Pasticcio Poulet,6
+2026-07-31,L2,Pizza Bufallo M,9
+2026-07-31,L2,Pizza Marinara M,7
+2026-07-31,L2,Pizza Poulet Mexicain Haaar M,25
+2026-07-31,L2,Poke Bowl Nature,6
+2026-07-31,L2,Poke Bowl Poulet Crousty,12
+2026-07-31,L2,Sandwich Poulet Crousty,33
+2026-07-31,L2,Sandwich le Grec Poulet,32
+2026-07-31,L2,Tacos Poulet,29
+2026-07-31,L2,Tacos Poulet Crousty,56
+2026-07-31,L2,Yaourt GREC,23
+2026-08-01,L2,Cheese Burger,27
+2026-08-01,L2,Chicken Burger,47
+2026-08-01,L2,Crousty Atlas M,26
+2026-08-01,L2,Crousty Atlas XL,19
+2026-08-01,L2,Dopamina Oreo,58
+2026-08-01,L2,Frites Maison,123
+2026-08-01,L2,Frites Maison Epicees,49
+2026-08-01,L2,Jus D'Avocat,6
+2026-08-01,L2,Jus de Citron,27
+2026-08-01,L2,Jus de Mangue,32
+2026-08-01,L2,Mexicain Burger,8
+2026-08-01,L2,POULET BBQ M,14
+2026-08-01,L2,Pasta Alfredo,11
+2026-08-01,L2,Pasta Bolognaise,5
+2026-08-01,L2,Pasticcio Bolognaise,8
+2026-08-01,L2,Pasticcio Poulet,8
+2026-08-01,L2,Pizza Bufallo M,16
+2026-08-01,L2,Pizza Marinara M,17
+2026-08-01,L2,Pizza Poulet Mexicain Haaar M,11
+2026-08-01,L2,Poke Bowl Nature,7
+2026-08-01,L2,Poke Bowl Poulet Crousty,14
+2026-08-01,L2,Sandwich Poulet Crousty,61
+2026-08-01,L2,Sandwich le Grec Poulet,45
+2026-08-01,L2,Tacos Poulet,36
+2026-08-01,L2,Tacos Poulet Crousty,53
+2026-08-01,L2,Yaourt GREC,23
+2026-08-02,L2,Cheese Burger,30
+2026-08-02,L2,Chicken Burger,26
+2026-08-02,L2,Crousty Atlas M,17
+2026-08-02,L2,Crousty Atlas XL,17
+2026-08-02,L2,Dopamina Oreo,57
+2026-08-02,L2,Frites Maison,96
+2026-08-02,L2,Frites Maison Epicees,59
+2026-08-02,L2,Jus D'Avocat,9
+2026-08-02,L2,Jus de Citron,4
+2026-08-02,L2,Jus de Mangue,17
+2026-08-02,L2,Mexicain Burger,19
+2026-08-02,L2,POULET BBQ M,16
+2026-08-02,L2,Pasta Alfredo,13
+2026-08-02,L2,Pasta Bolognaise,10
+2026-08-02,L2,Pasticcio Bolognaise,10
+2026-08-02,L2,Pasticcio Poulet,5
+2026-08-02,L2,Pizza Bufallo M,11
+2026-08-02,L2,Pizza Marinara M,10
+2026-08-02,L2,Pizza Poulet Mexicain Haaar M,14
+2026-08-02,L2,Poke Bowl Nature,5
+2026-08-02,L2,Poke Bowl Poulet Crousty,17
+2026-08-02,L2,Sandwich Poulet Crousty,35
+2026-08-02,L2,Sandwich le Grec Poulet,56
+2026-08-02,L2,Tacos Poulet,42
+2026-08-02,L2,Tacos Poulet Crousty,79
+2026-08-02,L2,Yaourt GREC,28
+2026-08-03,L2,Cheese Burger,14
+2026-08-03,L2,Chicken Burger,41
+2026-08-03,L2,Crousty Atlas M,21
+2026-08-03,L2,Crousty Atlas XL,22
+2026-08-03,L2,Dopamina Oreo,42
+2026-08-03,L2,Frites Maison,92
+2026-08-03,L2,Frites Maison Epicees,45
+2026-08-03,L2,Jus D'Avocat,1
+2026-08-03,L2,Jus de Mangue,20
+2026-08-03,L2,Mexicain Burger,14
+2026-08-03,L2,POULET BBQ M,6
+2026-08-03,L2,Pasta Alfredo,17
+2026-08-03,L2,Pasta Bolognaise,5
+2026-08-03,L2,Pasticcio Bolognaise,4
+2026-08-03,L2,Pasticcio Poulet,5
+2026-08-03,L2,Pizza Bufallo M,9
+2026-08-03,L2,Pizza Marinara M,14
+2026-08-03,L2,Pizza Poulet Mexicain Haaar M,10
+2026-08-03,L2,Poke Bowl Nature,7
+2026-08-03,L2,Poke Bowl Poulet Crousty,6
+2026-08-03,L2,Sandwich Poulet Crousty,42
+2026-08-03,L2,Sandwich le Grec Poulet,37
+2026-08-03,L2,Tacos Poulet,50
+2026-08-03,L2,Tacos Poulet Crousty,61
+2026-08-03,L2,Yaourt GREC,16

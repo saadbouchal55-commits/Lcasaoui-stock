@@ -1,0 +1,1782 @@
+date,location,item,qty_ordered
+2026-07-03,L1,Mozzarella,6.0
+2026-07-03,L1,Cheddar,50.0
+2026-07-03,L1,Riz Atlas M,24.0
+2026-07-03,L1,Riz Atlas Xl,6.0
+2026-07-03,L1,Champignon,0.5
+2026-07-03,L1,Poulet Crousty,16.0
+2026-07-03,L1,Viande Hachée B,2.0
+2026-07-03,L1,Viande Haché Burger,20.0
+2026-07-03,L1,Laitue,1.0
+2026-07-03,L1,Poulet,16.0
+2026-07-03,L1,Tomate,1.0
+2026-07-03,L1,Sauce Tomate,2.0
+2026-07-03,L1,Sauce Barbecue,1.0
+2026-07-03,L1,oignon Crunchy,1.0
+2026-07-03,L1,Sauce Fromagère,5.0
+2026-07-03,L1,Sauce Tartare,4.0
+2026-07-03,L1,Oreo entier (PS),1.0
+2026-07-03,L1,Sauce Biggy,2.0
+2026-07-03,L1,Crème caramel,2.0
+2026-07-03,L1,Sachet Emporté,300.0
+2026-07-03,L1,Sachet Frite,400.0
+2026-07-03,L1,Fourchette,50.0
+2026-07-03,L1,Cuillères,50.0
+2026-07-03,L1,tagliatelle,5.0
+2026-07-03,L1,Génoise,14.0
+2026-07-03,L1,Pain Tacos,1.0
+2026-07-03,L1,Papier Cuisine,2.0
+2026-07-03,L1,Mangue,30.0
+2026-07-03,L1,Citrons,15.0
+2026-07-03,L1,Yaourt Grec,16.0
+2026-07-03,L1,Pot de sauce Ket + May,50.0
+2026-07-03,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-03,L1,Glacons,1.0
+2026-07-03,L2,Poke Bowl Salade,15.0
+2026-07-03,L2,Mozzarella,6.0
+2026-07-03,L2,Sauce Salade,2.0
+2026-07-03,L2,Cheddar,40.0
+2026-07-03,L2,Riz Atlas M,15.0
+2026-07-03,L2,Riz Atlas Xl,15.0
+2026-07-03,L2,Poulet Crousty,8.0
+2026-07-03,L2,Viande Hachée B,2.0
+2026-07-03,L2,Viande Haché Burger,40.0
+2026-07-03,L2,Laitue,1.5
+2026-07-03,L2,Poulet,12.0
+2026-07-03,L2,Tomate,1.5
+2026-07-03,L2,oignon,0.8
+2026-07-03,L2,Sauce Tomate,4.0
+2026-07-03,L2,Sauce Barbecue,1.0
+2026-07-03,L2,oignon Crunchy,2.0
+2026-07-03,L2,Sauce Fromagère,10.0
+2026-07-03,L2,Jalapenos,0.3
+2026-07-03,L2,Olive Noir,0.3
+2026-07-03,L2,Sauce Tartare,5.0
+2026-07-03,L2,Cornichons,0.8
+2026-07-03,L2,Sauce truffes,0.5
+2026-07-03,L2,Oreo entier (PS),1.0
+2026-07-03,L2,Sauce Biggy,1.0
+2026-07-03,L2,Sauce Algérienne,1.0
+2026-07-03,L2,Boite Pizza M,1.0
+2026-07-03,L2,Crème chocolat,2.0
+2026-07-03,L2,Sachet Sandwich,200.0
+2026-07-03,L2,Crème caramel,2.0
+2026-07-03,L2,Sachet Emporté,200.0
+2026-07-03,L2,Sachet Frite,400.0
+2026-07-03,L2,Fourchette,100.0
+2026-07-03,L2,Bowl Pasta,1.0
+2026-07-03,L2,Cuillères,150.0
+2026-07-03,L2,Gobelet Jus,200.0
+2026-07-03,L2,Génoise,30.0
+2026-07-03,L2,Pain Tacos,1.0
+2026-07-03,L2,Papier Cuisine,2.0
+2026-07-03,L2,Mangue,20.0
+2026-07-03,L2,Citrons,15.0
+2026-07-03,L2,Yaourt Grec,20.0
+2026-07-03,L2,Pot de sauce Ket + May,60.0
+2026-07-03,L2,Pot de sauce Biggy + Alg,60.0
+2026-07-03,L2,Glacons,2.0
+2026-07-04,L1,Mozzarella,5.0
+2026-07-04,L1,Sauce Salade,2.0
+2026-07-04,L1,Cheddar,2.0
+2026-07-04,L1,Riz Atlas M,10.0
+2026-07-04,L1,Riz Atlas Xl,10.0
+2026-07-04,L1,Edam,0.3
+2026-07-04,L1,Poulet Crousty,18.0
+2026-07-04,L1,Viande Hachée B,4.0
+2026-07-04,L1,Viande Haché Burger,20.0
+2026-07-04,L1,Poulet,16.0
+2026-07-04,L1,Tomate,1.0
+2026-07-04,L1,oignon,0.5
+2026-07-04,L1,Sauce Tomate,4.0
+2026-07-04,L1,Sauce Barbecue,1.0
+2026-07-04,L1,oignon Crunchy,1.0
+2026-07-04,L1,Sauce Fromagère,8.0
+2026-07-04,L1,Origan,0.3
+2026-07-04,L1,Sauce Tartare,5.0
+2026-07-04,L1,Cornichons,0.3
+2026-07-04,L1,Sauce Huil D'herbe,2.0
+2026-07-04,L1,Sauce Algérienne,1.0
+2026-07-04,L1,Mayonnaise,2.0
+2026-07-04,L1,Crème chocolat,2.0
+2026-07-04,L1,Crème caramel,2.0
+2026-07-04,L1,Fourchette,50.0
+2026-07-04,L1,Cuillères,100.0
+2026-07-04,L1,tagliatelle,4.0
+2026-07-04,L1,Génoise,30.0
+2026-07-04,L1,Pain Tacos,2.0
+2026-07-04,L1,Mangue,30.0
+2026-07-04,L1,Yaourt Grec,10.0
+2026-07-04,L1,Pot de sauce Ket + May,100.0
+2026-07-04,L1,Serviette,10.0
+2026-07-04,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-04,L1,Huil de Table,20.0
+2026-07-04,L1,Frites,20.0
+2026-07-04,L1,Glacons,1.0
+2026-07-04,L2,Mozzarella,5.0
+2026-07-04,L2,Cheddar,2.0
+2026-07-04,L2,Riz Atlas M,20.0
+2026-07-04,L2,fromage parmesan,0.3
+2026-07-04,L2,Riz Atlas Xl,20.0
+2026-07-04,L2,Edam,0.3
+2026-07-04,L2,Champignon,0.5
+2026-07-04,L2,Poulet Crousty,16.0
+2026-07-04,L2,Tomate cerise S,2.0
+2026-07-04,L2,Viande Hachée B,2.0
+2026-07-04,L2,Viande Haché Burger,40.0
+2026-07-04,L2,Laitue,1.0
+2026-07-04,L2,Poulet,16.0
+2026-07-04,L2,Tomate,1.5
+2026-07-04,L2,Sauce Barbecue,1.0
+2026-07-04,L2,oignon Crunchy,2.0
+2026-07-04,L2,Sauce Fromagère,10.0
+2026-07-04,L2,Sauce Burger,2.0
+2026-07-04,L2,Olive Noir,0.3
+2026-07-04,L2,Cornichons,0.5
+2026-07-04,L2,Sauce truffes,0.3
+2026-07-04,L2,Sauce Biggy,2.0
+2026-07-04,L2,Crème chocolat,2.0
+2026-07-04,L2,Crème caramel,4.0
+2026-07-04,L2,Sachet Emporté,300.0
+2026-07-04,L2,Fourchette,50.0
+2026-07-04,L2,Cuillères,100.0
+2026-07-04,L2,Génoise,50.0
+2026-07-04,L2,Pain Tacos,2.0
+2026-07-04,L2,Mangue,30.0
+2026-07-04,L2,Set de Table,10.0
+2026-07-04,L2,Yaourt Grec,10.0
+2026-07-04,L2,Pot de sauce Ket + May,100.0
+2026-07-04,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-04,L2,Croutons,0.4
+2026-07-04,L2,Glacons,1.0
+2026-07-04,L2,Ketchup,1.0
+2026-07-08,L1,Mozzarella,5.0
+2026-07-08,L1,Sauce Salade,2.0
+2026-07-08,L1,Cheddar,1.0
+2026-07-08,L1,Riz Atlas M,20.0
+2026-07-08,L1,fromage parmesan,0.3
+2026-07-08,L1,Riz Atlas Xl,36.0
+2026-07-08,L1,Edam,0.3
+2026-07-08,L1,Poulet Crousty,8.0
+2026-07-08,L1,Viande Hachée B,2.0
+2026-07-08,L1,Laitue,2.0
+2026-07-08,L1,Tomate,2.0
+2026-07-08,L1,Beure,0.3
+2026-07-08,L1,oignon,1.0
+2026-07-08,L1,Sauce Tomate,2.0
+2026-07-08,L1,oignon Crunchy,1.0
+2026-07-08,L1,Sauce Burger,2.0
+2026-07-08,L1,Sauce Tartare,5.0
+2026-07-08,L1,Cornichons,0.4
+2026-07-08,L1,Épices Frite,1.0
+2026-07-08,L1,Sauce truffes,0.5
+2026-07-08,L1,Sauce Biggy,2.0
+2026-07-08,L1,Sauce Algérienne,2.0
+2026-07-08,L1,Crème chocolat,3.0
+2026-07-08,L1,Crème caramel,3.0
+2026-07-08,L1,Pain Burger,20.0
+2026-07-08,L1,Fourchette,50.0
+2026-07-08,L1,Pate Pizza,45.0
+2026-07-08,L1,Pain Grec,50.0
+2026-07-08,L1,Pain Spécial,10.0
+2026-07-08,L1,tagliatelle,5.0
+2026-07-08,L1,Génoise,40.0
+2026-07-08,L1,Pain Tacos,1.0
+2026-07-08,L1,Citrons,15.0
+2026-07-08,L1,Yaourt Grec,10.0
+2026-07-08,L1,Pot de sauce Ket + May,100.0
+2026-07-08,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-08,L1,Glacons,1.0
+2026-07-08,L2,Poke Bowl Salade,20.0
+2026-07-08,L2,Mozzarella,2.0
+2026-07-08,L2,Sauce Salade,2.0
+2026-07-08,L2,Cheddar,2.0
+2026-07-08,L2,Riz Atlas M,20.0
+2026-07-08,L2,fromage parmesan,0.3
+2026-07-08,L2,Riz Atlas Xl,20.0
+2026-07-08,L2,Edam,0.3
+2026-07-08,L2,Poulet Crousty,16.0
+2026-07-08,L2,Tomate cerise S,2.0
+2026-07-08,L2,Viande Hachée B,2.0
+2026-07-08,L2,Viande Haché Burger,20.0
+2026-07-08,L2,Laitue,2.0
+2026-07-08,L2,Tomate,2.0
+2026-07-08,L2,Beure,0.3
+2026-07-08,L2,oignon,1.0
+2026-07-08,L2,Sauce Tomate,2.0
+2026-07-08,L2,Sauce Barbecue,1.0
+2026-07-08,L2,oignon Crunchy,1.0
+2026-07-08,L2,Jalapenos,0.3
+2026-07-08,L2,Sauce Piment,1.0
+2026-07-08,L2,Sauce Burger,2.0
+2026-07-08,L2,Olive Noir,0.3
+2026-07-08,L2,Sauce Tartare,4.0
+2026-07-08,L2,Épices Frite,1.0
+2026-07-08,L2,Sauce truffes,0.3
+2026-07-08,L2,Oreo entier (PS),1.0
+2026-07-08,L2,Crème chocolat,3.0
+2026-07-08,L2,Pain Burger,60.0
+2026-07-08,L2,Fourchette,50.0
+2026-07-08,L2,Pate Pizza,30.0
+2026-07-08,L2,Bowl Pasta,100.0
+2026-07-08,L2,Pain Grec,60.0
+2026-07-08,L2,Pain Spécial,12.0
+2026-07-08,L2,Génoise,60.0
+2026-07-08,L2,Pain Tacos,1.0
+2026-07-08,L2,Mangue,20.0
+2026-07-08,L2,Citrons,15.0
+2026-07-08,L2,Yaourt Grec,10.0
+2026-07-08,L2,Pot de sauce Ket + May,100.0
+2026-07-08,L2,Serviette,14.0
+2026-07-08,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-08,L2,Huil de Table,20.0
+2026-07-08,L2,Croutons,0.5
+2026-07-08,L2,Glacons,1.0
+2026-07-10,L1,Riz Atlas M,10.0
+2026-07-10,L1,fromage parmesan,0.3
+2026-07-10,L1,Riz Atlas Xl,10.0
+2026-07-10,L1,Edam,0.3
+2026-07-10,L1,Poulet Crousty,14.0
+2026-07-10,L1,Tomate cerise S,2.0
+2026-07-10,L1,Viande Hachée B,2.0
+2026-07-10,L1,Viande Haché Burger,10.0
+2026-07-10,L1,Laitue,2.0
+2026-07-10,L1,Poulet,14.0
+2026-07-10,L1,Tomate,1.5
+2026-07-10,L1,oignon,0.8
+2026-07-10,L1,Sauce Tomate,4.0
+2026-07-10,L1,Sauce Barbecue,1.0
+2026-07-10,L1,oignon Crunchy,2.0
+2026-07-10,L1,Sauce Fromagère,5.0
+2026-07-10,L1,Olive Noir,0.3
+2026-07-10,L1,Sauce Tartare,3.0
+2026-07-10,L1,Cornichons,0.4
+2026-07-10,L1,Oreo entier (PS),1.0
+2026-07-10,L1,Pain Burger,20.0
+2026-07-10,L1,Pate Pizza,45.0
+2026-07-10,L1,Pain Grec,20.0
+2026-07-10,L1,Pain Spécial,20.0
+2026-07-10,L1,Génoise,20.0
+2026-07-10,L1,Pain Tacos,1.0
+2026-07-10,L1,Mangue,16.0
+2026-07-10,L1,Avocat,10.0
+2026-07-10,L1,Citrons,15.0
+2026-07-10,L1,Yaourt Grec,12.0
+2026-07-10,L1,Pot de sauce Ket + May,100.0
+2026-07-10,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-10,L1,Huil de Table,10.0
+2026-07-10,L1,Glacons,2.0
+2026-07-10,L2,Poke Bowl Salade,6.0
+2026-07-10,L2,Mozzarella,4.0
+2026-07-10,L2,fromage parmesan,0.3
+2026-07-10,L2,Champignon,0.5
+2026-07-10,L2,Poulet Crousty,8.0
+2026-07-10,L2,Tomate cerise S,2.0
+2026-07-10,L2,Viande Hachée B,4.0
+2026-07-10,L2,Laitue,2.0
+2026-07-10,L2,Poulet,8.0
+2026-07-10,L2,Tomate,1.5
+2026-07-10,L2,oignon,1.0
+2026-07-10,L2,Sauce Piment,2.0
+2026-07-10,L2,Sauce Burger,2.0
+2026-07-10,L2,Sauce Tartare,5.0
+2026-07-10,L2,Cornichons,0.8
+2026-07-10,L2,Sauce truffes,0.3
+2026-07-10,L2,Oreo entier (PS),1.0
+2026-07-10,L2,Crème chocolat,2.0
+2026-07-10,L2,Crème caramel,2.0
+2026-07-10,L2,Pain Burger,46.0
+2026-07-10,L2,Fourchette,50.0
+2026-07-10,L2,Pate Pizza,30.0
+2026-07-10,L2,Pain Grec,40.0
+2026-07-10,L2,Cuillères,100.0
+2026-07-10,L2,Pain Spécial,40.0
+2026-07-10,L2,tagliatelle,8.0
+2026-07-10,L2,Génoise,44.0
+2026-07-10,L2,Pain Tacos,1.0
+2026-07-10,L2,Mangue,40.0
+2026-07-10,L2,Sachet Burger,300.0
+2026-07-10,L2,Citrons,15.0
+2026-07-10,L2,Yaourt Grec,26.0
+2026-07-10,L2,Pot de sauce Ket + May,100.0
+2026-07-10,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-10,L2,Huil de Table,10.0
+2026-07-10,L2,Glacons,1.0
+2026-07-11,L1,Poke Bowl Salade,6.0
+2026-07-11,L1,Mozzarella,5.0
+2026-07-11,L1,Riz Atlas M,8.0
+2026-07-11,L1,Riz Atlas Xl,2.0
+2026-07-11,L1,Champignon,1.0
+2026-07-11,L1,Poulet Crousty,8.0
+2026-07-11,L1,Tomate cerise S,2.0
+2026-07-11,L1,Viande Haché Burger,20.0
+2026-07-11,L1,Laitue,0.6
+2026-07-11,L1,Poulet,10.0
+2026-07-11,L1,Tomate,1.0
+2026-07-11,L1,Beure,0.3
+2026-07-11,L1,oignon,0.6
+2026-07-11,L1,Sauce Tomate,2.0
+2026-07-11,L1,Sauce Barbecue,1.0
+2026-07-11,L1,oignon Crunchy,1.0
+2026-07-11,L1,Sauce Fromagère,10.0
+2026-07-11,L1,Jalapenos,0.4
+2026-07-11,L1,Olive Noir,0.4
+2026-07-11,L1,Sauce Tartare,4.0
+2026-07-11,L1,Cornichons,0.3
+2026-07-11,L1,Sauce truffes,0.5
+2026-07-11,L1,Crème chocolat,1.0
+2026-07-11,L1,Crème caramel,3.0
+2026-07-11,L1,tagliatelle,4.0
+2026-07-11,L1,Génoise,32.0
+2026-07-11,L1,Mangue,10.0
+2026-07-11,L1,Avocat,16.0
+2026-07-11,L1,Citrons,15.0
+2026-07-11,L1,Yaourt Grec,10.0
+2026-07-11,L1,Pot de sauce Ket + May,100.0
+2026-07-11,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-11,L1,Frites,20.0
+2026-07-11,L1,Glacons,1.0
+2026-07-11,L2,Poke Bowl Salade,18.0
+2026-07-11,L2,Mozzarella,3.0
+2026-07-11,L2,Sauce Salade,2.0
+2026-07-11,L2,Riz Atlas M,10.0
+2026-07-11,L2,Riz Atlas Xl,20.0
+2026-07-11,L2,Champignon,0.4
+2026-07-11,L2,Tomate cerise S,4.0
+2026-07-11,L2,Viande Hachée B,2.0
+2026-07-11,L2,Viande Haché Burger,30.0
+2026-07-11,L2,Laitue,2.5
+2026-07-11,L2,Tomate,1.5
+2026-07-11,L2,oignon,0.8
+2026-07-11,L2,Sauce Tomate,2.0
+2026-07-11,L2,Sauce Barbecue,1.0
+2026-07-11,L2,Sauce Fromagère,10.0
+2026-07-11,L2,Jalapenos,0.4
+2026-07-11,L2,Sauce Piment,2.0
+2026-07-11,L2,Sauce Burger,2.0
+2026-07-11,L2,Olive Noir,0.3
+2026-07-11,L2,Sauce Tartare,8.0
+2026-07-11,L2,Cornichons,0.8
+2026-07-11,L2,Sauce truffes,0.3
+2026-07-11,L2,Sauce Biggy,2.0
+2026-07-11,L2,Sauce Algérienne,2.0
+2026-07-11,L2,Crème chocolat,3.0
+2026-07-11,L2,Crème caramel,2.0
+2026-07-11,L2,Sachet Emporté,300.0
+2026-07-11,L2,Fourchette,50.0
+2026-07-11,L2,tagliatelle,3.0
+2026-07-11,L2,Génoise,34.0
+2026-07-11,L2,Pain Tacos,1.0
+2026-07-11,L2,Mangue,20.0
+2026-07-11,L2,Citrons,15.0
+2026-07-11,L2,Yaourt Grec,10.0
+2026-07-11,L2,Pot de sauce Ket + May,100.0
+2026-07-11,L2,Serviette,12.0
+2026-07-11,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-11,L2,Glacons,2.0
+2026-07-13,L1,Poke Bowl Salade,5.0
+2026-07-13,L1,Mozzarella,4.0
+2026-07-13,L1,Sauce Salade,2.0
+2026-07-13,L1,Cheddar,1.0
+2026-07-13,L1,Riz Atlas M,12.0
+2026-07-13,L1,fromage parmesan,0.3
+2026-07-13,L1,Riz Atlas Xl,12.0
+2026-07-13,L1,Champignon,0.4
+2026-07-13,L1,Poulet Crousty,10.0
+2026-07-13,L1,Tomate cerise S,2.0
+2026-07-13,L1,Viande Hachée B,2.0
+2026-07-13,L1,Viande Haché Burger,20.0
+2026-07-13,L1,Laitue,2.0
+2026-07-13,L1,Poulet,14.0
+2026-07-13,L1,Tomate,1.5
+2026-07-13,L1,Beure,0.3
+2026-07-13,L1,oignon,1.0
+2026-07-13,L1,Sauce Tomate,2.0
+2026-07-13,L1,oignon Crunchy,1.0
+2026-07-13,L1,Sauce Fromagère,6.0
+2026-07-13,L1,Sauce Tartare,4.0
+2026-07-13,L1,Sauce Biggy,1.0
+2026-07-13,L1,Sauce Algérienne,1.0
+2026-07-13,L1,Mayonnaise,2.0
+2026-07-13,L1,Crème caramel,3.0
+2026-07-13,L1,Pain Burger,30.0
+2026-07-13,L1,Fourchette,50.0
+2026-07-13,L1,Pain Grec,50.0
+2026-07-13,L1,Cuillères,100.0
+2026-07-13,L1,Pain Spécial,50.0
+2026-07-13,L1,tagliatelle,6.0
+2026-07-13,L1,Génoise,30.0
+2026-07-13,L1,Pain Tacos,1.0
+2026-07-13,L1,Avocat,20.0
+2026-07-13,L1,Citrons,10.0
+2026-07-13,L1,Yaourt Grec,10.0
+2026-07-13,L1,Pot de sauce Ket + May,100.0
+2026-07-13,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-13,L1,Huil de Table,20.0
+2026-07-13,L1,Frites,20.0
+2026-07-13,L1,Farine,5.0
+2026-07-13,L1,Ketchup,1.0
+2026-07-13,L1,Sucre,10.0
+2026-07-13,L2,Poke Bowl Salade,10.0
+2026-07-13,L2,Mozzarella,6.0
+2026-07-13,L2,Cheddar,1.0
+2026-07-13,L2,Riz Atlas M,10.0
+2026-07-13,L2,Riz Atlas Xl,10.0
+2026-07-13,L2,Champignon,0.4
+2026-07-13,L2,Tomate cerise S,4.0
+2026-07-13,L2,Viande Haché Burger,20.0
+2026-07-13,L2,Laitue,2.5
+2026-07-13,L2,Poulet,16.0
+2026-07-13,L2,Tomate,2.0
+2026-07-13,L2,Sauce Barbecue,1.0
+2026-07-13,L2,oignon Crunchy,1.0
+2026-07-13,L2,Sauce Fromagère,10.0
+2026-07-13,L2,Jalapenos,0.3
+2026-07-13,L2,Sauce Burger,2.0
+2026-07-13,L2,Olive Noir,0.3
+2026-07-13,L2,Sauce Tartare,6.0
+2026-07-13,L2,Cornichons,0.5
+2026-07-13,L2,Sauce truffes,0.3
+2026-07-13,L2,Oreo entier (PS),1.0
+2026-07-13,L2,Boite Pizza M,1.0
+2026-07-13,L2,Sachet Sandwich,400.0
+2026-07-13,L2,Crème caramel,2.0
+2026-07-13,L2,Sachet Emporté,400.0
+2026-07-13,L2,Pain Burger,54.0
+2026-07-13,L2,Fourchette,50.0
+2026-07-13,L2,Pate Pizza,30.0
+2026-07-13,L2,Pain Grec,50.0
+2026-07-13,L2,Cuillères,100.0
+2026-07-13,L2,Pain Spécial,50.0
+2026-07-13,L2,Génoise,50.0
+2026-07-13,L2,Pain Tacos,1.0
+2026-07-13,L2,Mangue,20.0
+2026-07-13,L2,Sachet Burger,400.0
+2026-07-13,L2,Avocat,10.0
+2026-07-13,L2,Citrons,10.0
+2026-07-13,L2,Yaourt Grec,20.0
+2026-07-13,L2,Pot de sauce Ket + May,100.0
+2026-07-13,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-13,L2,Huil de Table,20.0
+2026-07-13,L2,Frites,20.0
+2026-07-13,L2,Croutons,0.5
+2026-07-13,L2,Glacons,2.0
+2026-07-13,L2,Farine,5.0
+2026-07-13,L2,Ketchup,1.0
+2026-07-13,L2,Sucre,10.0
+2026-07-14,L1,Poke Bowl Salade,10.0
+2026-07-14,L1,Mozzarella,5.0
+2026-07-14,L1,Riz Atlas M,16.0
+2026-07-14,L1,Riz Atlas Xl,18.0
+2026-07-14,L1,Edam,0.3
+2026-07-14,L1,Champignon,0.4
+2026-07-14,L1,Poulet Crousty,16.0
+2026-07-14,L1,Tomate cerise S,0.2
+2026-07-14,L1,Viande Hachée B,4.0
+2026-07-14,L1,Viande Haché Burger,14.0
+2026-07-14,L1,Laitue,1.5
+2026-07-14,L1,Tomate,1.0
+2026-07-14,L1,oignon,0.8
+2026-07-14,L1,oignon Crunchy,1.0
+2026-07-14,L1,Sauce Fromagère,8.0
+2026-07-14,L1,Sauce Piment,2.0
+2026-07-14,L1,Origan,0.2
+2026-07-14,L1,Sauce Burger,2.0
+2026-07-14,L1,Olive Noir,0.5
+2026-07-14,L1,Cornichons,0.5
+2026-07-14,L1,Sauce truffes,0.3
+2026-07-14,L1,Oreo entier (PS),1.0
+2026-07-14,L1,Sauce Biggy,2.0
+2026-07-14,L1,Sauce Algérienne,1.0
+2026-07-14,L1,Crème chocolat,2.0
+2026-07-14,L1,Sachet Emporté,300.0
+2026-07-14,L1,Pain Burger,30.0
+2026-07-14,L1,Fourchette,100.0
+2026-07-14,L1,Pate Pizza,60.0
+2026-07-14,L1,Pain Grec,50.0
+2026-07-14,L1,Cuillères,200.0
+2026-07-14,L1,Pain Spécial,20.0
+2026-07-14,L1,Génoise,10.0
+2026-07-14,L1,Pain Tacos,1.0
+2026-07-14,L1,Mangue,16.0
+2026-07-14,L1,Citrons,10.0
+2026-07-14,L1,Pot de sauce Ket + May,100.0
+2026-07-14,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-14,L1,Huil de Table,10.0
+2026-07-14,L1,Sesam,0.4
+2026-07-14,L1,Glacons,2.0
+2026-07-14,L1,Souloufan,1.0
+2026-07-14,L2,Poke Bowl Salade,20.0
+2026-07-14,L2,Mozzarella,6.0
+2026-07-14,L2,Riz Atlas M,40.0
+2026-07-14,L2,Riz Atlas Xl,34.0
+2026-07-14,L2,Edam,0.3
+2026-07-14,L2,Champignon,1.0
+2026-07-14,L2,Poulet Crousty,10.0
+2026-07-14,L2,Tomate cerise S,2.0
+2026-07-14,L2,Viande Hachée B,5.0
+2026-07-14,L2,Viande Haché Burger,30.0
+2026-07-14,L2,Laitue,0.8
+2026-07-14,L2,Poulet,8.0
+2026-07-14,L2,Tomate,2.0
+2026-07-14,L2,Sauce Tomate,5.0
+2026-07-14,L2,Sauce Barbecue,1.0
+2026-07-14,L2,oignon Crunchy,2.0
+2026-07-14,L2,Sauce Fromagère,10.0
+2026-07-14,L2,Jalapenos,0.3
+2026-07-14,L2,Olive Noir,0.3
+2026-07-14,L2,Sauce Tartare,5.0
+2026-07-14,L2,Cornichons,0.5
+2026-07-14,L2,Épices Frite,1.0
+2026-07-14,L2,Sauce truffes,0.5
+2026-07-14,L2,Oreo entier (PS),1.0
+2026-07-14,L2,Sauce Biggy,1.0
+2026-07-14,L2,Sauce Algérienne,1.0
+2026-07-14,L2,Crème chocolat,5.0
+2026-07-14,L2,Crème caramel,2.0
+2026-07-14,L2,Pain Burger,34.0
+2026-07-14,L2,Fourchette,100.0
+2026-07-14,L2,Pate Pizza,45.0
+2026-07-14,L2,Pain Grec,50.0
+2026-07-14,L2,Cuillères,100.0
+2026-07-14,L2,Pain Spécial,38.0
+2026-07-14,L2,tagliatelle,6.0
+2026-07-14,L2,Pot de sauce,200.0
+2026-07-14,L2,Génoise,60.0
+2026-07-14,L2,Pain Tacos,1.0
+2026-07-14,L2,Mangue,20.0
+2026-07-14,L2,Avocat,20.0
+2026-07-14,L2,Citrons,15.0
+2026-07-14,L2,Yaourt Grec,20.0
+2026-07-14,L2,Pot de sauce Ket + May,100.0
+2026-07-14,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-14,L2,Huil de Table,10.0
+2026-07-14,L2,Croutons,0.4
+2026-07-14,L2,Glacons,2.0
+2026-07-15,L1,Poke Bowl Salade,10.0
+2026-07-15,L1,Mozzarella,6.0
+2026-07-15,L1,Cheddar,1.0
+2026-07-15,L1,Riz Atlas M,10.0
+2026-07-15,L1,fromage parmesan,0.3
+2026-07-15,L1,Riz Atlas Xl,20.0
+2026-07-15,L1,Edam,0.3
+2026-07-15,L1,Champignon,0.5
+2026-07-15,L1,Poulet Crousty,10.0
+2026-07-15,L1,Tomate cerise S,2.0
+2026-07-15,L1,Viande Hachée B,6.0
+2026-07-15,L1,Viande Haché Burger,10.0
+2026-07-15,L1,Laitue,2.0
+2026-07-15,L1,Poulet,12.0
+2026-07-15,L1,Tomate,1.5
+2026-07-15,L1,Beure,0.3
+2026-07-15,L1,oignon,1.0
+2026-07-15,L1,oignon Crunchy,1.0
+2026-07-15,L1,Sauce Fromagère,6.0
+2026-07-15,L1,Jalapenos,0.4
+2026-07-15,L1,Sauce Burger,2.0
+2026-07-15,L1,Sauce Tartare,6.0
+2026-07-15,L1,Cornichons,0.3
+2026-07-15,L1,Sauce truffes,0.3
+2026-07-15,L1,Oreo entier (PS),1.0
+2026-07-15,L1,Sauce Biggy,2.0
+2026-07-15,L1,Sauce Algérienne,2.0
+2026-07-15,L1,Crème chocolat,3.0
+2026-07-15,L1,Sachet Sandwich,300.0
+2026-07-15,L1,Sachet Frite,300.0
+2026-07-15,L1,Génoise,40.0
+2026-07-15,L1,Pain Tacos,1.0
+2026-07-15,L1,Mangue,20.0
+2026-07-15,L1,Avocat,10.0
+2026-07-15,L1,Citrons,15.0
+2026-07-15,L1,Yaourt Grec,8.0
+2026-07-15,L1,Pot de sauce Ket + May,100.0
+2026-07-15,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-15,L1,Huil de Table,15.0
+2026-07-15,L1,Croutons,0.4
+2026-07-15,L1,Glacons,1.0
+2026-07-15,L2,Poke Bowl Salade,10.0
+2026-07-15,L2,Mozzarella,3.0
+2026-07-15,L2,Cheddar,1.0
+2026-07-15,L2,Riz Atlas M,10.0
+2026-07-15,L2,Edam,0.3
+2026-07-15,L2,Poulet Crousty,8.0
+2026-07-15,L2,Tomate cerise S,2.0
+2026-07-15,L2,Laitue,2.5
+2026-07-15,L2,Poulet,6.0
+2026-07-15,L2,Tomate,1.5
+2026-07-15,L2,Beure,0.3
+2026-07-15,L2,oignon,1.0
+2026-07-15,L2,Sauce Tomate,2.0
+2026-07-15,L2,Sauce Barbecue,1.0
+2026-07-15,L2,oignon Crunchy,1.0
+2026-07-15,L2,Sauce Fromagère,10.0
+2026-07-15,L2,Jalapenos,0.3
+2026-07-15,L2,Olive Noir,0.3
+2026-07-15,L2,Sauce Tartare,5.0
+2026-07-15,L2,Cornichons,0.5
+2026-07-15,L2,Sauce Biggy,1.0
+2026-07-15,L2,Sauce Algérienne,1.0
+2026-07-15,L2,Crème chocolat,4.0
+2026-07-15,L2,tagliatelle,14.0
+2026-07-15,L2,Génoise,20.0
+2026-07-15,L2,Pain Tacos,1.0
+2026-07-15,L2,Mangue,20.0
+2026-07-15,L2,Avocat,20.0
+2026-07-15,L2,Citrons,10.0
+2026-07-15,L2,Yaourt Grec,20.0
+2026-07-15,L2,Pot de sauce Ket + May,100.0
+2026-07-15,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-15,L2,Huil de Table,10.0
+2026-07-15,L2,Sesam,0.3
+2026-07-16,L1,Edam,0.3
+2026-07-16,L1,Champignon,0.4
+2026-07-16,L1,Poulet Crousty,10.0
+2026-07-16,L1,Tomate cerise S,2.0
+2026-07-16,L1,Viande Hachée B,4.0
+2026-07-16,L1,Viande Haché Burger,10.0
+2026-07-16,L1,Laitue,1.0
+2026-07-16,L1,Tomate,1.0
+2026-07-16,L1,oignon,0.6
+2026-07-16,L1,Sauce Tomate,4.0
+2026-07-16,L1,oignon Crunchy,1.0
+2026-07-16,L1,Sauce Fromagère,10.0
+2026-07-16,L1,Jalapenos,0.3
+2026-07-16,L1,Origan,0.3
+2026-07-16,L1,Olive Noir,0.3
+2026-07-16,L1,Sauce Tartare,5.0
+2026-07-16,L1,Oreo entier (PS),1.0
+2026-07-16,L1,Frites,40.0
+2026-07-16,L1,Crème chocolat,3.0
+2026-07-16,L1,Crème caramel,3.0
+2026-07-16,L1,Sachet Emporté,400.0
+2026-07-16,L1,Finot,4.0
+2026-07-16,L1,Pain Burger,20.0
+2026-07-16,L1,Fourchette,50.0
+2026-07-16,L1,Pain Grec,40.0
+2026-07-16,L1,Cuillères,100.0
+2026-07-16,L1,Pain Spécial,40.0
+2026-07-16,L1,tagliatelle,5.0
+2026-07-16,L1,Génoise,20.0
+2026-07-16,L1,Pain Tacos,1.0
+2026-07-16,L1,Mangue,20.0
+2026-07-16,L1,Citrons,10.0
+2026-07-16,L1,Huil de Table,10.0
+2026-07-16,L1,Lait,6.0
+2026-07-16,L1,Pailles,4.0
+2026-07-16,L2,Poke Bowl Salade,8.0
+2026-07-16,L2,Mozzarella,5.0
+2026-07-16,L2,Riz Atlas M,25.0
+2026-07-16,L2,Riz Atlas Xl,14.0
+2026-07-16,L2,Champignon,0.8
+2026-07-16,L2,Poulet Crousty,10.0
+2026-07-16,L2,Tomate cerise S,2.0
+2026-07-16,L2,Viande Hachée B,4.0
+2026-07-16,L2,Viande Haché Burger,50.0
+2026-07-16,L2,Laitue,2.0
+2026-07-16,L2,Poulet,12.0
+2026-07-16,L2,Tomate,2.0
+2026-07-16,L2,oignon,1.0
+2026-07-16,L2,Sauce Barbecue,1.0
+2026-07-16,L2,oignon Crunchy,1.0
+2026-07-16,L2,Sauce Fromagère,10.0
+2026-07-16,L2,Jalapenos,0.4
+2026-07-16,L2,Sauce Burger,2.0
+2026-07-16,L2,Sauce Tartare,4.0
+2026-07-16,L2,Cornichons,0.8
+2026-07-16,L2,Épices Frite,1.0
+2026-07-16,L2,Sauce truffes,0.5
+2026-07-16,L2,Oreo entier (PS),1.0
+2026-07-16,L2,Frites,10.0
+2026-07-16,L2,Mayonnaise,2.0
+2026-07-16,L2,Boite Pasticcio,200.0
+2026-07-16,L2,Crème chocolat,4.0
+2026-07-16,L2,Crème caramel,4.0
+2026-07-16,L2,Sachet Emporté,400.0
+2026-07-16,L2,Finot,4.0
+2026-07-16,L2,Pain Burger,40.0
+2026-07-16,L2,Pate Pizza,30.0
+2026-07-16,L2,Bowl Pasta,100.0
+2026-07-16,L2,Pain Grec,50.0
+2026-07-16,L2,Pain Spécial,50.0
+2026-07-16,L2,tagliatelle,24.0
+2026-07-16,L2,Génoise,60.0
+2026-07-16,L2,Papier Toilet,4.0
+2026-07-16,L2,Mangue,10.0
+2026-07-16,L2,Pot de sauce Ket + May,100.0
+2026-07-16,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-16,L2,Huil de Table,20.0
+2026-07-16,L2,Croutons,0.5
+2026-07-16,L2,Glacons,1.0
+2026-07-16,L2,Lait,6.0
+2026-07-16,L2,Pailles,2.0
+2026-07-21,L1,Poke Bowl Salade,6.0
+2026-07-21,L1,Mozzarella,6.0
+2026-07-21,L1,Riz Atlas M,10.0
+2026-07-21,L1,fromage parmesan,0.3
+2026-07-21,L1,Edam,0.3
+2026-07-21,L1,Champignon,0.4
+2026-07-21,L1,Poulet Crousty,6.0
+2026-07-21,L1,Tomate cerise S,2.0
+2026-07-21,L1,Viande Hachée B,2.0
+2026-07-21,L1,Laitue,0.5
+2026-07-21,L1,Poulet,10.0
+2026-07-21,L1,Tomate,0.8
+2026-07-21,L1,oignon,0.6
+2026-07-21,L1,Sauce Tomate,2.0
+2026-07-21,L1,oignon Crunchy,1.0
+2026-07-21,L1,Sauce Fromagère,10.0
+2026-07-21,L1,Jalapenos,0.4
+2026-07-21,L1,Sauce Burger,2.0
+2026-07-21,L1,Sauce Tartare,4.0
+2026-07-21,L1,Sauce Biggy,1.0
+2026-07-21,L1,Sauce Algérienne,1.0
+2026-07-21,L1,Pain Burger,30.0
+2026-07-21,L1,Fourchette,50.0
+2026-07-21,L1,Pate Pizza,60.0
+2026-07-21,L1,Pain Grec,30.0
+2026-07-21,L1,Cuillères,50.0
+2026-07-21,L1,Pain Spécial,36.0
+2026-07-21,L1,tagliatelle,12.0
+2026-07-21,L1,Pain Tacos,1.0
+2026-07-21,L1,Mangue,10.0
+2026-07-21,L1,Citrons,10.0
+2026-07-21,L1,Pot de sauce Ket + May,100.0
+2026-07-21,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-21,L1,Huil de Table,10.0
+2026-07-21,L1,Glacons,1.0
+2026-07-21,L1,Sucre,6.0
+2026-07-21,L1,Lait,3.0
+2026-07-21,L2,Poke Bowl Salade,16.0
+2026-07-21,L2,Mozzarella,4.0
+2026-07-21,L2,Sauce Salade,2.0
+2026-07-21,L2,Cheddar,1.0
+2026-07-21,L2,Riz Atlas M,20.0
+2026-07-21,L2,Riz Atlas Xl,20.0
+2026-07-21,L2,Poulet Crousty,6.0
+2026-07-21,L2,Tomate cerise S,3.0
+2026-07-21,L2,Viande Hachée B,2.0
+2026-07-21,L2,Viande Haché Burger,10.0
+2026-07-21,L2,Laitue,1.5
+2026-07-21,L2,Poulet,8.0
+2026-07-21,L2,Tomate,1.0
+2026-07-21,L2,Sauce Tomate,2.0
+2026-07-21,L2,Sauce Barbecue,1.0
+2026-07-21,L2,oignon Crunchy,2.0
+2026-07-21,L2,Sauce Fromagère,8.0
+2026-07-21,L2,Jalapenos,0.4
+2026-07-21,L2,Sauce Burger,2.0
+2026-07-21,L2,Cornichons,0.3
+2026-07-21,L2,Sauce Biggy,1.0
+2026-07-21,L2,Sauce Algérienne,1.0
+2026-07-21,L2,Crème chocolat,2.0
+2026-07-21,L2,Crème caramel,4.0
+2026-07-21,L2,Pain Burger,38.0
+2026-07-21,L2,Fourchette,100.0
+2026-07-21,L2,Pate Pizza,30.0
+2026-07-21,L2,Pain Grec,36.0
+2026-07-21,L2,Cuillères,150.0
+2026-07-21,L2,Pain Spécial,30.0
+2026-07-21,L2,tagliatelle,12.0
+2026-07-21,L2,Génoise,40.0
+2026-07-21,L2,Pain Tacos,1.0
+2026-07-21,L2,Mangue,10.0
+2026-07-21,L2,Yaourt Grec,6.0
+2026-07-21,L2,Pot de sauce Ket + May,100.0
+2026-07-21,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-21,L2,Huil de Table,20.0
+2026-07-21,L2,Frites,10.0
+2026-07-21,L2,Croutons,0.4
+2026-07-21,L2,Farine,5.0
+2026-07-21,L2,Ketchup,1.0
+2026-07-23,L1,Poke Bowl Salade,10.0
+2026-07-23,L1,Mozzarella,5.0
+2026-07-23,L1,Sauce Salade,2.0
+2026-07-23,L1,Cheddar,1.0
+2026-07-23,L1,Riz Atlas M,16.0
+2026-07-23,L1,fromage parmesan,0.3
+2026-07-23,L1,Riz Atlas Xl,12.0
+2026-07-23,L1,Edam,0.3
+2026-07-23,L1,Poulet Crousty,12.0
+2026-07-23,L1,Tomate cerise S,2.0
+2026-07-23,L1,Viande Hachée B,2.0
+2026-07-23,L1,Viande Haché Burger,10.0
+2026-07-23,L1,Laitue,0.5
+2026-07-23,L1,Poulet,16.0
+2026-07-23,L1,Tomate,0.5
+2026-07-23,L1,Beure,0.3
+2026-07-23,L1,Sauce Tomate,2.0
+2026-07-23,L1,Sauce Barbecue,1.0
+2026-07-23,L1,oignon Crunchy,1.0
+2026-07-23,L1,Sauce Burger,2.0
+2026-07-23,L1,Olive Noir,0.3
+2026-07-23,L1,Cornichons,0.3
+2026-07-23,L1,Oreo entier (PS),1.0
+2026-07-23,L1,Sauce Biggy,1.0
+2026-07-23,L1,Crème chocolat,3.0
+2026-07-23,L1,Crème caramel,3.0
+2026-07-23,L1,Pain Burger,20.0
+2026-07-23,L1,Fourchette,50.0
+2026-07-23,L1,Pate Pizza,60.0
+2026-07-23,L1,Pain Grec,20.0
+2026-07-23,L1,Cuillères,100.0
+2026-07-23,L1,Pain Spécial,36.0
+2026-07-23,L1,tagliatelle,12.0
+2026-07-23,L1,Génoise,26.0
+2026-07-23,L1,Pain Tacos,1.0
+2026-07-23,L1,Papier Cuisine,2.0
+2026-07-23,L1,Mangue,20.0
+2026-07-23,L1,Yaourt Grec,16.0
+2026-07-23,L1,Pot de sauce Ket + May,100.0
+2026-07-23,L1,Serviette,10.0
+2026-07-23,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-23,L1,Huil de Table,10.0
+2026-07-23,L1,Sesam,0.4
+2026-07-23,L1,Frites,10.0
+2026-07-23,L1,Glacons,1.0
+2026-07-23,L1,Farine,4.0
+2026-07-23,L2,Poke Bowl Salade,16.0
+2026-07-23,L2,Mozzarella,6.0
+2026-07-23,L2,Cheddar,1.0
+2026-07-23,L2,Riz Atlas M,10.0
+2026-07-23,L2,Riz Atlas Xl,10.0
+2026-07-23,L2,Edam,0.3
+2026-07-23,L2,Champignon,0.5
+2026-07-23,L2,Poulet Crousty,14.0
+2026-07-23,L2,Viande Hachée B,2.0
+2026-07-23,L2,Viande Haché Burger,10.0
+2026-07-23,L2,Laitue,0.5
+2026-07-23,L2,Poulet,16.0
+2026-07-23,L2,Tomate,1.0
+2026-07-23,L2,oignon,0.5
+2026-07-23,L2,Sauce Tomate,2.0
+2026-07-23,L2,Sauce Barbecue,1.0
+2026-07-23,L2,oignon Crunchy,2.0
+2026-07-23,L2,Sauce Fromagère,10.0
+2026-07-23,L2,Jalapenos,0.3
+2026-07-23,L2,Origan,0.3
+2026-07-23,L2,Sauce Burger,2.0
+2026-07-23,L2,Olive Noir,0.3
+2026-07-23,L2,Sauce Tartare,4.0
+2026-07-23,L2,Cornichons,0.8
+2026-07-23,L2,Épices Frite,1.0
+2026-07-23,L2,Oreo entier (PS),1.0
+2026-07-23,L2,Boite Pizza M,1.0
+2026-07-23,L2,Boite Pasticcio,100.0
+2026-07-23,L2,Crème chocolat,3.0
+2026-07-23,L2,Sachet Sandwich,300.0
+2026-07-23,L2,Crème caramel,3.0
+2026-07-23,L2,Sachet Emporté,300.0
+2026-07-23,L2,Pain Burger,36.0
+2026-07-23,L2,Fourchette,50.0
+2026-07-23,L2,Pate Pizza,45.0
+2026-07-23,L2,Pain Grec,36.0
+2026-07-23,L2,Cuillères,100.0
+2026-07-23,L2,Pain Spécial,36.0
+2026-07-23,L2,tagliatelle,24.0
+2026-07-23,L2,Génoise,30.0
+2026-07-23,L2,Papier Toilet,3.0
+2026-07-23,L2,Pain Tacos,1.0
+2026-07-23,L2,Papier Cuisine,2.0
+2026-07-23,L2,Mangue,20.0
+2026-07-23,L2,Sachet Burger,400.0
+2026-07-23,L2,Avocat,10.0
+2026-07-23,L2,Set de Table,2.0
+2026-07-23,L2,Yaourt Grec,14.0
+2026-07-23,L2,Sac emporter,1.0
+2026-07-23,L2,Pot de sauce Ket + May,100.0
+2026-07-23,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-23,L2,Huil de Table,10.0
+2026-07-23,L2,Frites,20.0
+2026-07-24,L1,Mozzarella,6.0
+2026-07-24,L1,Cheddar,1.0
+2026-07-24,L1,Riz Atlas M,10.0
+2026-07-24,L1,Riz Atlas Xl,16.0
+2026-07-24,L1,Poulet Crousty,12.0
+2026-07-24,L1,Tomate cerise S,2.0
+2026-07-24,L1,Viande Hachée B,2.0
+2026-07-24,L1,Viande Haché Burger,10.0
+2026-07-24,L1,Laitue,1.0
+2026-07-24,L1,Poulet,12.0
+2026-07-24,L1,Tomate,0.5
+2026-07-24,L1,oignon,0.5
+2026-07-24,L1,Sauce Tomate,2.0
+2026-07-24,L1,Sauce Barbecue,1.0
+2026-07-24,L1,Sauce Fromagère,10.0
+2026-07-24,L1,Cornichons,0.3
+2026-07-24,L1,Épices Frite,1.0
+2026-07-24,L1,Boite Pizza M,1.0
+2026-07-24,L1,Sachet Emporté,300.0
+2026-07-24,L1,Pain Burger,56.0
+2026-07-24,L1,Fourchette,50.0
+2026-07-24,L1,Pate Pizza,75.0
+2026-07-24,L1,Pain Grec,28.0
+2026-07-24,L1,Cuillères,50.0
+2026-07-24,L1,Pain Spécial,30.0
+2026-07-24,L1,Génoise,10.0
+2026-07-24,L1,Pain Tacos,1.0
+2026-07-24,L1,Mangue,20.0
+2026-07-24,L1,Pot de sauce Ket + May,100.0
+2026-07-24,L1,Serviette,10.0
+2026-07-24,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-24,L1,Frites,20.0
+2026-07-24,L1,Glacons,1.0
+2026-07-24,L2,Poke Bowl Salade,10.0
+2026-07-24,L2,Mozzarella,4.0
+2026-07-24,L2,Cheddar,1.0
+2026-07-24,L2,Riz Atlas M,16.0
+2026-07-24,L2,Riz Atlas Xl,20.0
+2026-07-24,L2,Edam,0.3
+2026-07-24,L2,Champignon,0.5
+2026-07-24,L2,Poulet Crousty,12.0
+2026-07-24,L2,Tomate cerise S,2.0
+2026-07-24,L2,Viande Hachée B,2.0
+2026-07-24,L2,Viande Haché Burger,50.0
+2026-07-24,L2,Laitue,2.0
+2026-07-24,L2,Poulet,10.0
+2026-07-24,L2,Tomate,1.5
+2026-07-24,L2,oignon,1.0
+2026-07-24,L2,Sauce Barbecue,1.0
+2026-07-24,L2,oignon Crunchy,2.5
+2026-07-24,L2,Sauce Fromagère,5.0
+2026-07-24,L2,Jalapenos,0.5
+2026-07-24,L2,Olive Noir,0.3
+2026-07-24,L2,Sauce Tartare,10.0
+2026-07-24,L2,Cornichons,0.4
+2026-07-24,L2,Sauce truffes,0.3
+2026-07-24,L2,Oreo entier (PS),1.0
+2026-07-24,L2,Sauce Biggy,1.0
+2026-07-24,L2,Sauce Algérienne,1.0
+2026-07-24,L2,Pain Burger,70.0
+2026-07-24,L2,Pate Pizza,45.0
+2026-07-24,L2,Pain Grec,56.0
+2026-07-24,L2,Pain Spécial,56.0
+2026-07-24,L2,tagliatelle,24.0
+2026-07-24,L2,Génoise,60.0
+2026-07-24,L2,Pain Tacos,1.0
+2026-07-24,L2,Mangue,20.0
+2026-07-24,L2,Yaourt Grec,10.0
+2026-07-24,L2,Pot de sauce Ket + May,100.0
+2026-07-24,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-25,L1,Poke Bowl Salade,8.0
+2026-07-25,L1,Mozzarella,6.0
+2026-07-25,L1,Riz Atlas M,6.0
+2026-07-25,L1,fromage parmesan,0.3
+2026-07-25,L1,Champignon,1.0
+2026-07-25,L1,Poulet Crousty,12.0
+2026-07-25,L1,Tomate cerise S,2.0
+2026-07-25,L1,Viande Hachée B,2.0
+2026-07-25,L1,Viande Haché Burger,10.0
+2026-07-25,L1,Laitue,1.0
+2026-07-25,L1,Poulet,14.0
+2026-07-25,L1,Tomate,1.0
+2026-07-25,L1,Beure,0.3
+2026-07-25,L1,oignon,0.5
+2026-07-25,L1,Sauce Tomate,4.0
+2026-07-25,L1,oignon Crunchy,1.0
+2026-07-25,L1,Sauce Fromagère,5.0
+2026-07-25,L1,Jalapenos,0.3
+2026-07-25,L1,Sauce Burger,2.0
+2026-07-25,L1,Olive Noir,0.3
+2026-07-25,L1,Sauce Tartare,5.0
+2026-07-25,L1,Sauce Biggy,1.0
+2026-07-25,L1,Sauce Algérienne,1.0
+2026-07-25,L1,Crème chocolat,2.0
+2026-07-25,L1,Crème caramel,2.0
+2026-07-25,L1,Pain Burger,36.0
+2026-07-25,L1,Fourchette,50.0
+2026-07-25,L1,Pate Pizza,60.0
+2026-07-25,L1,Pain Grec,60.0
+2026-07-25,L1,Cuillères,100.0
+2026-07-25,L1,Pain Spécial,44.0
+2026-07-25,L1,tagliatelle,10.0
+2026-07-25,L1,Papier Cuisine,2.0
+2026-07-25,L1,Mangue,10.0
+2026-07-25,L1,Yaourt Grec,10.0
+2026-07-25,L1,Pot de sauce Ket + May,100.0
+2026-07-25,L1,Serviette,10.0
+2026-07-25,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-25,L1,Huil de Table,10.0
+2026-07-25,L1,Sesam,0.3
+2026-07-25,L1,Frites,10.0
+2026-07-25,L1,Sachet Fourchette,1.0
+2026-07-25,L1,Sucre,5.0
+2026-07-25,L1,Souloufan,1.0
+2026-07-25,L1,Lait,4.0
+2026-07-25,L1,Pailles,1.0
+2026-07-25,L2,Poke Bowl Salade,10.0
+2026-07-25,L2,Mozzarella,6.0
+2026-07-25,L2,Sauce Salade,2.0
+2026-07-25,L2,Riz Atlas M,16.0
+2026-07-25,L2,Riz Atlas Xl,16.0
+2026-07-25,L2,Edam,0.3
+2026-07-25,L2,Champignon,1.0
+2026-07-25,L2,Poulet Crousty,20.0
+2026-07-25,L2,Tomate cerise S,4.0
+2026-07-25,L2,Viande Hachée B,2.0
+2026-07-25,L2,Viande Haché Burger,20.0
+2026-07-25,L2,Laitue,2.0
+2026-07-25,L2,Poulet,10.0
+2026-07-25,L2,Tomate,1.0
+2026-07-25,L2,oignon,0.5
+2026-07-25,L2,Sauce Tomate,2.0
+2026-07-25,L2,Sauce Barbecue,1.0
+2026-07-25,L2,oignon Crunchy,2.0
+2026-07-25,L2,Sauce Fromagère,10.0
+2026-07-25,L2,Jalapenos,0.5
+2026-07-25,L2,Sauce Burger,2.0
+2026-07-25,L2,Olive Noir,0.3
+2026-07-25,L2,Sauce Tartare,5.0
+2026-07-25,L2,Cornichons,0.4
+2026-07-25,L2,Sauce truffes,0.3
+2026-07-25,L2,Oreo entier (PS),1.0
+2026-07-25,L2,Sauce Biggy,1.0
+2026-07-25,L2,Crème chocolat,2.0
+2026-07-25,L2,Crème caramel,2.0
+2026-07-25,L2,Pain Burger,30.0
+2026-07-25,L2,Fourchette,50.0
+2026-07-25,L2,Pate Pizza,60.0
+2026-07-25,L2,Pain Grec,40.0
+2026-07-25,L2,Cuillères,100.0
+2026-07-25,L2,Pain Spécial,46.0
+2026-07-25,L2,tagliatelle,12.0
+2026-07-25,L2,Génoise,30.0
+2026-07-25,L2,Pain Tacos,1.0
+2026-07-25,L2,Mangue,20.0
+2026-07-25,L2,Yaourt Grec,10.0
+2026-07-25,L2,Pot de sauce Ket + May,100.0
+2026-07-25,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-25,L2,Frites,10.0
+2026-07-25,L2,Sachet Fourchette,1.0
+2026-07-25,L2,Souloufan,1.0
+2026-07-25,L2,Lait,4.0
+2026-07-25,L2,Pailles,1.0
+2026-07-26,L1,Mozzarella,5.0
+2026-07-26,L1,Cheddar,1.0
+2026-07-26,L1,Riz Atlas M,10.0
+2026-07-26,L1,Riz Atlas Xl,10.0
+2026-07-26,L1,Edam,0.3
+2026-07-26,L1,Champignon,0.5
+2026-07-26,L1,Poulet Crousty,12.0
+2026-07-26,L1,Tomate cerise S,2.0
+2026-07-26,L1,Viande Haché Burger,10.0
+2026-07-26,L1,Laitue,1.0
+2026-07-26,L1,Poulet,12.0
+2026-07-26,L1,Tomate,0.8
+2026-07-26,L1,Beure,0.3
+2026-07-26,L1,oignon,0.5
+2026-07-26,L1,Sauce Tomate,2.0
+2026-07-26,L1,oignon Crunchy,1.0
+2026-07-26,L1,Sauce Fromagère,10.0
+2026-07-26,L1,Sauce Piment,2.0
+2026-07-26,L1,Olive Noir,0.3
+2026-07-26,L1,Sauce Tartare,10.0
+2026-07-26,L1,Cornichons,0.3
+2026-07-26,L1,Crème chocolat,2.0
+2026-07-26,L1,Crème caramel,2.0
+2026-07-26,L1,Sachet Frite,300.0
+2026-07-26,L1,Pain Burger,50.0
+2026-07-26,L1,Fourchette,50.0
+2026-07-26,L1,Pate Pizza,45.0
+2026-07-26,L1,Pain Grec,36.0
+2026-07-26,L1,Cuillères,100.0
+2026-07-26,L1,Pain Spécial,36.0
+2026-07-26,L1,Génoise,50.0
+2026-07-26,L1,Pain Tacos,1.0
+2026-07-26,L1,Papier Cuisine,2.0
+2026-07-26,L1,Mangue,10.0
+2026-07-26,L1,Avocat,10.0
+2026-07-26,L1,Yaourt Grec,10.0
+2026-07-26,L1,Pot de sauce Ket + May,100.0
+2026-07-26,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-26,L2,Mozzarella,4.0
+2026-07-26,L2,Riz Atlas M,16.0
+2026-07-26,L2,fromage parmesan,0.3
+2026-07-26,L2,Riz Atlas Xl,16.0
+2026-07-26,L2,Edam,0.3
+2026-07-26,L2,Champignon,0.5
+2026-07-26,L2,Poulet Crousty,10.0
+2026-07-26,L2,Tomate cerise S,4.0
+2026-07-26,L2,Viande Hachée B,2.0
+2026-07-26,L2,Viande Haché Burger,30.0
+2026-07-26,L2,Poulet,12.0
+2026-07-26,L2,Tomate,2.0
+2026-07-26,L2,Sauce Tomate,2.0
+2026-07-26,L2,Sauce Barbecue,1.0
+2026-07-26,L2,oignon Crunchy,2.0
+2026-07-26,L2,Sauce Fromagère,10.0
+2026-07-26,L2,Jalapenos,0.5
+2026-07-26,L2,Sauce Burger,2.0
+2026-07-26,L2,Olive Noir,0.3
+2026-07-26,L2,Sauce Tartare,10.0
+2026-07-26,L2,Cornichons,0.5
+2026-07-26,L2,Épices Frite,1.0
+2026-07-26,L2,Sauce truffes,0.3
+2026-07-26,L2,Pain Burger,46.0
+2026-07-26,L2,Fourchette,50.0
+2026-07-26,L2,Pate Pizza,45.0
+2026-07-26,L2,Pain Grec,20.0
+2026-07-26,L2,Cuillères,100.0
+2026-07-26,L2,Pain Spécial,20.0
+2026-07-26,L2,tagliatelle,12.0
+2026-07-26,L2,Génoise,40.0
+2026-07-26,L2,Mangue,20.0
+2026-07-26,L2,Yaourt Grec,10.0
+2026-07-26,L2,Pot de sauce Ket + May,100.0
+2026-07-26,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-26,L2,Croutons,0.4
+2026-07-26,L2,Glacons,1.0
+2026-07-26,L2,Farine,1.0
+2026-07-27,L1,Mozzarella,5.0
+2026-07-27,L1,Riz Atlas M,20.0
+2026-07-27,L1,Riz Atlas Xl,20.0
+2026-07-27,L1,Champignon,0.6
+2026-07-27,L1,Poulet Crousty,20.0
+2026-07-27,L1,Viande Hachée B,2.0
+2026-07-27,L1,Viande Haché Burger,10.0
+2026-07-27,L1,Poulet,14.0
+2026-07-27,L1,Sauce Tomate,4.0
+2026-07-27,L1,Sauce Barbecue,1.0
+2026-07-27,L1,oignon Crunchy,1.0
+2026-07-27,L1,Sauce Fromagère,10.0
+2026-07-27,L1,Sauce Huil D'herbe,2.0
+2026-07-27,L1,Oreo entier (PS),1.0
+2026-07-27,L1,Sauce Biggy,1.0
+2026-07-27,L1,Sauce Algérienne,1.0
+2026-07-27,L1,Boite Pizza M,1.0
+2026-07-27,L1,Pain Burger,26.0
+2026-07-27,L1,Fourchette,50.0
+2026-07-27,L1,Pate Pizza,60.0
+2026-07-27,L1,Pain Grec,30.0
+2026-07-27,L1,Cuillères,100.0
+2026-07-27,L1,Pain Spécial,30.0
+2026-07-27,L1,tagliatelle,24.0
+2026-07-27,L1,Génoise,20.0
+2026-07-27,L1,Pain Tacos,1.0
+2026-07-27,L1,Mangue,20.0
+2026-07-27,L1,Citrons,10.0
+2026-07-27,L1,Yaourt Grec,10.0
+2026-07-27,L1,Pot de sauce Ket + May,100.0
+2026-07-27,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-27,L1,Huil de Table,20.0
+2026-07-27,L1,Croutons,0.4
+2026-07-27,L1,Glacons,1.0
+2026-07-27,L1,Farine,2.0
+2026-07-27,L1,Sucre,2.0
+2026-07-27,L1,Lait,2.0
+2026-07-27,L2,Poke Bowl Salade,10.0
+2026-07-27,L2,Mozzarella,4.0
+2026-07-27,L2,Cheddar,1.0
+2026-07-27,L2,Riz Atlas M,16.0
+2026-07-27,L2,Riz Atlas Xl,16.0
+2026-07-27,L2,Poulet Crousty,18.0
+2026-07-27,L2,Tomate cerise S,4.0
+2026-07-27,L2,Viande Hachée B,4.0
+2026-07-27,L2,Viande Haché Burger,60.0
+2026-07-27,L2,Laitue,2.0
+2026-07-27,L2,Poulet,12.0
+2026-07-27,L2,Tomate,1.0
+2026-07-27,L2,Beure,0.3
+2026-07-27,L2,oignon,0.8
+2026-07-27,L2,Sauce Tomate,4.0
+2026-07-27,L2,Sauce Barbecue,1.0
+2026-07-27,L2,oignon Crunchy,2.0
+2026-07-27,L2,Sauce Fromagère,10.0
+2026-07-27,L2,Jalapenos,0.3
+2026-07-27,L2,Sauce Tartare,5.0
+2026-07-27,L2,Cornichons,0.3
+2026-07-27,L2,Épices Frite,1.0
+2026-07-27,L2,Sauce truffes,0.3
+2026-07-27,L2,Sauce Algérienne,1.0
+2026-07-27,L2,Crème chocolat,3.0
+2026-07-27,L2,Crème caramel,3.0
+2026-07-27,L2,Sachet Emporté,400.0
+2026-07-27,L2,Pain Burger,50.0
+2026-07-27,L2,Fourchette,50.0
+2026-07-27,L2,Pate Pizza,45.0
+2026-07-27,L2,Pain Grec,26.0
+2026-07-27,L2,Cuillères,100.0
+2026-07-27,L2,Pain Spécial,40.0
+2026-07-27,L2,tagliatelle,12.0
+2026-07-27,L2,Mangue,20.0
+2026-07-27,L2,Yaourt Grec,10.0
+2026-07-27,L2,Pot de sauce Ket + May,100.0
+2026-07-27,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-27,L2,Huil de Table,5.0
+2026-07-27,L2,Croutons,0.5
+2026-07-27,L2,Glacons,1.0
+2026-07-27,L2,Sucre,4.0
+2026-07-27,L2,Souloufan,1.0
+2026-07-28,L1,Poke Bowl Salade,6.0
+2026-07-28,L1,Mozzarella,6.0
+2026-07-28,L1,Riz Atlas M,15.0
+2026-07-28,L1,fromage parmesan,0.3
+2026-07-28,L1,Edam,0.3
+2026-07-28,L1,Champignon,0.5
+2026-07-28,L1,Poulet Crousty,8.0
+2026-07-28,L1,Tomate cerise S,2.0
+2026-07-28,L1,Viande Hachée B,2.0
+2026-07-28,L1,Viande Haché Burger,10.0
+2026-07-28,L1,Poulet,10.0
+2026-07-28,L1,Tomate,0.5
+2026-07-28,L1,oignon,0.5
+2026-07-28,L1,Sauce Tomate,2.0
+2026-07-28,L1,Sauce Barbecue,1.0
+2026-07-28,L1,oignon Crunchy,2.0
+2026-07-28,L1,Sauce Fromagère,10.0
+2026-07-28,L1,Jalapenos,0.3
+2026-07-28,L1,Olive Noir,0.3
+2026-07-28,L1,Sauce Tartare,5.0
+2026-07-28,L1,Cornichons,0.3
+2026-07-28,L1,Sauce Biggy,1.0
+2026-07-28,L1,Sauce Algérienne,1.0
+2026-07-28,L1,Sachet Sandwich,300.0
+2026-07-28,L1,Sachet Frite,400.0
+2026-07-28,L1,Pain Burger,40.0
+2026-07-28,L1,Fourchette,50.0
+2026-07-28,L1,Pate Pizza,45.0
+2026-07-28,L1,Pain Grec,46.0
+2026-07-28,L1,Cuillères,100.0
+2026-07-28,L1,Pain Spécial,46.0
+2026-07-28,L1,Gobelet Jus,200.0
+2026-07-28,L1,tagliatelle,12.0
+2026-07-28,L1,Génoise,30.0
+2026-07-28,L1,Pain Tacos,20.0
+2026-07-28,L1,Papier Cuisine,2.0
+2026-07-28,L1,Sachet Burger,400.0
+2026-07-28,L1,Citrons,10.0
+2026-07-28,L1,Yaourt Grec,10.0
+2026-07-28,L1,Pot de sauce Ket + May,100.0
+2026-07-28,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-28,L1,Huil de Table,10.0
+2026-07-28,L1,Glacons,1.0
+2026-07-28,L1,Pailles,1.0
+2026-07-28,L2,Poke Bowl Salade,10.0
+2026-07-28,L2,Mozzarella,6.0
+2026-07-28,L2,Riz Atlas M,16.0
+2026-07-28,L2,Riz Atlas Xl,16.0
+2026-07-28,L2,Edam,0.3
+2026-07-28,L2,Poulet Crousty,8.0
+2026-07-28,L2,Tomate cerise S,2.0
+2026-07-28,L2,Viande Hachée B,2.0
+2026-07-28,L2,Viande Haché Burger,20.0
+2026-07-28,L2,Poulet,20.0
+2026-07-28,L2,Tomate,1.5
+2026-07-28,L2,oignon,0.8
+2026-07-28,L2,Sauce Barbecue,1.0
+2026-07-28,L2,oignon Crunchy,3.0
+2026-07-28,L2,Sauce Fromagère,5.0
+2026-07-28,L2,Jalapenos,0.3
+2026-07-28,L2,Olive Noir,0.4
+2026-07-28,L2,Cornichons,0.89
+2026-07-28,L2,Sauce Biggy,1.0
+2026-07-28,L2,Sauce Algérienne,1.0
+2026-07-28,L2,Boite Pizza M,1.0
+2026-07-28,L2,Crème chocolat,3.0
+2026-07-28,L2,Sachet Sandwich,300.0
+2026-07-28,L2,Crème caramel,3.0
+2026-07-28,L2,Sachet Emporté,300.0
+2026-07-28,L2,Sachet Frite,300.0
+2026-07-28,L2,Pain Burger,70.0
+2026-07-28,L2,Fourchette,50.0
+2026-07-28,L2,Pate Pizza,45.0
+2026-07-28,L2,Bowl Pasta,1.0
+2026-07-28,L2,Pain Grec,30.0
+2026-07-28,L2,Cuillères,100.0
+2026-07-28,L2,Pain Spécial,36.0
+2026-07-28,L2,Gobelet Jus,300.0
+2026-07-28,L2,tagliatelle,12.0
+2026-07-28,L2,Génoise,60.0
+2026-07-28,L2,Papier Cuisine,2.0
+2026-07-28,L2,Mangue,40.0
+2026-07-28,L2,Sachet Burger,200.0
+2026-07-28,L2,Citrons,5.0
+2026-07-28,L2,Yaourt Grec,10.0
+2026-07-28,L2,Pot de sauce Ket + May,100.0
+2026-07-28,L2,Serviette,10.0
+2026-07-28,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-28,L2,Huil de Table,10.0
+2026-07-28,L2,Croutons,0.3
+2026-07-28,L2,Glacons,1.0
+2026-07-29,L1,Poke Bowl Salade,10.0
+2026-07-29,L1,Mozzarella,6.0
+2026-07-29,L1,Riz Atlas M,8.0
+2026-07-29,L1,Riz Atlas Xl,12.0
+2026-07-29,L1,Edam,0.3
+2026-07-29,L1,Champignon,0.5
+2026-07-29,L1,Poulet Crousty,18.0
+2026-07-29,L1,Tomate cerise S,2.0
+2026-07-29,L1,Viande Haché Burger,24.0
+2026-07-29,L1,Laitue,1.0
+2026-07-29,L1,Poulet,16.0
+2026-07-29,L1,Tomate,1.0
+2026-07-29,L1,oignon,0.5
+2026-07-29,L1,Sauce Tomate,2.0
+2026-07-29,L1,oignon Crunchy,1.0
+2026-07-29,L1,Sauce Fromagère,5.0
+2026-07-29,L1,Olive Noir,0.3
+2026-07-29,L1,Sauce Tartare,5.0
+2026-07-29,L1,Sauce truffes,0.3
+2026-07-29,L1,Sauce Biggy,1.0
+2026-07-29,L1,Crème chocolat,2.0
+2026-07-29,L1,Crème caramel,3.0
+2026-07-29,L1,Pain Burger,56.0
+2026-07-29,L1,Fourchette,50.0
+2026-07-29,L1,Pate Pizza,75.0
+2026-07-29,L1,Pain Grec,28.0
+2026-07-29,L1,Cuillères,100.0
+2026-07-29,L1,Pain Spécial,30.0
+2026-07-29,L1,tagliatelle,12.0
+2026-07-29,L1,Génoise,16.0
+2026-07-29,L1,Pain Tacos,1.0
+2026-07-29,L1,Mangue,10.0
+2026-07-29,L1,Avocat,10.0
+2026-07-29,L1,Pot de sauce Ket + May,100.0
+2026-07-29,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-29,L1,Huil de Table,20.0
+2026-07-29,L1,Glacons,1.0
+2026-07-29,L1,Pailles,2.0
+2026-07-29,L2,Poke Bowl Salade,16.0
+2026-07-29,L2,Mozzarella,4.0
+2026-07-29,L2,Cheddar,1.0
+2026-07-29,L2,Riz Atlas M,20.0
+2026-07-29,L2,Riz Atlas Xl,20.0
+2026-07-29,L2,Champignon,1.0
+2026-07-29,L2,Poulet Crousty,14.0
+2026-07-29,L2,Viande Hachée B,2.0
+2026-07-29,L2,Laitue,2.0
+2026-07-29,L2,Poulet,16.0
+2026-07-29,L2,Tomate,1.5
+2026-07-29,L2,Sauce Tomate,2.0
+2026-07-29,L2,Sauce Barbecue,1.0
+2026-07-29,L2,oignon Crunchy,2.0
+2026-07-29,L2,Sauce Fromagère,10.0
+2026-07-29,L2,Jalapenos,0.4
+2026-07-29,L2,Sauce Piment,2.0
+2026-07-29,L2,Sauce Burger,2.0
+2026-07-29,L2,Olive Noir,0.3
+2026-07-29,L2,Sauce Tartare,10.0
+2026-07-29,L2,Cornichons,0.4
+2026-07-29,L2,Oreo entier (PS),1.0
+2026-07-29,L2,Sauce Biggy,1.0
+2026-07-29,L2,Sauce Algérienne,1.0
+2026-07-29,L2,Crème chocolat,2.0
+2026-07-29,L2,Crème caramel,2.0
+2026-07-29,L2,Pain Burger,34.0
+2026-07-29,L2,Fourchette,50.0
+2026-07-29,L2,Pate Pizza,45.0
+2026-07-29,L2,Pain Grec,56.0
+2026-07-29,L2,Cuillères,100.0
+2026-07-29,L2,Pain Spécial,50.0
+2026-07-29,L2,tagliatelle,24.0
+2026-07-29,L2,Génoise,30.0
+2026-07-29,L2,Pain Tacos,1.0
+2026-07-29,L2,Mangue,10.0
+2026-07-29,L2,Avocat,10.0
+2026-07-29,L2,Yaourt Grec,10.0
+2026-07-29,L2,Pot de sauce Ket + May,100.0
+2026-07-29,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-29,L2,Huil de Table,5.0
+2026-07-29,L2,Farine,1.0
+2026-07-30,L1,Poke Bowl Salade,6.0
+2026-07-30,L1,Mozzarella,3.0
+2026-07-30,L1,Sauce Salade,2.0
+2026-07-30,L1,Cheddar,1.0
+2026-07-30,L1,Riz Atlas M,30.0
+2026-07-30,L1,Riz Atlas Xl,30.0
+2026-07-30,L1,Champignon,0.8
+2026-07-30,L1,Poulet Crousty,6.0
+2026-07-30,L1,Tomate cerise S,2.0
+2026-07-30,L1,Viande Hachée B,2.0
+2026-07-30,L1,Viande Haché Burger,10.0
+2026-07-30,L1,Laitue,1.0
+2026-07-30,L1,Poulet,16.0
+2026-07-30,L1,Tomate,1.0
+2026-07-30,L1,Beure,0.3
+2026-07-30,L1,oignon,0.8
+2026-07-30,L1,Sauce Tomate,2.0
+2026-07-30,L1,oignon Crunchy,2.0
+2026-07-30,L1,Sauce Fromagère,5.0
+2026-07-30,L1,Jalapenos,0.3
+2026-07-30,L1,Sauce Tartare,5.0
+2026-07-30,L1,Cornichons,0.4
+2026-07-30,L1,Épices Frite,1.0
+2026-07-30,L1,Oreo entier (PS),1.0
+2026-07-30,L1,Sauce Biggy,1.0
+2026-07-30,L1,Sauce Algérienne,2.0
+2026-07-30,L1,Boite Pizza M,1.0
+2026-07-30,L1,Crème chocolat,4.0
+2026-07-30,L1,Sachet Sandwich,300.0
+2026-07-30,L1,Crème caramel,4.0
+2026-07-30,L1,Pain Burger,34.0
+2026-07-30,L1,Fourchette,50.0
+2026-07-30,L1,Pate Pizza,60.0
+2026-07-30,L1,Bowl Pasta,50.0
+2026-07-30,L1,Pain Grec,60.0
+2026-07-30,L1,Cuillères,100.0
+2026-07-30,L1,Pain Spécial,54.0
+2026-07-30,L1,tagliatelle,24.0
+2026-07-30,L1,Génoise,40.0
+2026-07-30,L1,Pain Tacos,1.0
+2026-07-30,L1,Mangue,10.0
+2026-07-30,L1,Citrons,10.0
+2026-07-30,L1,Yaourt Grec,6.0
+2026-07-30,L1,Pot de sauce Ket + May,40.0
+2026-07-30,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-30,L1,Huil de Table,10.0
+2026-07-30,L1,Glacons,1.0
+2026-07-30,L1,Farine,20.0
+2026-07-30,L1,Lait,2.0
+2026-07-30,L2,Poke Bowl Salade,20.0
+2026-07-30,L2,Mozzarella,5.0
+2026-07-30,L2,Sauce Salade,2.0
+2026-07-30,L2,Cheddar,1.0
+2026-07-30,L2,Riz Atlas M,40.0
+2026-07-30,L2,Riz Atlas Xl,30.0
+2026-07-30,L2,Edam,0.3
+2026-07-30,L2,Champignon,0.8
+2026-07-30,L2,Poulet Crousty,16.0
+2026-07-30,L2,Tomate cerise S,2.0
+2026-07-30,L2,Viande Haché Burger,30.0
+2026-07-30,L2,Laitue,1.8
+2026-07-30,L2,Poulet,12.0
+2026-07-30,L2,Tomate,1.0
+2026-07-30,L2,oignon,0.8
+2026-07-30,L2,Sauce Tomate,4.0
+2026-07-30,L2,Sauce Barbecue,1.0
+2026-07-30,L2,oignon Crunchy,3.0
+2026-07-30,L2,Sauce Fromagère,5.0
+2026-07-30,L2,Jalapenos,0.4
+2026-07-30,L2,Olive Noir,0.5
+2026-07-30,L2,Sauce Tartare,5.0
+2026-07-30,L2,Cornichons,1.0
+2026-07-30,L2,Épices Frite,1.0
+2026-07-30,L2,Oreo entier (PS),1.0
+2026-07-30,L2,Crème chocolat,4.0
+2026-07-30,L2,Crème caramel,4.0
+2026-07-30,L2,Pain Burger,50.0
+2026-07-30,L2,Fourchette,50.0
+2026-07-30,L2,Pate Pizza,45.0
+2026-07-30,L2,Bowl Pasta,50.0
+2026-07-30,L2,Pain Grec,50.0
+2026-07-30,L2,Cuillères,100.0
+2026-07-30,L2,Pain Spécial,54.0
+2026-07-30,L2,tagliatelle,24.0
+2026-07-30,L2,Génoise,60.0
+2026-07-30,L2,Pain Tacos,1.0
+2026-07-30,L2,Mangue,20.0
+2026-07-30,L2,Citrons,10.0
+2026-07-30,L2,Yaourt Grec,10.0
+2026-07-30,L2,Pot de sauce Ket + May,100.0
+2026-07-30,L2,Serviette,10.0
+2026-07-30,L2,Pot de sauce Biggy + Alg,100.0
+2026-07-30,L2,Huil de Table,10.0
+2026-07-30,L2,Sesam,0.4
+2026-07-30,L2,Croutons,0.4
+2026-07-30,L2,Glacons,1.0
+2026-07-30,L2,Lait,3.0
+2026-07-31,L1,Poke Bowl Salade,10.0
+2026-07-31,L1,Cheddar,1.0
+2026-07-31,L1,Riz Atlas M,10.0
+2026-07-31,L1,fromage parmesan,0.3
+2026-07-31,L1,Riz Atlas Xl,10.0
+2026-07-31,L1,Edam,0.3
+2026-07-31,L1,Champignon,1.0
+2026-07-31,L1,Poulet Crousty,14.0
+2026-07-31,L1,Tomate cerise S,2.0
+2026-07-31,L1,Viande Hachée B,2.0
+2026-07-31,L1,Viande Haché Burger,10.0
+2026-07-31,L1,Laitue,1.5
+2026-07-31,L1,Poulet,12.0
+2026-07-31,L1,Tomate,0.6
+2026-07-31,L1,oignon,0.4
+2026-07-31,L1,Sauce Tomate,2.0
+2026-07-31,L1,Sauce Barbecue,1.0
+2026-07-31,L1,oignon Crunchy,2.0
+2026-07-31,L1,Sauce Fromagère,10.0
+2026-07-31,L1,Jalapenos,0.4
+2026-07-31,L1,Sauce Piment,2.0
+2026-07-31,L1,Sauce Burger,2.0
+2026-07-31,L1,Sauce Tartare,5.0
+2026-07-31,L1,Cornichons,0.4
+2026-07-31,L1,Épices Frite,1.0
+2026-07-31,L1,Sauce Algérienne,1.0
+2026-07-31,L1,Finot,10.0
+2026-07-31,L1,Pain Burger,70.0
+2026-07-31,L1,Bowl Pasta,50.0
+2026-07-31,L1,Pain Grec,34.0
+2026-07-31,L1,Pain Spécial,40.0
+2026-07-31,L1,Génoise,60.0
+2026-07-31,L1,Pain Tacos,1.0
+2026-07-31,L1,Mangue,20.0
+2026-07-31,L1,Sachet Burger,300.0
+2026-07-31,L1,Pot de sauce Biggy + Alg,100.0
+2026-07-31,L1,Croutons,0.4
+2026-07-31,L1,Hot Sauce,1.0
+2026-07-31,L1,Glacons,1.0
+2026-07-31,L1,Farine,10.0
+2026-07-31,L1,Sucre,4.0
+2026-07-31,L1,Lait,3.0
+2026-07-31,L2,Poke Bowl Salade,10.0
+2026-07-31,L2,Cheddar,1.0
+2026-07-31,L2,Champignon,1.0
+2026-07-31,L2,Poulet Crousty,14.0
+2026-07-31,L2,Viande Hachée B,2.0
+2026-07-31,L2,Viande Haché Burger,40.0
+2026-07-31,L2,Poulet,14.0
+2026-07-31,L2,Sauce Barbecue,1.0
+2026-07-31,L2,Sauce Fromagère,10.0
+2026-07-31,L2,Jalapenos,0.3
+2026-07-31,L2,Olive Noir,0.3
+2026-07-31,L2,Sauce Tartare,10.0
+2026-07-31,L2,Cornichons,0.4
+2026-07-31,L2,Oreo entier (PS),1.0
+2026-07-31,L2,Sauce Biggy,1.0
+2026-07-31,L2,Sauce Algérienne,1.0
+2026-07-31,L2,Crème chocolat,3.0
+2026-07-31,L2,Crème caramel,3.0
+2026-07-31,L2,Pain Burger,70.0
+2026-07-31,L2,Fourchette,50.0
+2026-07-31,L2,Pate Pizza,45.0
+2026-07-31,L2,Pain Grec,26.0
+2026-07-31,L2,Cuillères,100.0
+2026-07-31,L2,Pain Spécial,20.0
+2026-07-31,L2,tagliatelle,24.0
+2026-07-31,L2,Pain Tacos,1.0
+2026-07-31,L2,Mangue,30.0
+2026-07-31,L2,Citrons,10.0
+2026-07-31,L2,Yaourt Grec,100.0
+2026-07-31,L2,Pot de sauce Ket + May,100.0
+2026-07-31,L2,Glacons,1.0
+2026-07-31,L2,Farine,10.0
+2026-08-01,L1,Mozzarella,4.0
+2026-08-01,L1,Cheddar,1.0
+2026-08-01,L1,Riz Atlas M,15.0
+2026-08-01,L1,Riz Atlas Xl,15.0
+2026-08-01,L1,Edam,0.3
+2026-08-01,L1,Poulet Crousty,14.0
+2026-08-01,L1,Tomate cerise S,2.0
+2026-08-01,L1,Viande Hachée B,3.0
+2026-08-01,L1,Viande Haché Burger,10.0
+2026-08-01,L1,Poulet,14.0
+2026-08-01,L1,Beure,0.3
+2026-08-01,L1,Sauce Tomate,2.0
+2026-08-01,L1,Sauce Barbecue,1.0
+2026-08-01,L1,Sauce Fromagère,5.0
+2026-08-01,L1,Jalapenos,0.3
+2026-08-01,L1,Olive Noir,0.3
+2026-08-01,L1,Sauce Tartare,5.0
+2026-08-01,L1,Cornichons,0.3
+2026-08-01,L1,Sauce truffes,0.3
+2026-08-01,L1,Oreo entier (PS),1.0
+2026-08-01,L1,Sauce Biggy,1.0
+2026-08-01,L1,tagliatelle,24.0
+2026-08-01,L1,Pain Tacos,1.0
+2026-08-01,L1,Papier Cuisine,2.0
+2026-08-01,L1,Citrons,10.0
+2026-08-01,L1,Pot de sauce Ket + May,100.0
+2026-08-01,L1,Huil de Table,10.0
+2026-08-01,L1,Glacons,1.0
+2026-08-01,L1,Farine,10.0
+2026-08-01,L1,Lait,2.0
+2026-08-01,L1,Pailles,2.0
+2026-08-01,L2,Poke Bowl Salade,20.0
+2026-08-01,L2,Sauce Salade,2.0
+2026-08-01,L2,Riz Atlas M,16.0
+2026-08-01,L2,fromage parmesan,0.3
+2026-08-01,L2,Edam,0.3
+2026-08-01,L2,Champignon,0.3
+2026-08-01,L2,Poulet Crousty,20.0
+2026-08-01,L2,Tomate cerise S,2.0
+2026-08-01,L2,Viande Hachée B,2.0
+2026-08-01,L2,Viande Haché Burger,30.0
+2026-08-01,L2,Poulet,12.0
+2026-08-01,L2,Sauce Tomate,2.0
+2026-08-01,L2,Sauce Barbecue,1.0
+2026-08-01,L2,oignon Crunchy,3.0
+2026-08-01,L2,Sauce Fromagère,5.0
+2026-08-01,L2,Sauce Burger,2.0
+2026-08-01,L2,Olive Noir,0.3
+2026-08-01,L2,Sauce Tartare,5.0
+2026-08-01,L2,Sauce Biggy,1.0
+2026-08-01,L2,Sauce Algérienne,1.0
+2026-08-01,L2,Crème chocolat,3.0
+2026-08-01,L2,tagliatelle,24.0
+2026-08-01,L2,Pain Tacos,1.0
+2026-08-01,L2,Papier Cuisine,2.0
+2026-08-01,L2,Avocat,10.0
+2026-08-01,L2,Pot de sauce Ket + May,100.0
+2026-08-01,L2,Pot de sauce Biggy + Alg,100.0
+2026-08-01,L2,Croutons,0.5
+2026-08-02,L1,Poke Bowl Salade,10.0
+2026-08-02,L1,Mozzarella,6.0
+2026-08-02,L1,Riz Atlas M,10.0
+2026-08-02,L1,fromage parmesan,0.3
+2026-08-02,L1,Riz Atlas Xl,16.0
+2026-08-02,L1,Edam,0.3
+2026-08-02,L1,Champignon,0.6
+2026-08-02,L1,Poulet Crousty,16.0
+2026-08-02,L1,Viande Haché Burger,30.0
+2026-08-02,L1,Laitue,1.5
+2026-08-02,L1,Poulet,16.0
+2026-08-02,L1,Tomate,1.5
+2026-08-02,L1,oignon,1.0
+2026-08-02,L1,Sauce Tomate,2.0
+2026-08-02,L1,oignon Crunchy,3.0
+2026-08-02,L1,Sauce Fromagère,10.0
+2026-08-02,L1,Jalapenos,0.3
+2026-08-02,L1,Sauce Burger,2.0
+2026-08-02,L1,Olive Noir,0.3
+2026-08-02,L1,Sauce Tartare,10.0
+2026-08-02,L1,Cornichons,0.4
+2026-08-02,L1,Oreo entier (PS),1.0
+2026-08-02,L1,Boite Pizza M,1.0
+2026-08-02,L1,Crème chocolat,3.0
+2026-08-02,L1,Crème caramel,3.0
+2026-08-02,L1,Fourchette,50.0
+2026-08-02,L1,Cuillères,100.0
+2026-08-02,L1,Gobelet Jus,200.0
+2026-08-02,L1,tagliatelle,12.0
+2026-08-02,L1,Génoise,40.0
+2026-08-02,L1,Pain Tacos,1.0
+2026-08-02,L1,Mangue,10.0
+2026-08-02,L1,Citrons,10.0
+2026-08-02,L1,Yaourt Grec,16.0
+2026-08-02,L1,Pot de sauce Ket + May,100.0
+2026-08-02,L1,Serviette,10.0
+2026-08-02,L1,Pot de sauce Biggy + Alg,100.0
+2026-08-02,L1,Sesam,0.4
+2026-08-02,L1,Farine,10.0
+2026-08-02,L2,Poke Bowl Salade,20.0
+2026-08-02,L2,Mozzarella,6.0
+2026-08-02,L2,Cheddar,1.0
+2026-08-02,L2,Riz Atlas M,30.0
+2026-08-02,L2,Riz Atlas Xl,30.0
+2026-08-02,L2,Edam,0.3
+2026-08-02,L2,Champignon,0.8
+2026-08-02,L2,Poulet Crousty,18.0
+2026-08-02,L2,Tomate cerise S,4.0
+2026-08-02,L2,Viande Hachée B,4.0
+2026-08-02,L2,Viande Haché Burger,30.0
+2026-08-02,L2,Laitue,1.5
+2026-08-02,L2,Poulet,12.0
+2026-08-02,L2,Tomate,2.0
+2026-08-02,L2,oignon,1.0
+2026-08-02,L2,Sauce Tomate,2.0
+2026-08-02,L2,Sauce Barbecue,1.0
+2026-08-02,L2,oignon Crunchy,3.0
+2026-08-02,L2,Sauce Fromagère,10.0
+2026-08-02,L2,Jalapenos,0.5
+2026-08-02,L2,Sauce Piment,2.0
+2026-08-02,L2,Sauce Burger,2.0
+2026-08-02,L2,Olive Noir,0.5
+2026-08-02,L2,Sauce Tartare,15.0
+2026-08-02,L2,Cornichons,1.0
+2026-08-02,L2,Sauce truffes,0.3
+2026-08-02,L2,Sauce Biggy,1.0
+2026-08-02,L2,Sauce Algérienne,1.0
+2026-08-02,L2,Crème chocolat,2.0
+2026-08-02,L2,Crème caramel,2.0
+2026-08-02,L2,Sachet Emporté,300.0
+2026-08-02,L2,Sachet Frite,300.0
+2026-08-02,L2,Fourchette,50.0
+2026-08-02,L2,Cuillères,100.0
+2026-08-02,L2,Gobelet Jus,200.0
+2026-08-02,L2,Génoise,66.0
+2026-08-02,L2,Pain Tacos,1.0
+2026-08-02,L2,Mangue,40.0
+2026-08-02,L2,Savon Lave Main,1.0
+2026-08-02,L2,Citrons,10.0
+2026-08-02,L2,Set de Table,2.0
+2026-08-02,L2,Yaourt Grec,20.0
+2026-08-02,L2,Pot de sauce Ket + May,100.0
+2026-08-02,L2,Serviette,10.0
+2026-08-02,L2,Pot de sauce Biggy + Alg,100.0
+2026-08-02,L2,Huil de Table,10.0
+2026-08-02,L2,Farine,10.0
+2026-08-02,L2,Sucre,2.0
+2026-08-02,L2,Lait,2.0
+2026-08-02,L2,Pailles,2.0
+2026-08-03,L1,Poke Bowl Salade,10.0
+2026-08-03,L1,Riz Atlas M,14.0
+2026-08-03,L1,fromage parmesan,0.3
+2026-08-03,L1,Riz Atlas Xl,14.0
+2026-08-03,L1,Champignon,0.5
+2026-08-03,L1,Poulet Crousty,16.0
+2026-08-03,L1,Tomate cerise S,2.0
+2026-08-03,L1,Viande Hachée B,2.0
+2026-08-03,L1,Viande Haché Burger,10.0
+2026-08-03,L1,Poulet,14.0
+2026-08-03,L1,Beure,0.3
+2026-08-03,L1,oignon,0.8
+2026-08-03,L1,Cornichons,0.3
+2026-08-03,L1,Sauce Biggy,1.0
+2026-08-03,L1,Crème chocolat,2.0
+2026-08-03,L1,Sachet Sandwich,400.0
+2026-08-03,L1,Crème caramel,2.0
+2026-08-03,L1,Sachet Emporté,400.0
+2026-08-03,L1,Finot,10.0
+2026-08-03,L1,Sachet Frite,400.0
+2026-08-03,L1,Pain Burger,44.0
+2026-08-03,L1,Fourchette,50.0
+2026-08-03,L1,Pate Pizza,60.0
+2026-08-03,L1,Bowl Pasta,100.0
+2026-08-03,L1,Pain Grec,56.0
+2026-08-03,L1,Cuillères,100.0
+2026-08-03,L1,Pain Spécial,50.0
+2026-08-03,L1,tagliatelle,24.0
+2026-08-03,L1,Génoise,30.0
+2026-08-03,L1,Pain Tacos,1.0
+2026-08-03,L1,Papier Cuisine,2.0
+2026-08-03,L1,Mangue,20.0
+2026-08-03,L1,Sachet Burger,100.0
+2026-08-03,L1,Savon Lave Main,1.0
+2026-08-03,L1,Set de Table,1.0
+2026-08-03,L1,Pot de sauce Ket + May,100.0
+2026-08-03,L1,Serviette,10.0
+2026-08-03,L1,Pot de sauce Biggy + Alg,100.0
+2026-08-03,L1,Croutons,0.4
+2026-08-03,L1,Hot Sauce,1.0
+2026-08-03,L2,Poke Bowl Salade,20.0
+2026-08-03,L2,Cheddar,1.0
+2026-08-03,L2,Riz Atlas M,14.0
+2026-08-03,L2,fromage parmesan,0.3
+2026-08-03,L2,Riz Atlas Xl,14.0
+2026-08-03,L2,Edam,0.3
+2026-08-03,L2,Champignon,1.0
+2026-08-03,L2,Poulet Crousty,18.0
+2026-08-03,L2,Tomate cerise S,4.0
+2026-08-03,L2,Viande Hachée B,2.0
+2026-08-03,L2,Viande Haché Burger,60.0
+2026-08-03,L2,Poulet,16.0
+2026-08-03,L2,Tomate,3.0
+2026-08-03,L2,oignon,1.5
+2026-08-03,L2,Sauce Tomate,2.0
+2026-08-03,L2,Sauce Barbecue,1.0
+2026-08-03,L2,oignon Crunchy,4.0
+2026-08-03,L2,Jalapenos,0.3
+2026-08-03,L2,Sauce Piment,1.0
+2026-08-03,L2,Sauce Burger,4.0
+2026-08-03,L2,Olive Noir,0.4
+2026-08-03,L2,Sauce Tartare,5.0
+2026-08-03,L2,Cornichons,0.8
+2026-08-03,L2,Oreo entier (PS),1.0
+2026-08-03,L2,Sauce Biggy,1.0
+2026-08-03,L2,Sauce Algérienne,1.0
+2026-08-03,L2,Crème chocolat,2.0
+2026-08-03,L2,Crème caramel,4.0
+2026-08-03,L2,Sachet Emporté,400.0
+2026-08-03,L2,Finot,10.0
+2026-08-03,L2,Pain Burger,70.0
+2026-08-03,L2,Fourchette,50.0
+2026-08-03,L2,Pate Pizza,45.0
+2026-08-03,L2,Bowl Pasta,100.0
+2026-08-03,L2,Pain Grec,56.0
+2026-08-03,L2,Cuillères,100.0
+2026-08-03,L2,Pain Spécial,42.0
+2026-08-03,L2,tagliatelle,12.0
+2026-08-03,L2,Génoise,60.0
+2026-08-03,L2,Pain Tacos,1.0
+2026-08-03,L2,Mangue,20.0
+2026-08-03,L2,Pot de sauce Ket + May,100.0
+2026-08-03,L2,Pot de sauce Biggy + Alg,100.0
+2026-08-03,L2,Farine,10.0
