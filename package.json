@@ -19,7 +19,7 @@
     "prisma:migrate": "prisma migrate deploy",
     "prisma:migrate:dev": "prisma migrate dev",
     "job:nightly": "node jobs/nightly.js",
-    "build:frontend": "npm --prefix frontend install && npm --prefix frontend run build"
+    "build:frontend": "npm --prefix frontend install --include=dev && npm --prefix frontend run build"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
