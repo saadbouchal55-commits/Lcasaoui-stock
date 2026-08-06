@@ -24,8 +24,34 @@ const CAT_MAP = { ingredient: 'INGREDIENT', packaging: 'PACKAGING', sold_as_is: 
 const FRITES_FRIED_G = 150;
 const EPICES_FRITE_G = 5;
 
+// Full wipe of ALL app data (used by `npm run seed:reset`). Deletes children
+// before parents so foreign keys don't block. DESTRUCTIVE — test data only.
+async function wipeAll() {
+  console.log('  RESET: deleting all existing data…');
+  await prisma.orderLine.deleteMany({});
+  await prisma.orderSuggestion.deleteMany({});
+  await prisma.stockMovement.deleteMany({});
+  await prisma.countLine.deleteMany({});
+  await prisma.salesLine.deleteMany({});
+  await prisma.wasteDeclaration.deleteMany({});
+  await prisma.recipeLine.deleteMany({});
+  await prisma.recipeVersion.deleteMany({});
+  await prisma.recipe.deleteMany({});
+  await prisma.posMapping.deleteMany({});
+  await prisma.buffer.deleteMany({});
+  await prisma.dailyEntry.deleteMany({});
+  await prisma.auditLog.deleteMany({});
+  await prisma.session.deleteMany({});
+  await prisma.user.deleteMany({});
+  await prisma.dish.deleteMany({});
+  await prisma.item.deleteMany({});
+  await prisma.location.deleteMany({});
+}
+
 async function main() {
-  console.log('Seeding L\'Casaoui stock tool…');
+  const RESET = process.argv.includes('--reset');
+  console.log(RESET ? 'RESETTING + reseeding L\'Casaoui stock tool…' : 'Seeding L\'Casaoui stock tool…');
+  if (RESET) await wipeAll();
 
   // ── 1. Locations ────────────────────────────────────────────────────────────
   const L1 = await prisma.location.upsert({ where: { code: 'L1' }, update: { name: 'Narjiss' }, create: { code: 'L1', name: 'Narjiss' } });

@@ -14,6 +14,7 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "seed": "node prisma/seed.js",
+    "seed:reset": "node prisma/seed.js --reset",
     "test": "node --test",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
