@@ -293,9 +293,10 @@ router.get(
     const location = await prisma.location.findUnique({ where: { id: locationId } });
 
     // Items actually being ordered (qty > 0), food + packaging, with zone info.
+    // Packaging has no system suggestion, so its "Suggéré" is left blank.
     const lines = [];
-    for (const f of view.food) if (f.orderedQty > 0) lines.push({ name: f.name, qty: f.orderedQty, unit: UNIT_FR[f.unit] || f.unit, storageZone: f.storageZone, subCategory: f.subCategory });
-    for (const p of view.packaging) if ((p.orderedQty ?? 0) > 0) lines.push({ name: p.name, qty: p.orderedQty, unit: UNIT_FR[p.unit] || p.unit, storageZone: p.storageZone, subCategory: p.subCategory });
+    for (const f of view.food) if (f.orderedQty > 0) lines.push({ name: f.name, unit: UNIT_FR[f.unit] || f.unit, suggested: f.suggestedQty, ordered: f.orderedQty, storageZone: f.storageZone, subCategory: f.subCategory });
+    for (const p of view.packaging) if ((p.orderedQty ?? 0) > 0) lines.push({ name: p.name, unit: UNIT_FR[p.unit] || p.unit, suggested: '', ordered: p.orderedQty, storageZone: p.storageZone, subCategory: p.subCategory });
 
     const groups = groupByZoneSub(lines);
     const versionLabel = `${version === 'sent' ? t('bon.sent') : t('bon.proposed')} (${t(`orderStatus.${view.status}`)})`;
@@ -324,18 +325,17 @@ router.get(
 
     // The production/order manager gets a clean picking sheet: no "Explication",
     // plus an empty column to write what was actually sent by hand. Direction
-    // keeps the full sheet with the explanation.
+    // keeps the full sheet with the explanation. (No "Type" column — redundant.)
     const isOrderMgr = req.user.role === 'ORDER_MANAGER';
 
     const rows = [
-      ...view.food.map((r) => ({ type: t('orders.food'), name: r.name, unit: r.unit, suggestedQty: r.suggestedQty, orderedQty: r.orderedQty, note: r.reason, actualSent: '' })),
+      ...view.food.map((r) => ({ name: r.name, unit: r.unit, suggestedQty: r.suggestedQty, orderedQty: r.orderedQty, note: r.reason, actualSent: '' })),
       ...view.packaging
         .filter((r) => r.orderedQty != null && r.orderedQty > 0)
-        .map((r) => ({ type: t('orders.packaging'), name: r.name, unit: r.unit, suggestedQty: '', orderedQty: r.orderedQty, note: `hint moy. ${r.hintAvg}`, actualSent: '' })),
+        .map((r) => ({ name: r.name, unit: r.unit, suggestedQty: '', orderedQty: r.orderedQty, note: `hint moy. ${r.hintAvg}`, actualSent: '' })),
     ];
 
     const columns = [
-      { key: 'type', header: 'Type' },
       { key: 'name', header: t('common.item'), width: 24 },
       { key: 'unit', header: t('common.unit') },
       { key: 'suggestedQty', header: t('orders.suggested') },
