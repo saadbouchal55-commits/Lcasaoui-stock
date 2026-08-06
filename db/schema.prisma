@@ -194,6 +194,10 @@ model OrderSuggestion {
   createdAt   DateTime    @default(now())
   lines       OrderLine[]
   @@unique([locationId, date, seq])
+  // Dedicated index for the locationId FK. Without it MySQL uses the composite
+  // unique index to back the FK, which blocks `db push` from swapping that unique
+  // (Cannot drop index ... needed in a foreign key constraint).
+  @@index([locationId])
 }
 
 model OrderLine {
