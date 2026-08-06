@@ -4,11 +4,12 @@ import { useI18n } from '../i18n.jsx';
 import { useAuth } from '../auth.jsx';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 import { WasteTable } from '../components/WasteTable.jsx';
+import { groupByZone } from '../lib/grouping.js';
 
 const today = () => new Date().toISOString().slice(0, 10);
 
-// "Déclarer le Stock" — blind nightly count of ALL tracked items (food + packaging).
-// First ever count = baseline; every night after = closing count + reconcile.
+// "Déclarer le Stock" — blind nightly count of ALL tracked items (food + packaging),
+// grouped by storage zone → subcategory (R → C → A) so staff count by location.
 export default function Stock() {
   const { t } = useI18n();
   const { isDirection } = useAuth();
@@ -18,10 +19,10 @@ export default function Stock() {
   const [counts, setCounts] = useState({});
   const [status, setStatus] = useState(null);
   const [wasteRows, setWasteRows] = useState(null);
+  const [collapsed, setCollapsed] = useState({}); // zone -> bool
   const [msg, setMsg] = useState('');
   const [busy, setBusy] = useState(false);
 
-  // ALL tracked items (food + packaging), not just recipe items.
   useEffect(() => { api.get('/api/items').then((d) => setItems(d.items.filter((i) => i.isTracked))); }, []);
 
   const load = useCallback(() => {
@@ -50,6 +51,8 @@ export default function Stock() {
   };
 
   const isBaseline = status?.isBaseline;
+  const zones = groupByZone(items);
+  const toggle = (z) => setCollapsed((c) => ({ ...c, [z]: !c[z] }));
 
   return (
     <>
@@ -65,30 +68,40 @@ export default function Stock() {
         <div className="actions"><button onClick={submit} disabled={busy}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
       </div>
 
-      <div className="card">
-        <h2>{t('daily.counts')}</h2>
-        <div className="table-wrap">
-          <table className="data">
-            <thead><tr><th>{t('common.item')}</th><th className="num">{t('waste.counted')}</th></tr></thead>
-            <tbody>
-              {items.map((it) => (
-                <tr key={it.id}>
-                  <td data-label={t('common.item')}>{it.name} <span className="muted">({t(`units.${it.unit}`)})</span></td>
-                  <td className="num" data-label={t('waste.counted')}>
-                    <input className="qty" type="number" inputMode="decimal" step="any" value={counts[it.id] ?? ''}
-                      onChange={(e) => setCounts((c) => ({ ...c, [it.id]: e.target.value }))} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {zones.map((zoneGrp) => (
+        <div className="card" key={zoneGrp.zone}>
+          <button className="zone-head" onClick={() => toggle(zoneGrp.zone)}>
+            <span>{collapsed[zoneGrp.zone] ? '▸' : '▾'} {t(`zones.${zoneGrp.zone}`)}</span>
+          </button>
+          {!collapsed[zoneGrp.zone] && zoneGrp.subs.map((subGrp) => (
+            <div key={subGrp.sub}>
+              <h3 className="subcat">{subGrp.sub}</h3>
+              <div className="table-wrap">
+                <table className="data">
+                  <thead><tr><th>{t('common.item')}</th><th className="num">{t('waste.counted')}</th></tr></thead>
+                  <tbody>
+                    {subGrp.items.map((it) => (
+                      <tr key={it.id}>
+                        <td data-label={t('common.item')}>{it.name} <span className="muted">({t(`units.${it.unit}`)})</span></td>
+                        <td className="num" data-label={t('waste.counted')}>
+                          <input className="qty" type="number" inputMode="decimal" step="any" value={counts[it.id] ?? ''}
+                            onChange={(e) => setCounts((c) => ({ ...c, [it.id]: e.target.value }))} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+      ))}
 
-      {/* Variance is Direction-only (blind counting). */}
       {isDirection && wasteRows && (
         <div className="card"><h2>{t('waste.title')}</h2><WasteTable rows={wasteRows} /></div>
       )}
+
+      <div className="actions" style={{ marginBottom: 24 }}><button onClick={submit} disabled={busy}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
     </>
   );
 }

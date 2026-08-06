@@ -70,6 +70,15 @@
     "HELD": "En attente (à vérifier)",
     "CONFIRMED_SENT": "Envoi confirmé"
   },
+  "zones": {
+    "R": "Réfrigérateur",
+    "C": "Congélateur",
+    "A": "Ambiant"
+  },
+  "bon": {
+    "proposed": "Commande proposée",
+    "sent": "Commande envoyée"
+  },
   "units": {
     "KG": "kg",
     "UNIT": "unité",
@@ -188,7 +197,9 @@
     "newSupplement": "Nouvelle commande supplémentaire",
     "addItem": "Ajouter un article",
     "selectItem": "Choisir un article",
-    "noLines": "Aucun article — ajoutez-en ci-dessous."
+    "noLines": "Aucun article — ajoutez-en ci-dessous.",
+    "bonProposed": "Bon de commande (proposée)",
+    "bonSent": "Bon de commande (envoyée)"
   },
   "initialstock": {
     "title": "Stock initial",

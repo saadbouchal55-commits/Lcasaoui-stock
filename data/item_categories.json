@@ -1,0 +1,432 @@
+{
+ "Poke Bowl Salade": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Tomate cerise S": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Epinard": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Laitue": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Tomate": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "oignon": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Roquette": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Jalapenos": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Olive Noir": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Cornichons": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Citrons": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Bases & Légumes Frais"
+ },
+ "Mozzarella": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "Cheddar": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "fromage parmesan": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "Edam": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "Beure": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "Lait": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "Génoise": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "Yaourt Grec": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Produits Laitiers & Fromages"
+ },
+ "Poulet Crousty": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Viandes & Préparations"
+ },
+ "Viande Hachée B": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Viandes & Préparations"
+ },
+ "Poulet": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Viandes & Préparations"
+ },
+ "tagliatelle": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Viandes & Préparations"
+ },
+ "Sauce Salade": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Riz Atlas M": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Riz Atlas Xl": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Tomate": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Barbecue": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Fromagère": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Piment": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Burger": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Tartare": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Huil D'herbe": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce truffes": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Biggy": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Sauce Algérienne": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Mayonnaise": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Crème chocolat": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Crème caramel": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Pot de sauce Ket + May": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Pot de sauce Biggy + Alg": {
+  "zone": "R",
+  "zone_name": "Réfrigérateur",
+  "subcategory": "Sauces Fraîches & Desserts"
+ },
+ "Viande Haché Burger": {
+  "zone": "C",
+  "zone_name": "Congélateur",
+  "subcategory": "Viandes & Ingrédients Surgelés"
+ },
+ "Mangue": {
+  "zone": "C",
+  "zone_name": "Congélateur",
+  "subcategory": "Viandes & Ingrédients Surgelés"
+ },
+ "Avocat": {
+  "zone": "C",
+  "zone_name": "Congélateur",
+  "subcategory": "Viandes & Ingrédients Surgelés"
+ },
+ "Oreo entier (PS)": {
+  "zone": "C",
+  "zone_name": "Congélateur",
+  "subcategory": "Viandes & Ingrédients Surgelés"
+ },
+ "Glacons": {
+  "zone": "C",
+  "zone_name": "Congélateur",
+  "subcategory": "Viandes & Ingrédients Surgelés"
+ },
+ "Frites": {
+  "zone": "C",
+  "zone_name": "Congélateur",
+  "subcategory": "Produits Prêts à Frire / Cuire"
+ },
+ "Hot Sauce": {
+  "zone": "C",
+  "zone_name": "Congélateur",
+  "subcategory": "Produits Prêts à Frire / Cuire"
+ },
+ "Finot": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Pain Burger": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Pate Pizza": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Pain Grec": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Pain Spécial": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Pain Tacos": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Champignon": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "oignon Crunchy": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Origan": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Épices Frite": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Sesam": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Croutons": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Farine": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Sucre": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Huil de Table": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Ketchup": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Jus de Bœufs": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Moutarde": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Épicerie Sèche & Pains"
+ },
+ "Boite Pizza M": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Boite Pasticcio": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Sachet Sandwich": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Sachet Emporté": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Sachet Frite": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Bowl Pasta": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Gobelet Jus": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Pot de sauce": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Sachet Burger": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Sac emporter": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Sachet Fourchette": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Souloufan": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Emballages & Packaging"
+ },
+ "Fourchette": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ },
+ "Cuillères": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ },
+ "Papier Toilet": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ },
+ "Papier Cuisine": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ },
+ "Savon Lave Main": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ },
+ "Set de Table": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ },
+ "Serviette": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ },
+ "Pailles": {
+  "zone": "A",
+  "zone_name": "Ambiant",
+  "subcategory": "Consommables & Hygiène"
+ }
+}

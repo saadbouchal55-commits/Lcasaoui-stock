@@ -70,18 +70,26 @@ async function main() {
 
   // ── 3. Items ────────────────────────────────────────────────────────────────
   const items = readJson('items.json');
+  // Storage zone + subcategory per item (keyed by name).
+  let categories = {};
+  try { categories = readJson('item_categories.json'); } catch { console.warn('  ! item_categories.json not found — zones left null'); }
   const itemByName = new Map();
+  let missingCat = 0;
   for (const it of items) {
     const unit = UNIT_MAP[String(it.unit).toLowerCase()] || 'UNTRACKED';
     const category = CAT_MAP[String(it.category).toLowerCase()] || 'INGREDIENT';
+    const cat = categories[it.name];
+    if (!cat) missingCat++;
+    const storageZone = cat?.zone || null; // 'R' | 'C' | 'A'
+    const subCategory = cat?.subcategory || null;
     const saved = await prisma.item.upsert({
       where: { name: it.name },
-      update: { unit, packSize: it.pack_size ?? null, yieldPct: it.yield ?? null, isTracked: !!it.tracked, inRecipes: !!it.in_recipes, category },
-      create: { name: it.name, unit, packSize: it.pack_size ?? null, yieldPct: it.yield ?? null, isTracked: !!it.tracked, inRecipes: !!it.in_recipes, category },
+      update: { unit, packSize: it.pack_size ?? null, yieldPct: it.yield ?? null, isTracked: !!it.tracked, inRecipes: !!it.in_recipes, category, storageZone, subCategory },
+      create: { name: it.name, unit, packSize: it.pack_size ?? null, yieldPct: it.yield ?? null, isTracked: !!it.tracked, inRecipes: !!it.in_recipes, category, storageZone, subCategory },
     });
     itemByName.set(it.name, saved);
   }
-  console.log(`  items: ${items.length}`);
+  console.log(`  items: ${items.length}` + (missingCat ? ` (${missingCat} without storage zone)` : ''));
 
   const requireItem = (name) => {
     const i = itemByName.get(name);

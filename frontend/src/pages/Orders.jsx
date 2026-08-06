@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api, downloadExport } from '../api.js';
 import { useI18n } from '../i18n.jsx';
+import { groupByZone } from '../lib/grouping.js';
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -32,6 +33,8 @@ export default function Orders() {
 
   const generate = async (locationId) => { try { await api.post('/api/orders/generate', { locationId, date }); setMsg('OK'); } catch (e) { setMsg(e.message); } load(); };
   const saveLine = async (lineId, patch) => { if (lineId) { await api.put(`/api/orders/line/${lineId}`, patch); load(); } };
+  // Food rows are always editable (even suggested-0 items) via an upsert by item.
+  const saveFood = async (locationId, itemId, qty) => { await api.put('/api/orders/food-line', { locationId, date, itemId, qty: Number(qty) }); load(); };
   const savePackaging = async (g) => {
     await api.put('/api/orders/packaging', { locationId: g.locationId, date, items: g.primary.packaging.map((r) => ({ itemId: r.itemId, qty: pkgEdits[`${g.locationId}:${r.itemId}`] ?? '' })) });
     setMsg(t('orders.savePackaging')); load();
@@ -77,56 +80,68 @@ export default function Orders() {
                 <div style={{ flex: 1 }} />
                 {!pConfirmed && <button className="secondary" onClick={() => generate(g.locationId)}>{p.exists ? t('orders.regenerateFood') : t('orders.generate')}</button>}
                 {p.id && !pConfirmed && <button onClick={() => confirm(p.id)}>{t('orders.confirmSent')}</button>}
+                <button className="secondary" onClick={() => downloadExport(`/api/orders/bon?locationId=${g.locationId}&date=${date}&version=proposed`)}>{t('orders.bonProposed')}</button>
+                {pConfirmed && <button className="secondary" onClick={() => downloadExport(`/api/orders/bon?locationId=${g.locationId}&date=${date}&version=sent`)}>{t('orders.bonSent')}</button>}
                 <button className="secondary" onClick={() => downloadExport(`/api/orders/export?locationId=${g.locationId}&date=${date}`)}>{t('common.export')}</button>
               </div>
               {p.status === 'HELD' && p.holdReason && <p className="error">⚠ {t('orders.heldAlert')} {p.holdReason}</p>}
               {pConfirmed && <p className="muted">{t('orders.confirmedInfo')}</p>}
 
               <h3>{t('orders.food')}</h3>
-              <div className="table-wrap">
-                <table className="data">
-                  <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.suggested')}</th><th className="num">{t('orders.ordered')}</th></tr></thead>
-                  <tbody>
-                    {p.food.map((r) => (
-                      <tr key={r.itemId}>
-                        <td data-label={t('common.item')}>{r.name}</td>
-                        <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
-                        <td className="num muted" data-label={t('orders.suggested')}>{r.suggestedQty}</td>
-                        <td className="num" data-label={t('orders.ordered')}>
-                          {!pConfirmed && r.lineId
-                            ? <input className="qty" type="number" inputMode="decimal" step="any" defaultValue={r.orderedQty}
-                                onBlur={(e) => { const v = e.target.value; if (v !== '' && Number(v) !== r.orderedQty) saveLine(r.lineId, { orderedQty: Number(v) }); }} />
-                            : <strong>{r.orderedQty}</strong>}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              {groupByZone(p.food).map((zg) => zg.subs.map((sg) => (
+                <div key={`f-${zg.zone}-${sg.sub}`}>
+                  <h4 className="subcat">{t(`zones.${zg.zone}`)} — {sg.sub}</h4>
+                  <div className="table-wrap">
+                    <table className="data">
+                      <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.suggested')}</th><th className="num">{t('orders.ordered')}</th></tr></thead>
+                      <tbody>
+                        {sg.items.map((r) => (
+                          <tr key={r.itemId}>
+                            <td data-label={t('common.item')}>{r.name}</td>
+                            <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
+                            <td className="num muted" data-label={t('orders.suggested')}>{r.suggestedQty}</td>
+                            <td className="num" data-label={t('orders.ordered')}>
+                              {!pConfirmed
+                                ? <input key={`${r.itemId}-${r.orderedQty}`} className="qty" type="number" inputMode="decimal" step="any" defaultValue={r.orderedQty}
+                                    onBlur={(e) => { const v = e.target.value; if (v !== '' && Number(v) !== r.orderedQty) saveFood(g.locationId, r.itemId, v); }} />
+                                : <strong>{r.orderedQty}</strong>}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )))}
 
               <h3>{t('orders.packaging')}</h3>
-              <div className="table-wrap">
-                <table className="data">
-                  <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.hintAvg')}</th><th className="num">{t('orders.manualQty')}</th></tr></thead>
-                  <tbody>
-                    {p.packaging.map((r) => {
-                      const key = `${g.locationId}:${r.itemId}`;
-                      return (
-                        <tr key={r.itemId}>
-                          <td data-label={t('common.item')}>{r.name}</td>
-                          <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
-                          <td className="num muted" data-label={t('orders.hintAvg')}>{r.hintAvg || '—'}</td>
-                          <td className="num" data-label={t('orders.manualQty')}>
-                            {!pConfirmed
-                              ? <input className="qty" type="number" inputMode="decimal" step="any" value={pkgEdits[key] ?? ''} placeholder="—" onChange={(e) => setPkgEdits((q) => ({ ...q, [key]: e.target.value }))} />
-                              : (r.orderedQty ?? '—')}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+              {groupByZone(p.packaging).map((zg) => zg.subs.map((sg) => (
+                <div key={`p-${zg.zone}-${sg.sub}`}>
+                  <h4 className="subcat">{t(`zones.${zg.zone}`)} — {sg.sub}</h4>
+                  <div className="table-wrap">
+                    <table className="data">
+                      <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.hintAvg')}</th><th className="num">{t('orders.manualQty')}</th></tr></thead>
+                      <tbody>
+                        {sg.items.map((r) => {
+                          const key = `${g.locationId}:${r.itemId}`;
+                          return (
+                            <tr key={r.itemId}>
+                              <td data-label={t('common.item')}>{r.name}</td>
+                              <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
+                              <td className="num muted" data-label={t('orders.hintAvg')}>{r.hintAvg || '—'}</td>
+                              <td className="num" data-label={t('orders.manualQty')}>
+                                {!pConfirmed
+                                  ? <input className="qty" type="number" inputMode="decimal" step="any" value={pkgEdits[key] ?? ''} placeholder="—" onChange={(e) => setPkgEdits((q) => ({ ...q, [key]: e.target.value }))} />
+                                  : (r.orderedQty ?? '—')}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )))}
               {!pConfirmed && <div className="actions"><button className="secondary" onClick={() => savePackaging(g)}>{t('orders.savePackaging')}</button></div>}
             </div>
 

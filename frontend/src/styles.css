@@ -130,6 +130,18 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
 .badge.green { background: #dcfce7; color: var(--green-dark); }
 .badge.gray { background: #eef1ee; color: var(--muted); }
 
+/* Zone (collapsible) headers + subcategory headings for grouped lists */
+.zone-head {
+  width: 100%; text-align: start; background: var(--green); color: #fff;
+  font-weight: 700; font-size: 15px; border-radius: 8px; padding: 12px 14px;
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.zone-head:hover { background: var(--green-dark); }
+.subcat {
+  margin: 12px 0 4px; font-size: 14px; color: var(--green-dark);
+  border-bottom: 2px solid var(--border); padding-bottom: 4px;
+}
+
 .flag { color: var(--warn); font-size: 12px; }
 .error { color: var(--danger); font-size: 14px; }
 .muted { color: var(--muted); font-size: 14px; }

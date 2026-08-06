@@ -26,6 +26,13 @@ enum ItemCategory {
   SOLD_AS_IS
 }
 
+// Physical storage zone, so staff count/order by location.
+enum StorageZone {
+  R  // Réfrigérateur (fridge)
+  C  // Congélateur (freezer)
+  A  // Ambiant (dry / shelf)
+}
+
 enum MovementType {
   RECEIVED       // stock in (delivery / order received)
   CONSUMPTION    // sold × recipe
@@ -73,6 +80,8 @@ model Item {
   isTracked  Boolean      @default(true) // false = ignored (Glaçons, Sauce Huil d'herbe)
   inRecipes  Boolean      @default(true) // false = packaging (order-tracked only)
   category   ItemCategory @default(INGREDIENT)
+  storageZone StorageZone? // R|C|A physical storage zone (from item_categories.json)
+  subCategory String?      // e.g. "Produits Laitiers & Fromages"
   active     Boolean      @default(true)
   recipeLines RecipeLine[]
   movements   StockMovement[]

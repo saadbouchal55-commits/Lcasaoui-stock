@@ -4,10 +4,17 @@ import { ah, parseDate, ymd } from '../lib/http.js';
 import { requireAuth, requireRole, assertLocationAccess, ORDER_ROLES } from '../middleware/auth.js';
 import { computeSuggestions, generateOrder } from '../services/orderservice.js';
 import { buildWorkbook, sendXlsx } from '../lib/excel.js';
+import { buildBonCommande } from '../lib/boncommande.js';
+import { groupByZoneSub } from '../lib/zones.js';
 import { writeAudit } from '../lib/audit.js';
 import { t } from '../lib/i18n.js';
 
 const router = Router();
+
+// French unit labels for the printed Bon de Commande (always French, like the paper form).
+const UNIT_FR = { KG: 'kg', UNIT: 'unité', PIECE: 'pièce', PACKAGE: 'paquet', L: 'L', UNTRACKED: '—' };
+// Establishment line per restaurant, as printed on the paper form.
+const ESTABLISHMENT = { L1: 'LCASAOUI 1 Narjiss', L2: 'LCASAOUI 2 Rte Ain Chkef' };
 
 // Every order endpoint is restricted to DIRECTION and ORDER_MANAGER.
 // Restaurant managers / shift-leaders have NO order access at all.
@@ -25,6 +32,7 @@ async function buildPrimaryView(locationId, date) {
     const line = lineByItem.get(f.itemId);
     return {
       itemId: f.itemId, lineId: line?.id ?? null, name: f.name, unit: f.unit,
+      storageZone: f.storageZone, subCategory: f.subCategory,
       currentStock: f.currentStock, avgDaily: f.avgDaily, mode: f.mode,
       suggestedQty: f.suggestedQty, orderedQty: line?.orderedQty ?? f.suggestedQty,
       flagged: line?.flagged ?? false, reason: f.reason,
@@ -34,6 +42,7 @@ async function buildPrimaryView(locationId, date) {
     const line = lineByItem.get(p.itemId);
     return {
       itemId: p.itemId, lineId: line?.id ?? null, name: p.name, unit: p.unit,
+      storageZone: p.storageZone, subCategory: p.subCategory,
       hintAvg: p.hintAvg, hintLast: p.hintLast, ordersInWindow: p.ordersInWindow,
       orderedQty: line?.orderedQty ?? null,
     };
@@ -86,7 +95,7 @@ router.get(
 router.get(
   '/items',
   ah(async (req, res) => {
-    const items = await prisma.item.findMany({ where: { active: true, isTracked: true }, orderBy: { name: 'asc' }, select: { id: true, name: true, unit: true, inRecipes: true } });
+    const items = await prisma.item.findMany({ where: { active: true, isTracked: true }, orderBy: { name: 'asc' }, select: { id: true, name: true, unit: true, inRecipes: true, storageZone: true, subCategory: true } });
     res.json({ items });
   }),
 );
@@ -176,6 +185,33 @@ router.delete(
   }),
 );
 
+// Set/upsert a FOOD line on the primary order by item — lets you order an item
+// the system suggested 0 for (or adjust before generating). qty 0 removes it.
+router.put(
+  '/food-line',
+  ah(async (req, res) => {
+    const locationId = assertLocationAccess(req.user, req.body.locationId);
+    const date = parseDate(req.body.date);
+    const itemId = Number(req.body.itemId);
+    const qty = Math.max(0, Number(req.body.qty));
+    if (!date || !itemId || Number.isNaN(qty)) return res.status(400).json({ error: t('errors.validation') });
+
+    let order = await prisma.orderSuggestion.findUnique({ where: { locationId_date_seq: { locationId, date, seq: 1 } } });
+    if (order?.status === 'CONFIRMED_SENT') return res.status(409).json({ error: 'Commande déjà confirmée — non modifiable.' });
+    if (!order) order = await prisma.orderSuggestion.create({ data: { locationId, date, seq: 1, status: 'GENERATED' } });
+
+    const existing = await prisma.orderLine.findFirst({ where: { suggestionId: order.id, itemId } });
+    if (qty > 0) {
+      if (existing) await prisma.orderLine.update({ where: { id: existing.id }, data: { orderedQty: qty } });
+      else await prisma.orderLine.create({ data: { suggestionId: order.id, itemId, suggestedQty: 0, orderedQty: qty } });
+    } else if (existing) {
+      await prisma.orderLine.update({ where: { id: existing.id }, data: { orderedQty: 0 } });
+    }
+    await prisma.orderSuggestion.update({ where: { id: order.id }, data: { editedBy: req.user.id } });
+    res.json({ ok: true });
+  }),
+);
+
 // Set packaging quantities on the PRIMARY order (manual). Blank/0 => skipped.
 router.put(
   '/packaging',
@@ -243,6 +279,39 @@ router.post(
   }),
 );
 
+// Bon de Commande — printable Excel matching the paper form, grouped by storage
+// zone/subcategory. version=proposed (current/suggested) | sent (confirmed qty).
+router.get(
+  '/bon',
+  ah(async (req, res) => {
+    const locationId = assertLocationAccess(req.user, req.query.locationId);
+    const date = parseDate(req.query.date);
+    if (!date) return res.status(400).json({ error: t('errors.validation') });
+    const version = req.query.version === 'sent' ? 'sent' : 'proposed';
+
+    const view = await buildPrimaryView(locationId, date);
+    const location = await prisma.location.findUnique({ where: { id: locationId } });
+
+    // Items actually being ordered (qty > 0), food + packaging, with zone info.
+    const lines = [];
+    for (const f of view.food) if (f.orderedQty > 0) lines.push({ name: f.name, qty: f.orderedQty, unit: UNIT_FR[f.unit] || f.unit, storageZone: f.storageZone, subCategory: f.subCategory });
+    for (const p of view.packaging) if ((p.orderedQty ?? 0) > 0) lines.push({ name: p.name, qty: p.orderedQty, unit: UNIT_FR[p.unit] || p.unit, storageZone: p.storageZone, subCategory: p.subCategory });
+
+    const groups = groupByZoneSub(lines);
+    const versionLabel = `${version === 'sent' ? t('bon.sent') : t('bon.proposed')} (${t(`orderStatus.${view.status}`)})`;
+
+    const buffer = await buildBonCommande({
+      title: 'Bon de Commande : Lcasaoui Original Food',
+      establishment: ESTABLISHMENT[location?.code] || location?.name || '',
+      dateStr: ymd(date),
+      versionLabel,
+      groups,
+      remarque: 'Remarque :',
+    });
+    sendXlsx(res, `bon_commande_${location?.code}_${ymd(date)}_${version}.xlsx`, buffer);
+  }),
+);
+
 // Excel export of the primary order.
 router.get(
   '/export',
@@ -253,11 +322,27 @@ router.get(
     const view = await buildPrimaryView(locationId, date);
     const location = await prisma.location.findUnique({ where: { id: locationId } });
 
+    // The production/order manager gets a clean picking sheet: no "Explication",
+    // plus an empty column to write what was actually sent by hand. Direction
+    // keeps the full sheet with the explanation.
+    const isOrderMgr = req.user.role === 'ORDER_MANAGER';
+
     const rows = [
-      ...view.food.map((r) => ({ type: t('orders.food'), name: r.name, unit: r.unit, suggestedQty: r.suggestedQty, orderedQty: r.orderedQty, note: r.reason })),
+      ...view.food.map((r) => ({ type: t('orders.food'), name: r.name, unit: r.unit, suggestedQty: r.suggestedQty, orderedQty: r.orderedQty, note: r.reason, actualSent: '' })),
       ...view.packaging
         .filter((r) => r.orderedQty != null && r.orderedQty > 0)
-        .map((r) => ({ type: t('orders.packaging'), name: r.name, unit: r.unit, suggestedQty: '', orderedQty: r.orderedQty, note: `hint moy. ${r.hintAvg}` })),
+        .map((r) => ({ type: t('orders.packaging'), name: r.name, unit: r.unit, suggestedQty: '', orderedQty: r.orderedQty, note: `hint moy. ${r.hintAvg}`, actualSent: '' })),
+    ];
+
+    const columns = [
+      { key: 'type', header: 'Type' },
+      { key: 'name', header: t('common.item'), width: 24 },
+      { key: 'unit', header: t('common.unit') },
+      { key: 'suggestedQty', header: t('orders.suggested') },
+      { key: 'orderedQty', header: t('orders.ordered') },
+      isOrderMgr
+        ? { key: 'actualSent', header: t('orders.actualSent'), width: 18 } // blank — filled by hand
+        : { key: 'note', header: t('orders.reason'), width: 40 },
     ];
 
     const buffer = await buildWorkbook({
@@ -268,14 +353,7 @@ router.get(
         [t('common.date')]: ymd(date),
         Statut: t(`orderStatus.${view.status}`),
       },
-      columns: [
-        { key: 'type', header: 'Type' },
-        { key: 'name', header: t('common.item'), width: 24 },
-        { key: 'unit', header: t('common.unit') },
-        { key: 'suggestedQty', header: t('orders.suggested') },
-        { key: 'orderedQty', header: t('orders.ordered') },
-        { key: 'note', header: t('orders.reason'), width: 40 },
-      ],
+      columns,
       rows,
     });
     sendXlsx(res, `commande_${location?.code}_${ymd(date)}.xlsx`, buffer);
