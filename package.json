@@ -16,6 +16,8 @@
     "seed": "node prisma/seed.js",
     "seed:reset": "node prisma/seed.js --reset",
     "apply:categories": "node prisma/apply-categories.js",
+    "export:data": "node prisma/export-data.js",
+    "import:data": "node prisma/import-data.js",
     "test": "node --test",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
