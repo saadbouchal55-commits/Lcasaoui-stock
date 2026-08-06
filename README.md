@@ -108,6 +108,21 @@ editable; the team flags outliers.
   `DATABASE_URL`, re-run migrations. No application code changes (that is why everything goes
   through Prisma).
 
+### Keeping under the "Max Processes" limit (shared hosting)
+
+Hostinger's *Max Processes* cap counts threads too, and Node + Prisma are thread-heavy.
+To stay under it:
+
+- **Run ONE instance only.** Start with `npm start` (`node src/server.js`) — never `npm run dev`
+  (that uses `--watch`, which keeps an extra supervisor process). In the hPanel Node app, keep the
+  instance/worker count at **1**.
+- Set **`UV_THREADPOOL_SIZE=1`** in the env panel (shrinks Node's libuv thread pool from 4 to 1).
+- Add **`?connection_limit=3`** to `DATABASE_URL` (caps Prisma's DB connection pool).
+- Don't leave stray processes: after running `seed` / `prisma db push` over SSH, let them exit;
+  check with `ps aux | grep node` that only the one app process remains.
+- If you keep hitting the cap, that's the signal to move to a small **VPS** — the codebase already
+  supports it with only config/DB changes.
+
 ## Security
 
 - **Passwords:** bcrypt (`bcryptjs`, no native build). First login forces a password change
