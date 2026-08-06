@@ -172,10 +172,14 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   input.qty { max-width: 150px; }
 }
 
-/* ── Desktop: sidebar becomes a fixed column ─────────────────────────────────── */
+/* ── Desktop: sidebar becomes a static column (docks left in FR, right in RTL) ── */
 @media (min-width: 900px) {
   .app { display: flex; }
   .sidebar { position: static; transform: none; width: 220px; flex-shrink: 0; max-width: none; }
+  /* Must also clear the RTL off-canvas transform (it has higher specificity),
+     otherwise the sidebar stays pushed off-screen in Arabic. Flexbox places it
+     on the right automatically under dir="rtl". */
+  [dir="rtl"] .sidebar { transform: none; }
   .scrim { display: none !important; }
   .hamburger { display: none; }
   .main { padding: 22px 26px; }

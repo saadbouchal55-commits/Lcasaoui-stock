@@ -181,7 +181,14 @@
     "heldAlert": "Commande en attente — à vérifier par la Direction avant envoi :",
     "notGenerated": "Aucune commande générée pour ce jour.",
     "savePackaging": "Enregistrer les emballages",
-    "editHint": "Modifiez les quantités puis confirmez l'envoi."
+    "editHint": "Modifiez les quantités puis confirmez l'envoi.",
+    "primary": "Commande principale",
+    "supplementary": "Commandes supplémentaires",
+    "supplementTitle": "Commande supplémentaire",
+    "newSupplement": "Nouvelle commande supplémentaire",
+    "addItem": "Ajouter un article",
+    "selectItem": "Choisir un article",
+    "noLines": "Aucun article — ajoutez-en ci-dessous."
   },
   "initialstock": {
     "title": "Stock initial",

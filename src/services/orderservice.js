@@ -36,12 +36,16 @@ export async function getItemHistories(locationId, endDate) {
     prisma.item.findMany({ where: { isTracked: true } }),
   ]);
 
-  const sentMap = new Map(); // `${itemId}:${ymd}` -> confirmed-sent qty
+  const sentMap = new Map(); // `${itemId}:${ymd}` -> total confirmed-sent qty that day
   for (const o of sentOrders) {
     const day = ymd(o.date);
     for (const l of o.lines) {
       const q = l.orderedQty ?? l.suggestedQty ?? 0;
-      if (q > 0) sentMap.set(`${l.itemId}:${day}`, q);
+      if (q > 0) {
+        // Sum across ALL confirmed orders that day (primary + any supplementary).
+        const k = `${l.itemId}:${day}`;
+        sentMap.set(k, (sentMap.get(k) || 0) + q);
+      }
     }
   }
   const consMap = new Map();
@@ -136,7 +140,8 @@ export async function computeSuggestions(locationId, date) {
  * Skips regeneration if the order is already CONFIRMED_SENT.
  */
 export async function generateOrder(locationId, date, generatedBy = null) {
-  const existing = await prisma.orderSuggestion.findUnique({ where: { locationId_date: { locationId, date } } });
+  // The auto-generated food order is always the PRIMARY order (seq = 1).
+  const existing = await prisma.orderSuggestion.findUnique({ where: { locationId_date_seq: { locationId, date, seq: 1 } } });
   if (existing?.status === 'CONFIRMED_SENT') return existing; // never overwrite a sent order
 
   const { food } = await computeSuggestions(locationId, date);
@@ -163,9 +168,9 @@ export async function generateOrder(locationId, date, generatedBy = null) {
 
   await prisma.$transaction(async (tx) => {
     const order = await tx.orderSuggestion.upsert({
-      where: { locationId_date: { locationId, date } },
+      where: { locationId_date_seq: { locationId, date, seq: 1 } },
       update: { status, holdReason },
-      create: { locationId, date, status, holdReason },
+      create: { locationId, date, seq: 1, status, holdReason },
     });
     // Rebuild FOOD lines only (packaging is entered by hand, not regenerated).
     const foodItemIds = new Set(food.map((f) => f.itemId));
@@ -178,5 +183,5 @@ export async function generateOrder(locationId, date, generatedBy = null) {
     return order;
   });
 
-  return prisma.orderSuggestion.findUnique({ where: { locationId_date: { locationId, date } } });
+  return prisma.orderSuggestion.findUnique({ where: { locationId_date_seq: { locationId, date, seq: 1 } } });
 }

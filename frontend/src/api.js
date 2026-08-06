@@ -27,6 +27,7 @@ export const api = {
   get: (url) => request('GET', url),
   post: (url, body) => request('POST', url, body),
   put: (url, body) => request('PUT', url, body),
+  delete: (url) => request('DELETE', url),
 };
 
 // Trigger a file download from an export endpoint (keeps cookies).

@@ -22,7 +22,7 @@ router.get(
 
     const { packaging } = await computeSuggestions(locationId, date);
     const order = await prisma.orderSuggestion.findUnique({
-      where: { locationId_date: { locationId, date } },
+      where: { locationId_date_seq: { locationId, date, seq: 1 } },
       include: { lines: true },
     });
     const lineByItem = new Map((order?.lines || []).map((l) => [l.itemId, l]));
@@ -49,9 +49,9 @@ router.put(
     const items = Array.isArray(req.body.items) ? req.body.items : [];
     if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
 
-    let order = await prisma.orderSuggestion.findUnique({ where: { locationId_date: { locationId, date } } });
+    let order = await prisma.orderSuggestion.findUnique({ where: { locationId_date_seq: { locationId, date, seq: 1 } } });
     if (order?.status === 'CONFIRMED_SENT') return res.status(409).json({ error: 'Commande déjà confirmée — non modifiable.' });
-    if (!order) order = await prisma.orderSuggestion.create({ data: { locationId, date, status: 'GENERATED' } });
+    if (!order) order = await prisma.orderSuggestion.create({ data: { locationId, date, seq: 1, status: 'GENERATED' } });
 
     // Only packaging (non-recipe) items may be set here.
     const ids = items.map((i) => Number(i.itemId));

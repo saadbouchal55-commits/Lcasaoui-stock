@@ -185,6 +185,7 @@ model OrderSuggestion {
   location    Location    @relation(fields: [locationId], references: [id])
   locationId  Int
   date        DateTime
+  seq         Int         @default(1)       // 1 = primary daily order; 2+ = supplementary same-day orders
   status      OrderStatus @default(GENERATED)
   holdReason  String?     @db.Text        // why the guardrail HELD it (Direction alert)
   editedBy    Int?                          // last user to edit a line/packaging
@@ -192,7 +193,7 @@ model OrderSuggestion {
   confirmedAt DateTime?
   createdAt   DateTime    @default(now())
   lines       OrderLine[]
-  @@unique([locationId, date])
+  @@unique([locationId, date, seq])
 }
 
 model OrderLine {
