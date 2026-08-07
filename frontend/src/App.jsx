@@ -35,7 +35,7 @@ export default function App() {
   const { user, ready } = useAuth();
   if (!ready) return null;
   if (!user) return <Login />;
-  if (user.mustChangePassword) return <ChangePassword forced />;
+  // (No forced password change — the change-password page stays available voluntarily.)
 
   return (
     <Layout>

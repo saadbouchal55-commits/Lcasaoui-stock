@@ -101,7 +101,7 @@ router.post(
         role,
         locationId,
         active: true,
-        mustChangePassword: true, // new users set their own password on first login
+        mustChangePassword: false,
       },
       include: { location: true },
     });
@@ -154,7 +154,7 @@ router.post(
     const before = await prisma.user.findUnique({ where: { id } });
     if (!before) return res.status(404).json({ error: t('errors.notFound') });
 
-    await prisma.user.update({ where: { id }, data: { passwordHash: await hashPassword(password), mustChangePassword: true } });
+    await prisma.user.update({ where: { id }, data: { passwordHash: await hashPassword(password), mustChangePassword: false } });
     await writeAudit({ userId: req.user.id, entity: 'user', entityId: id, action: 'reset_password' });
     res.json({ ok: true });
   }),

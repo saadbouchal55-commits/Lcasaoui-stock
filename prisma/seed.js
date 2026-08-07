@@ -64,8 +64,8 @@ async function main() {
   if (userCount === 0) {
     const username = process.env.SEED_ADMIN_USERNAME || 'direction';
     const password = process.env.SEED_ADMIN_PASSWORD || 'change-me';
-    await prisma.user.create({ data: { username, passwordHash: await hashPassword(password), role: 'DIRECTION', locationId: null, mustChangePassword: true } });
-    console.log(`  admin user "${username}" created (will be forced to set a new password on first login)`);
+    await prisma.user.create({ data: { username, passwordHash: await hashPassword(password), role: 'DIRECTION', locationId: null, mustChangePassword: false } });
+    console.log(`  admin user "${username}" created`);
   }
 
   // ── 3. Items ────────────────────────────────────────────────────────────────
