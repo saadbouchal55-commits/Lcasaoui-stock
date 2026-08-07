@@ -5,15 +5,18 @@ import { groupByZone } from '../lib/grouping.js';
 
 const today = () => new Date().toISOString().slice(0, 10);
 
-// Order lifecycle for Direction / Order Manager, across both restaurants.
-// Primary daily order (auto-generated) + optional supplementary same-day orders.
+// Order lifecycle for Direction / Order Manager. A restaurant selector chooses:
+//  - a specific restaurant → full workflow (generate/edit/packaging/confirm),
+//  - "Total" → read-only sum across all restaurants (kitchen prep), export only.
 export default function Orders() {
   const { t } = useI18n();
   const [date, setDate] = useState(today());
   const [groups, setGroups] = useState([]);
+  const [view, setView] = useState(null); // locationId (number) or 'ALL'
+  const [combined, setCombined] = useState([]);
   const [items, setItems] = useState([]);
-  const [pkgEdits, setPkgEdits] = useState({}); // `${loc}:${itemId}` -> string
-  const [addSel, setAddSel] = useState({}); // orderId -> { itemId, qty }
+  const [pkgEdits, setPkgEdits] = useState({});
+  const [addSel, setAddSel] = useState({});
   const [msg, setMsg] = useState('');
 
   useEffect(() => { api.get('/api/orders/items').then((d) => setItems(d.items)); }, []);
@@ -22,6 +25,7 @@ export default function Orders() {
     setMsg('');
     api.get(`/api/orders?date=${date}`).then((d) => {
       setGroups(d.orders);
+      setView((v) => (v == null && d.orders.length ? d.orders[0].locationId : v));
       const p = {};
       d.orders.forEach((g) => (g.primary.packaging || []).forEach((r) => {
         if (r.orderedQty != null) p[`${g.locationId}:${r.itemId}`] = String(r.orderedQty);
@@ -31,18 +35,24 @@ export default function Orders() {
   }, [date]);
   useEffect(() => { load(); }, [load]);
 
-  const generate = async (locationId) => { try { await api.post('/api/orders/generate', { locationId, date }); setMsg('OK'); } catch (e) { setMsg(e.message); } load(); };
-  const saveLine = async (lineId, patch) => { if (lineId) { await api.put(`/api/orders/line/${lineId}`, patch); load(); } };
-  // Food rows are always editable (even suggested-0 items) via an upsert by item.
-  const saveFood = async (locationId, itemId, qty) => { await api.put('/api/orders/food-line', { locationId, date, itemId, qty: Number(qty) }); load(); };
+  const loadCombined = useCallback(() => {
+    if (view !== 'ALL') return;
+    api.get(`/api/orders/combined?date=${date}`).then((d) => setCombined(d.rows));
+  }, [view, date]);
+  useEffect(() => { loadCombined(); }, [loadCombined]);
+
+  const refresh = () => { load(); loadCombined(); };
+  const generate = async (locationId) => { try { await api.post('/api/orders/generate', { locationId, date }); setMsg('OK'); } catch (e) { setMsg(e.message); } refresh(); };
+  const saveLine = async (lineId, patch) => { if (lineId) { await api.put(`/api/orders/line/${lineId}`, patch); refresh(); } };
+  const saveFood = async (locationId, itemId, qty) => { await api.put('/api/orders/food-line', { locationId, date, itemId, qty: Number(qty) }); refresh(); };
   const savePackaging = async (g) => {
     await api.put('/api/orders/packaging', { locationId: g.locationId, date, items: g.primary.packaging.map((r) => ({ itemId: r.itemId, qty: pkgEdits[`${g.locationId}:${r.itemId}`] ?? '' })) });
-    setMsg(t('orders.savePackaging')); load();
+    setMsg(t('orders.savePackaging')); refresh();
   };
   const confirm = async (orderId) => {
     if (!orderId || !window.confirm(t('orders.confirmSent') + ' ?')) return;
     try { await api.post('/api/orders/confirm', { orderId }); setMsg(t('orders.confirmSent')); } catch (e) { setMsg(e.message); }
-    load();
+    refresh();
   };
   const newSupplement = async (locationId) => { await api.post('/api/orders/supplementary', { locationId, date }); load(); };
   const addLine = async (orderId) => {
@@ -50,28 +60,69 @@ export default function Orders() {
     if (!sel.itemId || !(Number(sel.qty) > 0)) return;
     await api.post(`/api/orders/${orderId}/line`, { itemId: Number(sel.itemId), qty: Number(sel.qty) });
     setAddSel((s) => ({ ...s, [orderId]: { itemId: '', qty: '' } }));
-    load();
+    refresh();
   };
-  const removeLine = async (lineId) => { await api.delete(`/api/orders/line/${lineId}`); load(); };
+  const removeLine = async (lineId) => { await api.delete(`/api/orders/line/${lineId}`); refresh(); };
+
+  const selected = view !== 'ALL' ? groups.find((g) => g.locationId === view) : null;
 
   return (
     <>
       <div className="topbar"><h1>{t('orders.title')}</h1></div>
       <div className="card">
         <div className="row">
+          <label>{t('common.location')}
+            <select value={view ?? ''} onChange={(e) => setView(e.target.value === 'ALL' ? 'ALL' : Number(e.target.value))}>
+              {groups.map((g) => <option key={g.locationId} value={g.locationId}>{g.locationCode} — {g.locationName}</option>)}
+              <option value="ALL">{t('orders.allLocations')}</option>
+            </select>
+          </label>
           <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
         </div>
         <p className="tagline">{t('app.tagline')}</p>
         {msg && <p className="muted">{msg}</p>}
       </div>
 
-      {groups.map((g) => {
+      {/* ── TOTAL (all restaurants) — read-only kitchen prep ─────────────────── */}
+      {view === 'ALL' && (
+        <div className="card">
+          <div className="row" style={{ alignItems: 'center' }}>
+            <strong>{t('orders.combinedTitle')}</strong>
+            <div style={{ flex: 1 }} />
+            <button className="secondary" onClick={() => downloadExport(`/api/orders/bon-combined?date=${date}`)}>{t('orders.bonCombined')}</button>
+          </div>
+          <p className="muted">{t('orders.combinedNote')}</p>
+          {combined.length === 0 && <p className="muted">{t('common.none')}</p>}
+          {groupByZone(combined).map((zg) => zg.subs.map((sg) => (
+            <div key={`c-${zg.zone}-${sg.sub}`}>
+              <h4 className="subcat">{t(`zones.${zg.zone}`)} — {sg.sub}</h4>
+              <div className="table-wrap">
+                <table className="data">
+                  <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.suggested')}</th><th className="num">{t('orders.ordered')}</th></tr></thead>
+                  <tbody>
+                    {sg.items.map((r) => (
+                      <tr key={r.itemId}>
+                        <td data-label={t('common.item')}>{r.name}</td>
+                        <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
+                        <td className="num muted" data-label={t('orders.suggested')}>{r.suggested || '—'}</td>
+                        <td className="num" data-label={t('orders.ordered')} style={{ fontWeight: 600 }}>{r.ordered}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )))}
+        </div>
+      )}
+
+      {/* ── One restaurant — full workflow ──────────────────────────────────── */}
+      {selected && (() => {
+        const g = selected;
         const p = g.primary;
         const pConfirmed = p.status === 'CONFIRMED_SENT';
         return (
-          <div key={g.locationId}>
-            <h2 style={{ margin: '18px 0 8px' }}>{g.locationCode} — {g.locationName}</h2>
-
+          <div>
             {/* PRIMARY ORDER */}
             <div className="card">
               <div className="row" style={{ alignItems: 'center' }}>
@@ -82,7 +133,6 @@ export default function Orders() {
                 {p.id && !pConfirmed && <button onClick={() => confirm(p.id)}>{t('orders.confirmSent')}</button>}
                 <button className="secondary" onClick={() => downloadExport(`/api/orders/bon?locationId=${g.locationId}&date=${date}&version=proposed`)}>{t('orders.bonProposed')}</button>
                 {pConfirmed && <button className="secondary" onClick={() => downloadExport(`/api/orders/bon?locationId=${g.locationId}&date=${date}&version=sent`)}>{t('orders.bonSent')}</button>}
-                <button className="secondary" onClick={() => downloadExport(`/api/orders/export?locationId=${g.locationId}&date=${date}`)}>{t('common.export')}</button>
               </div>
               {p.status === 'HELD' && p.holdReason && <p className="error">⚠ {t('orders.heldAlert')} {p.holdReason}</p>}
               {pConfirmed && <p className="muted">{t('orders.confirmedInfo')}</p>}
@@ -204,7 +254,7 @@ export default function Orders() {
             </div>
           </div>
         );
-      })}
+      })()}
     </>
   );
 }

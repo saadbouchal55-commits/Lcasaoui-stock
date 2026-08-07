@@ -78,7 +78,8 @@
   },
   "bon": {
     "proposed": "Commande proposée",
-    "sent": "Commande envoyée"
+    "sent": "Commande envoyée",
+    "combined": "Total cuisine — toutes"
   },
   "units": {
     "KG": "kg",
@@ -200,7 +201,11 @@
     "selectItem": "Choisir un article",
     "noLines": "Aucun article — ajoutez-en ci-dessous.",
     "bonProposed": "Bon de commande (proposée)",
-    "bonSent": "Bon de commande (envoyée)"
+    "bonSent": "Bon de commande (envoyée)",
+    "allLocations": "Toutes — Total cuisine",
+    "combinedTitle": "Total à préparer (cuisine)",
+    "combinedNote": "Somme de tous les restaurants — lecture seule. Choisissez un restaurant pour générer, modifier ou confirmer une commande.",
+    "bonCombined": "Bon de commande (cuisine — total)"
   },
   "initialstock": {
     "title": "Stock initial",

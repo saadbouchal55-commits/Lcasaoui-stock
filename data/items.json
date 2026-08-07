@@ -721,7 +721,7 @@
  },
  {
   "name": "Yaourt Grec",
-  "unit": "kg",
+  "unit": "unit",
   "pack_size": null,
   "yield": null,
   "tracked": true,

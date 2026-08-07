@@ -20,6 +20,7 @@
     "import:data": "node prisma/import-data.js",
     "set-password": "node prisma/set-password.js",
     "reset-admin": "node prisma/reset-admin.js",
+    "add-yaourt": "node prisma/add-yaourt-grec.js",
     "test": "node --test",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",

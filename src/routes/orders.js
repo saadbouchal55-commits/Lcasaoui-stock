@@ -100,6 +100,40 @@ router.get(
   }),
 );
 
+/**
+ * Combined kitchen total across ALL active restaurants for a date: per item, the
+ * sum of each restaurant's ordered quantity (food + entered packaging), from the
+ * PRIMARY orders. Read-only — this is what the central kitchen must prepare.
+ * @returns {Array} rows [{itemId,name,unit,storageZone,subCategory,suggested,ordered}]
+ */
+async function buildCombined(date) {
+  const locations = await prisma.location.findMany({ where: { active: true }, orderBy: { code: 'asc' } });
+  const byItem = new Map();
+  const bump = (it, key, add) => {
+    const cur = byItem.get(it.itemId) || { itemId: it.itemId, name: it.name, unit: it.unit, storageZone: it.storageZone, subCategory: it.subCategory, suggested: 0, ordered: 0 };
+    cur[key] += add || 0;
+    byItem.set(it.itemId, cur);
+  };
+  for (const loc of locations) {
+    const view = await buildPrimaryView(loc.id, date);
+    for (const f of view.food) { bump(f, 'suggested', f.suggestedQty); bump(f, 'ordered', f.orderedQty); }
+    for (const p of view.packaging) if ((p.orderedQty ?? 0) > 0) bump(p, 'ordered', p.orderedQty);
+  }
+  return [...byItem.values()]
+    .map((r) => ({ ...r, suggested: Math.round(r.suggested * 1000) / 1000, ordered: Math.round(r.ordered * 1000) / 1000 }))
+    .filter((r) => r.ordered > 0 || r.suggested > 0);
+}
+
+// Combined total for all restaurants (kitchen prep). Read-only.
+router.get(
+  '/combined',
+  ah(async (req, res) => {
+    const date = parseDate(req.query.date);
+    if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
+    res.json({ date: ymd(date), rows: await buildCombined(date) });
+  }),
+);
+
 // (Re)generate the primary food order for a location/date (HOLD guardrails).
 router.post(
   '/generate',
@@ -310,6 +344,30 @@ router.get(
       remarque: 'Remarque :',
     });
     sendXlsx(res, `bon_commande_${location?.code}_${ymd(date)}_${version}.xlsx`, buffer);
+  }),
+);
+
+// Combined kitchen Bon de Commande — all restaurants summed. Read-only export.
+router.get(
+  '/bon-combined',
+  ah(async (req, res) => {
+    const date = parseDate(req.query.date);
+    if (!date) return res.status(400).json({ error: t('errors.validation') });
+    const rows = await buildCombined(date);
+    const lines = rows
+      .filter((r) => r.ordered > 0)
+      .map((r) => ({ name: r.name, unit: UNIT_FR[r.unit] || r.unit, suggested: r.suggested || '', ordered: r.ordered, storageZone: r.storageZone, subCategory: r.subCategory }));
+    const groups = groupByZoneSub(lines);
+
+    const buffer = await buildBonCommande({
+      title: 'Bon de Commande : Lcasaoui Original Food',
+      establishment: 'TOTAL — toutes les cuisines',
+      dateStr: ymd(date),
+      versionLabel: t('bon.combined'),
+      groups,
+      remarque: 'Remarque :',
+    });
+    sendXlsx(res, `bon_commande_TOTAL_${ymd(date)}.xlsx`, buffer);
   }),
 );
 
