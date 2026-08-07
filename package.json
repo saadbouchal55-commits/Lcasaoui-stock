@@ -18,6 +18,7 @@
     "apply:categories": "node prisma/apply-categories.js",
     "export:data": "node prisma/export-data.js",
     "import:data": "node prisma/import-data.js",
+    "set-password": "node prisma/set-password.js",
     "test": "node --test",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
