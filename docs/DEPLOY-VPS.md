@@ -114,6 +114,15 @@ server {
 ```bash
 ln -s /etc/nginx/sites-available/lcasaoui /etc/nginx/sites-enabled/
 nginx -t && systemctl reload nginx
+```
+
+> **Critical:** the `proxy_set_header X-Forwarded-Proto $scheme;` line is required. Without it,
+> Express (which sets a `secure` session cookie in production, and has `app.set('trust proxy', 1)`)
+> can't tell the request is HTTPS, so the login cookie is never stored — login returns 200 but every
+> later API call returns **401** and the app looks empty even though the database has data. Also make
+> sure the site is actually symlinked into `sites-enabled/`.
+
+```bash
 # HTTPS
 apt-get install -y certbot python3-certbot-nginx
 certbot --nginx -d lesracinesdor.ma -d www.lesracinesdor.ma

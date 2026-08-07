@@ -57,7 +57,10 @@ export function assertLocationAccess(user, locationId) {
  * Direction must pass ?location / body.locationId; Manager is pinned to theirs.
  */
 export function resolveLocation(req) {
-  const requested = req.query.locationId ?? req.query.location ?? req.body?.locationId;
+  // Direction / Order Manager may pass ?locationId=; a manager is pinned to theirs.
+  // Fall back to the user's own location, else the first restaurant, so a
+  // location-scoped call made without an explicit id doesn't 400/403.
+  const requested = req.query.locationId ?? req.query.location ?? req.body?.locationId ?? req.user?.locationId ?? 1;
   if (req.user.role === 'MANAGER') return req.user.locationId;
   return assertLocationAccess(req.user, requested);
 }
