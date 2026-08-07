@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '../api.js';
 import { useI18n } from '../i18n.jsx';
+import { useAuth } from '../auth.jsx';
+import { useBusinessDay } from '../lib/businessday.js';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -8,12 +10,18 @@ const today = () => new Date().toISOString().slice(0, 10);
 // "Déclarer les Ventes" — quantities sold per product that day.
 export default function Sales() {
   const { t } = useI18n();
+  const { isDirection } = useAuth();
+  const businessDay = useBusinessDay();
   const { locations, locationId, setLocationId } = useLocations();
   const [date, setDate] = useState(today());
   const [dishes, setDishes] = useState([]);
   const [sales, setSales] = useState({});
   const [csv, setCsv] = useState('');
   const [msg, setMsg] = useState('');
+
+  // Managers land on (and can only edit) the current business day.
+  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+  const readOnly = !!businessDay && !isDirection && date !== businessDay;
 
   useEffect(() => { api.get('/api/dishes').then((d) => setDishes(d.dishes)); }, []);
 
@@ -51,6 +59,7 @@ export default function Sales() {
           <LocationPicker locations={locations} locationId={locationId} onChange={setLocationId} />
           <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
         </div>
+        {readOnly && <p className="flag">🔒 {t('common.readOnlyDay')}</p>}
         {msg && <p className="muted">{msg}</p>}
       </div>
 
@@ -64,7 +73,7 @@ export default function Sales() {
                 <tr key={d.id}>
                   <td data-label={t('recipes.dish')}>{d.name}</td>
                   <td className="num" data-label={t('common.qty')}>
-                    <input className="qty" type="number" inputMode="numeric" min="0" value={sales[d.id] ?? ''}
+                    <input className="qty" type="number" inputMode="numeric" min="0" value={sales[d.id] ?? ''} disabled={readOnly}
                       onChange={(e) => setSales((s) => ({ ...s, [d.id]: e.target.value }))} />
                   </td>
                 </tr>
@@ -72,15 +81,17 @@ export default function Sales() {
             </tbody>
           </table>
         </div>
-        <div className="actions"><button onClick={save}>{t('common.save')}</button></div>
+        {!readOnly && <div className="actions"><button onClick={save}>{t('common.save')}</button></div>}
       </div>
 
+      {!readOnly && (
       <div className="card">
         <h2>{t('daily.import_sales')}</h2>
         <p className="muted">CSV: date, location, dish, qty_sold</p>
         <textarea value={csv} onChange={(e) => setCsv(e.target.value)} />
         <div className="actions"><button className="secondary" onClick={importCsv} disabled={!csv.trim()}>{t('daily.import_sales')}</button></div>
       </div>
+      )}
     </>
   );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '../api.js';
 import { useI18n } from '../i18n.jsx';
+import { useAuth } from '../auth.jsx';
+import { useBusinessDay } from '../lib/businessday.js';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -8,6 +10,8 @@ const today = () => new Date().toISOString().slice(0, 10);
 // "Déclarer les Pertes" — declare waste: raw ingredient (ITEM) or product (PRODUCT).
 export default function Pertes() {
   const { t } = useI18n();
+  const { isDirection } = useAuth();
+  const businessDay = useBusinessDay();
   const { locations, locationId, setLocationId } = useLocations();
   const [date, setDate] = useState(today());
   const [items, setItems] = useState([]);
@@ -30,6 +34,8 @@ export default function Pertes() {
     api.get(`/api/waste-declarations${q}`).then((d) => setRecent(d.declarations.slice(0, 15)));
   }, [locationId]);
   useEffect(() => { loadRecent(); }, [loadRecent]);
+  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+  const readOnly = !!businessDay && !isDirection && date !== businessDay;
 
   const options = refType === 'ITEM' ? items : dishes;
 
@@ -58,27 +64,28 @@ export default function Pertes() {
           <LocationPicker locations={locations} locationId={locationId} onChange={setLocationId} />
           <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
         </div>
+        {readOnly && <p className="flag">🔒 {t('common.readOnlyDay')}</p>}
         <div className="row">
           <label>{t('pertes.type')}
-            <select value={refType} onChange={(e) => { setRefType(e.target.value); setRefId(''); }}>
+            <select value={refType} disabled={readOnly} onChange={(e) => { setRefType(e.target.value); setRefId(''); }}>
               <option value="ITEM">{t('pertes.ingredient')}</option>
               <option value="PRODUCT">{t('pertes.product')}</option>
             </select>
           </label>
           <label style={{ flex: 1, minWidth: 180 }}>{refType === 'ITEM' ? t('common.item') : t('recipes.dish')}
-            <select value={refId} onChange={(e) => setRefId(e.target.value)}>
+            <select value={refId} disabled={readOnly} onChange={(e) => setRefId(e.target.value)}>
               <option value="">—</option>
               {options.map((o) => <option key={o.id} value={o.id}>{o.name}{refType === 'ITEM' ? ` (${t(`units.${o.unit}`)})` : ''}</option>)}
             </select>
           </label>
-          <label>{t('common.qty')}<input className="qty" type="number" inputMode="decimal" step="any" value={qty} onChange={(e) => setQty(e.target.value)} /></label>
+          <label>{t('common.qty')}<input className="qty" type="number" inputMode="decimal" step="any" value={qty} disabled={readOnly} onChange={(e) => setQty(e.target.value)} /></label>
         </div>
         <div className="row">
           <label style={{ flex: 1 }}>{t('pertes.reason')}
-            <input type="text" value={reason} onChange={(e) => setReason(e.target.value)} placeholder={t('pertes.reasonPlaceholder')} />
+            <input type="text" value={reason} disabled={readOnly} onChange={(e) => setReason(e.target.value)} placeholder={t('pertes.reasonPlaceholder')} />
           </label>
         </div>
-        <div className="actions"><button onClick={submit}>{t('pertes.declare')}</button></div>
+        {!readOnly && <div className="actions"><button onClick={submit}>{t('pertes.declare')}</button></div>}
         {error && <p className="error">{error}</p>}
         {msg && <p className="muted">{msg}</p>}
       </div>

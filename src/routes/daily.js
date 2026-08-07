@@ -2,6 +2,7 @@ import { Router } from 'express';
 import prisma from '../lib/prisma.js';
 import { ah, parseDate, ymd } from '../lib/http.js';
 import { requireAuth, requireRole, resolveLocation, FLOOR_ROLES } from '../middleware/auth.js';
+import { assertManagerEditableDate } from '../lib/businessday.js';
 import { getEffectiveRecipeLines } from '../lib/recipes.js';
 import { onHandFromMovements } from '../lib/stock.js';
 import { reconcile } from '../engine/reconciliation.js';
@@ -199,6 +200,7 @@ router.put(
     const locationId = resolveLocation(req);
     const date = parseDate(req.body.date);
     if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
+    assertManagerEditableDate(req.user, date);
     const sales = Array.isArray(req.body.sales) ? req.body.sales : [];
 
     const entry = await upsertEntry(locationId, date, req.user.id);
@@ -223,6 +225,7 @@ router.put(
     const locationId = resolveLocation(req);
     const date = parseDate(req.body.date);
     if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
+    assertManagerEditableDate(req.user, date);
     const counts = Array.isArray(req.body.counts) ? req.body.counts : [];
 
     const entry = await upsertEntry(locationId, date, req.user.id);
@@ -252,6 +255,7 @@ router.post(
     if (!date || !['RECEIVED', 'ADJUSTMENT', 'COUNT_SET'].includes(type) || !itemId || Number.isNaN(qty)) {
       return res.status(400).json({ error: t('errors.validation') });
     }
+    assertManagerEditableDate(req.user, date);
     const movement = await prisma.stockMovement.create({
       data: { locationId, itemId, type, qty, date, ref: req.body.ref || `manual:${type.toLowerCase()}`, createdBy: req.user.id },
     });
@@ -272,6 +276,7 @@ router.post(
     const date = parseDate(req.body.date);
     if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
 
+    assertManagerEditableDate(req.user, date);
     const { entry, rows } = await persistReconcile(locationId, date, req.user.id);
     if (!entry) return res.status(400).json({ error: 'Aucune saisie pour ce jour.' });
     await writeAudit({ userId: req.user.id, entity: 'stock', entityId: `${locationId}:${ymd(date)}`, action: 'reconcile', newValue: { rows: rows.length } });
@@ -303,6 +308,7 @@ router.post(
     const locationId = resolveLocation(req);
     const date = parseDate(req.body.date);
     if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
+    assertManagerEditableDate(req.user, date);
     const counts = Array.isArray(req.body.counts) ? req.body.counts : [];
 
     // First night ever at this location -> baseline only (no waste).

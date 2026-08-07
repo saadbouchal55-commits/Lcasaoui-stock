@@ -5,6 +5,7 @@ import { requireAuth, allowedLocationIds } from '../middleware/auth.js';
 import { loadLocale } from '../lib/i18n.js';
 import { config } from '../config.js';
 import { UNITS } from '../engine/units.js';
+import { currentBusinessDay } from '../lib/businessday.js';
 
 const router = Router();
 
@@ -36,9 +37,16 @@ router.get('/config', requireAuth, (req, res) => {
   res.json({
     units: UNITS,
     categories: ['INGREDIENT', 'PACKAGING', 'SOLD_AS_IS'],
-    roles: ['DIRECTION', 'MANAGER'],
+    roles: ['DIRECTION', 'ORDER_MANAGER', 'MANAGER'],
     order: config.order,
+    businessDay: currentBusinessDay(),
   });
+});
+
+// Current business day (11:00→11:00). Used to default date pickers and to know
+// which day a manager may still edit.
+router.get('/business-day', requireAuth, (req, res) => {
+  res.json({ businessDay: currentBusinessDay() });
 });
 
 export default router;

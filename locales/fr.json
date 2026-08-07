@@ -50,7 +50,8 @@
     "no": "Non",
     "actions": "Actions",
     "all": "Tous",
-    "total": "Total"
+    "total": "Total",
+    "readOnlyDay": "Journée précédente — lecture seule. Seule la Direction peut modifier l'historique."
   },
   "auth": {
     "login": "Connexion",

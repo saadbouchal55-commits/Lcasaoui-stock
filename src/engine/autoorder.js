@@ -49,9 +49,10 @@ export function classify(history, cfg) {
  * @param {number} [args.bufferPct]  e.g. 10 = +10%
  * @param {object} args.cfg          config.order
  * @param {'daily'|'bulk'} [args.mode] force a mode (else auto-classified)
+ * @param {number|null} [args.dailyAvgOverride] precomputed daily average (e.g. weekday-aware)
  * @returns {{suggestedQty:number, mode:string, avgDaily:number, reason:string}}
  */
-export function suggestOrder({ item, history, currentStock, bufferPct = 0, cfg, mode }) {
+export function suggestOrder({ item, history, currentStock, bufferPct = 0, cfg, mode, dailyAvgOverride = null }) {
   const stock = Number(currentStock) || 0;
   const buffer = 1 + (Number(bufferPct) || 0) / 100;
   const resolvedMode = mode || classify(history, cfg);
@@ -75,9 +76,9 @@ export function suggestOrder({ item, history, currentStock, bufferPct = 0, cfg, 
     };
   }
 
-  // Daily item: use the recent window.
+  // Daily item: use the weekday-aware average when provided, else the flat window.
   const window = history.slice(-cfg.learningWindowDays);
-  const avgDaily = mean(window);
+  const avgDaily = dailyAvgOverride != null ? dailyAvgOverride : mean(window);
   const coverage = cfg.coverageDays + cfg.morningFraction;
   const raw = avgDaily * coverage * buffer - stock;
   const suggestedQty = roundOrderQty(item.unit, raw);
@@ -93,6 +94,32 @@ export function suggestOrder({ item, history, currentStock, bufferPct = 0, cfg, 
 
 function round1(x) {
   return Math.round((Number(x) || 0) * 10) / 10;
+}
+
+/**
+ * Weekday-aware daily average: predicts a day's need from the same weekday in
+ * recent weeks (Mondays learn from Mondays). Falls back to the flat recent
+ * average until enough same-weekday samples exist — so it works from day one and
+ * sharpens as data accumulates.
+ *
+ * @param {number[]} values  daily series (oldest→newest)
+ * @param {string[]} days    matching 'YYYY-MM-DD' for each value
+ * @param {string} targetYmd the day the order is for ('YYYY-MM-DD')
+ * @param {object} cfg       config.order
+ * @returns {number}
+ */
+export function weekdayAverage(values, days, targetYmd, cfg) {
+  const dow = (ymd) => new Date(`${ymd}T00:00:00Z`).getUTCDay();
+  const targetDow = dow(targetYmd);
+  const sameWeekday = [];
+  for (let i = 0; i < values.length; i++) {
+    if (days[i] && dow(days[i]) === targetDow && values[i] > 0) sameWeekday.push(values[i]);
+  }
+  const recent = sameWeekday.slice(-(cfg.sameWeekdayCount || 4));
+  if (recent.length >= (cfg.minSamples || 2)) return mean(recent);
+  // Fallback: flat average of recent days that had activity.
+  const nz = values.filter((v) => v > 0).slice(-cfg.learningWindowDays);
+  return nz.length ? mean(nz) : 0;
 }
 
 export default suggestOrder;

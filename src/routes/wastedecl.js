@@ -2,6 +2,7 @@ import { Router } from 'express';
 import prisma from '../lib/prisma.js';
 import { ah, parseDate, ymd } from '../lib/http.js';
 import { requireAuth, requireRole, resolveLocation, FLOOR_ROLES } from '../middleware/auth.js';
+import { assertManagerEditableDate } from '../lib/businessday.js';
 import { t } from '../lib/i18n.js';
 
 const router = Router();
@@ -21,6 +22,7 @@ router.post(
     if (!date || !['ITEM', 'PRODUCT'].includes(refType) || !(qty > 0)) {
       return res.status(400).json({ error: t('errors.validation') });
     }
+    assertManagerEditableDate(req.user, date);
     const itemId = refType === 'ITEM' ? Number(req.body.itemId) : null;
     const dishId = refType === 'PRODUCT' ? Number(req.body.dishId) : null;
     if (refType === 'ITEM' && !itemId) return res.status(400).json({ error: t('errors.validation'), fields: ['itemId'] });

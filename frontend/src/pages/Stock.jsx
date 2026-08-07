@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { api } from '../api.js';
 import { useI18n } from '../i18n.jsx';
 import { useAuth } from '../auth.jsx';
+import { useBusinessDay } from '../lib/businessday.js';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 import { WasteTable } from '../components/WasteTable.jsx';
 import { groupByZone } from '../lib/grouping.js';
@@ -13,6 +14,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 export default function Stock() {
   const { t } = useI18n();
   const { isDirection } = useAuth();
+  const businessDay = useBusinessDay();
   const { locations, locationId, setLocationId } = useLocations();
   const [date, setDate] = useState(today());
   const [items, setItems] = useState([]);
@@ -50,6 +52,9 @@ export default function Stock() {
     } catch (e) { setMsg(e.message); } finally { setBusy(false); }
   };
 
+  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+  const readOnly = !!businessDay && !isDirection && date !== businessDay;
+
   const isBaseline = status?.isBaseline;
   const zones = groupByZone(items);
   const toggle = (z) => setCollapsed((c) => ({ ...c, [z]: !c[z] }));
@@ -64,8 +69,9 @@ export default function Stock() {
           {status && <span className={`badge ${isBaseline ? 'gray' : 'green'}`}>{isBaseline ? t('stock.baseline') : t('stock.closing')}</span>}
         </div>
         <p className="muted">{isBaseline ? t('stock.baselineHint') : t('stock.blindHint')}</p>
+        {readOnly && <p className="flag">🔒 {t('common.readOnlyDay')}</p>}
         {msg && <p className="muted">{msg}</p>}
-        <div className="actions"><button onClick={submit} disabled={busy}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
+        <div className="actions"><button onClick={submit} disabled={busy || readOnly}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
       </div>
 
       {zones.map((zoneGrp) => (
@@ -84,7 +90,7 @@ export default function Stock() {
                       <tr key={it.id}>
                         <td data-label={t('common.item')}>{it.name} <span className="muted">({t(`units.${it.unit}`)})</span></td>
                         <td className="num" data-label={t('waste.counted')}>
-                          <input className="qty" type="number" inputMode="decimal" step="any" value={counts[it.id] ?? ''}
+                          <input className="qty" type="number" inputMode="decimal" step="any" value={counts[it.id] ?? ''} disabled={readOnly}
                             onChange={(e) => setCounts((c) => ({ ...c, [it.id]: e.target.value }))} />
                         </td>
                       </tr>
@@ -101,7 +107,7 @@ export default function Stock() {
         <div className="card"><h2>{t('waste.title')}</h2><WasteTable rows={wasteRows} /></div>
       )}
 
-      <div className="actions" style={{ marginBottom: 24 }}><button onClick={submit} disabled={busy}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
+      <div className="actions" style={{ marginBottom: 24 }}><button onClick={submit} disabled={busy || readOnly}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
     </>
   );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '../api.js';
 import { useI18n } from '../i18n.jsx';
+import { useAuth } from '../auth.jsx';
+import { useBusinessDay } from '../lib/businessday.js';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -9,11 +11,13 @@ const today = () => new Date().toISOString().slice(0, 10);
 // Non-binding history hint; blank = skipped (not sent). Food ordering is elsewhere.
 export default function Emballage() {
   const { t } = useI18n();
+  const { isDirection } = useAuth();
+  const businessDay = useBusinessDay();
   const { locations, locationId, setLocationId } = useLocations();
   const [date, setDate] = useState(today());
   const [rows, setRows] = useState([]);
   const [qty, setQty] = useState({});
-  const [locked, setLocked] = useState(false);
+  const [confirmedLock, setConfirmedLock] = useState(false);
   const [msg, setMsg] = useState('');
 
   const load = useCallback(() => {
@@ -21,13 +25,17 @@ export default function Emballage() {
     setMsg('');
     api.get(`/api/packaging?locationId=${locationId}&date=${date}`).then((d) => {
       setRows(d.rows);
-      setLocked(d.locked);
+      setConfirmedLock(d.locked);
       const q = {};
       d.rows.forEach((r) => { if (r.orderedQty != null) q[r.itemId] = String(r.orderedQty); });
       setQty(q);
     });
   }, [locationId, date]);
   useEffect(() => { load(); }, [load]);
+  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+
+  const readOnly = !!businessDay && !isDirection && date !== businessDay;
+  const locked = confirmedLock || readOnly; // locked if order already sent OR a past day
 
   const save = async () => {
     await api.put('/api/packaging', {
@@ -47,7 +55,8 @@ export default function Emballage() {
           <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
         </div>
         <p className="muted">{t('emballage.hint')}</p>
-        {locked && <p className="flag">🔒 {t('emballage.locked')}</p>}
+        {readOnly && <p className="flag">🔒 {t('common.readOnlyDay')}</p>}
+        {confirmedLock && !readOnly && <p className="flag">🔒 {t('emballage.locked')}</p>}
         {msg && <p className="muted">{msg}</p>}
       </div>
 

@@ -9,7 +9,9 @@
 import prisma from '../lib/prisma.js';
 import { ymd } from '../lib/http.js';
 import { getStockOnHand } from '../lib/stock.js';
-import { suggestOrder } from '../engine/autoorder.js';
+import { suggestOrder, weekdayAverage } from '../engine/autoorder.js';
+import { computeConsumption } from '../engine/reconciliation.js';
+import { getEffectiveRecipeLines } from '../lib/recipes.js';
 import { config } from '../config.js';
 
 const HISTORY_DAYS = 60; // window pulled for classification; daily avg uses config window
@@ -17,14 +19,19 @@ const round = (x, p = 100) => Math.round((Number(x) || 0) * p) / p;
 
 /**
  * Per-item daily quantity series (oldest→newest) over the history window.
- * Primary signal is CONFIRMED-SENT order quantities (incl. seeded order history);
- * missing days fall back to that day's CONSUMPTION, else 0.
+ * The daily NEED of a FOOD item is best predicted by actual consumption
+ * (sales × recipe), so that is the primary signal. Priority per item/day:
+ *   1. reconciled CONSUMPTION movement (actual, most authoritative)
+ *   2. sales × recipe for that day (works even before a day is reconciled — this
+ *      is what makes e.g. Pain Tacos follow tacos sold, not past under-ordering)
+ *   3. CONFIRMED-SENT order qty (fallback; drives packaging, which has no recipe)
+ *   4. 0
  */
 export async function getItemHistories(locationId, endDate) {
   const start = new Date(endDate);
   start.setUTCDate(start.getUTCDate() - HISTORY_DAYS);
 
-  const [sentOrders, consumption, items] = await Promise.all([
+  const [sentOrders, consumption, items, entries, recipeLinesByDish] = await Promise.all([
     prisma.orderSuggestion.findMany({
       where: { locationId, status: 'CONFIRMED_SENT', date: { gte: start, lt: endDate } },
       select: { date: true, lines: { select: { itemId: true, orderedQty: true, suggestedQty: true } } },
@@ -34,24 +41,41 @@ export async function getItemHistories(locationId, endDate) {
       select: { itemId: true, date: true, qty: true },
     }),
     prisma.item.findMany({ where: { isTracked: true } }),
+    prisma.dailyEntry.findMany({
+      where: { locationId, date: { gte: start, lt: endDate } },
+      select: { date: true, salesLines: { select: { dishId: true, qtySold: true } } },
+    }),
+    getEffectiveRecipeLines(endDate), // current recipes, applied to historical sales
   ]);
 
-  const sentMap = new Map(); // `${itemId}:${ymd}` -> total confirmed-sent qty that day
+  // Confirmed-sent order quantities, summed per item/day.
+  const sentMap = new Map();
   for (const o of sentOrders) {
     const day = ymd(o.date);
     for (const l of o.lines) {
       const q = l.orderedQty ?? l.suggestedQty ?? 0;
       if (q > 0) {
-        // Sum across ALL confirmed orders that day (primary + any supplementary).
         const k = `${l.itemId}:${day}`;
         sentMap.set(k, (sentMap.get(k) || 0) + q);
       }
     }
   }
+  // Reconciled consumption per item/day.
   const consMap = new Map();
   for (const c of consumption) {
     const k = `${c.itemId}:${ymd(c.date)}`;
     consMap.set(k, (consMap.get(k) || 0) + c.qty);
+  }
+  // Sales × recipe consumption per item/day (food demand, even unreconciled).
+  const salesMap = new Map();
+  for (const e of entries) {
+    if (!e.salesLines.length) continue;
+    const day = ymd(e.date);
+    const cons = computeConsumption(items, recipeLinesByDish, e.salesLines);
+    for (const [itemId, qty] of cons) {
+      const k = `${itemId}:${day}`;
+      salesMap.set(k, (salesMap.get(k) || 0) + qty);
+    }
   }
 
   const days = [];
@@ -63,13 +87,14 @@ export async function getItemHistories(locationId, endDate) {
       item.id,
       days.map((day) => {
         const k = `${item.id}:${day}`;
-        if (sentMap.has(k)) return sentMap.get(k);
-        if (consMap.has(k)) return consMap.get(k);
+        if (consMap.has(k)) return consMap.get(k); // reconciled actual
+        if (salesMap.has(k)) return salesMap.get(k); // sales × recipe
+        if (sentMap.has(k)) return sentMap.get(k); // confirmed-sent order (e.g. packaging)
         return 0;
       }),
     );
   }
-  return { items, histories };
+  return { items, histories, days };
 }
 
 /**
@@ -80,12 +105,13 @@ export async function getItemHistories(locationId, endDate) {
  * Also returns per-food-item `recentMax` so the caller can detect absurd quantities.
  */
 export async function computeSuggestions(locationId, date) {
-  const [{ items, histories }, stock, buffers] = await Promise.all([
+  const [{ items, histories, days }, stock, buffers] = await Promise.all([
     getItemHistories(locationId, date),
     getStockOnHand(prisma, locationId),
     prisma.buffer.findMany({ where: { locationId } }),
   ]);
   const bufferByItem = new Map(buffers.map((b) => [b.itemId, b.pct]));
+  const targetYmd = ymd(date); // the day the order is for → its weekday drives the average
 
   const food = [];
   const packaging = [];
@@ -97,7 +123,9 @@ export async function computeSuggestions(locationId, date) {
 
     if (item.inRecipes) {
       const bufferPct = bufferByItem.get(item.id) || 0;
-      const s = suggestOrder({ item, history, currentStock, bufferPct, cfg: config.order });
+      // Weekday-aware daily average (falls back to flat average on small history).
+      const dailyAvgOverride = weekdayAverage(history, days, targetYmd, config.order);
+      const s = suggestOrder({ item, history, currentStock, bufferPct, cfg: config.order, dailyAvgOverride });
       food.push({
         itemId: item.id,
         name: item.name,

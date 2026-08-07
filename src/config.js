@@ -8,6 +8,15 @@ export const config = {
   isProd: process.env.NODE_ENV === 'production',
   sessionSecret: process.env.SESSION_SECRET || 'dev-insecure-secret-change-me',
 
+  // ── Business day ─────────────────────────────────────────────────────────────
+  // A "business day" runs from startHour to startHour next morning (11:00→11:00),
+  // so a late-night closing count belongs to the day that just ended. Managers can
+  // only edit the CURRENT business day; Direction can edit any day.
+  business: {
+    tz: process.env.BUSINESS_TZ || 'Africa/Casablanca',
+    startHour: num(process.env.BUSINESS_DAY_START_HOUR, 11),
+  },
+
   // ── Security ───────────────────────────────────────────────────────────────
   security: {
     // Login rate limit (per IP + username) to blunt brute-force attempts.
@@ -24,8 +33,14 @@ export const config = {
     coverageDays: num(process.env.COVERAGE_DAYS, 1),
     morningFraction: num(process.env.MORNING_FRACTION, 0.25),
 
-    // Recent days averaged for a DAILY item's consumption.
+    // Recent days averaged for a DAILY item's consumption (flat fallback).
     learningWindowDays: num(process.env.LEARNING_WINDOW_DAYS, 14),
+
+    // Weekday-aware learning: a day's need is predicted from the same weekday in
+    // recent weeks (Mondays learn from Mondays). Falls back to the flat average
+    // until there are enough same-weekday samples, so it works from day one.
+    sameWeekdayCount: num(process.env.SAME_WEEKDAY_COUNT, 4), // how many past same-weekdays
+    minSamples: num(process.env.WEEKDAY_MIN_SAMPLES, 2), // need at least this many, else fallback
 
     // Guardrail: a generated qty above this multiple of the item's recent max
     // daily need is treated as absurd (likely a typo) → the order is HELD for review.

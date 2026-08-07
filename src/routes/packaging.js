@@ -2,6 +2,7 @@ import { Router } from 'express';
 import prisma from '../lib/prisma.js';
 import { ah, parseDate, ymd } from '../lib/http.js';
 import { requireAuth, requireRole, resolveLocation, FLOOR_ROLES } from '../middleware/auth.js';
+import { assertManagerEditableDate } from '../lib/businessday.js';
 import { computeSuggestions } from '../services/orderservice.js';
 import { t } from '../lib/i18n.js';
 
@@ -48,6 +49,7 @@ router.put(
     const date = parseDate(req.body.date);
     const items = Array.isArray(req.body.items) ? req.body.items : [];
     if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
+    assertManagerEditableDate(req.user, date);
 
     let order = await prisma.orderSuggestion.findUnique({ where: { locationId_date_seq: { locationId, date, seq: 1 } } });
     if (order?.status === 'CONFIRMED_SENT') return res.status(409).json({ error: 'Commande déjà confirmée — non modifiable.' });
