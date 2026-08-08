@@ -50,6 +50,7 @@ async function buildPrimaryView(locationId, date) {
     return {
       itemId: p.itemId, lineId: line?.id ?? null, name: p.name, unit: p.unit,
       storageZone: p.storageZone, subCategory: p.subCategory,
+      currentStock: p.currentStock,
       hintAvg: p.hintAvg, hintLast: p.hintLast, ordersInWindow: p.ordersInWindow,
       orderedQty: line?.orderedQty ?? null,
     };

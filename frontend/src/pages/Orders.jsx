@@ -163,7 +163,7 @@ export default function Orders() {
                   <h4 className="subcat">{t(`zones.${zg.zone}`)} — {sg.sub}</h4>
                   <div className="table-wrap">
                     <table className="data">
-                      <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.suggested')}</th><th className="num">{t('orders.ordered')}</th></tr></thead>
+                      <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.stock')}</th><th className="num">{t('orders.suggested')}</th><th className="num">{t('orders.ordered')}</th></tr></thead>
                       <tbody>
                         {sg.items.map((r) => (
                           <tr key={r.itemId} style={r.lowConfidence ? { background: 'var(--warn-bg)' } : undefined}>
@@ -172,6 +172,7 @@ export default function Orders() {
                               {r.lowConfidence && <span className="flag" title={r.confidenceReasons}> ⚠ {t('orders.lowConfidence')}</span>}
                             </td>
                             <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
+                            <td className="num" data-label={t('orders.stock')}>{r.currentStock}</td>
                             <td className="num muted" data-label={t('orders.suggested')} title={r.reason}>{r.suggestedQty}</td>
                             <td className="num" data-label={t('orders.ordered')}>
                               {!pConfirmed
@@ -194,7 +195,7 @@ export default function Orders() {
                   <h4 className="subcat">{t(`zones.${zg.zone}`)} — {sg.sub}</h4>
                   <div className="table-wrap">
                     <table className="data">
-                      <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.hintAvg')}</th><th className="num">{t('orders.manualQty')}</th></tr></thead>
+                      <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.stock')}</th><th className="num">{t('orders.hintAvg')}</th><th className="num">{t('orders.manualQty')}</th></tr></thead>
                       <tbody>
                         {sg.items.map((r) => {
                           const key = `${g.locationId}:${r.itemId}`;
@@ -202,6 +203,7 @@ export default function Orders() {
                             <tr key={r.itemId}>
                               <td data-label={t('common.item')}>{r.name}</td>
                               <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
+                              <td className="num" data-label={t('orders.stock')}>{r.currentStock}</td>
                               <td className="num muted" data-label={t('orders.hintAvg')}>{r.hintAvg || '—'}</td>
                               <td className="num" data-label={t('orders.manualQty')}>
                                 {!pConfirmed

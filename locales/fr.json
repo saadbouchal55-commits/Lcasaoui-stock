@@ -186,6 +186,7 @@
   "orders": {
     "title": "Commandes",
     "suggested": "Suggéré",
+    "stock": "Stock actuel",
     "actualSent": "Réellement envoyé",
     "mode": "Type",
     "mode_daily": "Journalier",
