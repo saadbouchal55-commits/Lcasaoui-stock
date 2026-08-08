@@ -25,8 +25,18 @@ function dayFor(now, startHour) {
 
 /** Business/service day (11:00 boundary) — Ventes, Stock, Pertes. */
 export const currentBusinessDay = (now = new Date()) => dayFor(now, config.business.startHour);
-/** Order/production day (07:00 boundary) — Commandes + Commander Emballage. */
-export const currentOrderDay = (now = new Date()) => dayFor(now, config.business.orderStartHour);
+
+/**
+ * Order day = the NEXT business day. An order placed during business day D is for
+ * D+1 (produced next morning at 07:00, delivered midday). Commandes + Commander
+ * Emballage target this next-day order. Computed from the business day so it is
+ * correct at night too: at 02:00 the business day is still D, so the order is D+1.
+ */
+export function currentOrderDay(now = new Date()) {
+  const d = new Date(`${currentBusinessDay(now)}T00:00:00.000Z`);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().slice(0, 10);
+}
 
 function assertEditable(user, date, currentDay, msg) {
   if (user.role === 'DIRECTION') return; // Direction may edit any day

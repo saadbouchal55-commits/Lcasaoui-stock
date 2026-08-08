@@ -37,7 +37,10 @@ export default function Sales() {
   }, [locationId, date]);
   useEffect(() => { load(); }, [load]);
 
+  const locStr = () => { const l = locations.find((x) => x.id === locationId); return l ? `${l.code} — ${l.name}` : ''; };
+
   const save = async () => {
+    if (!window.confirm(t('confirm.record', { loc: locStr(), date }))) return;
     await api.put('/api/daily/sales', {
       locationId, date,
       sales: Object.entries(sales).map(([dishId, q]) => ({ dishId: Number(dishId), qtySold: Number(q) })).filter((x) => x.qtySold > 0),
@@ -46,6 +49,7 @@ export default function Sales() {
   };
 
   const importCsv = async () => {
+    if (!window.confirm(t('confirm.record', { loc: locStr(), date }))) return;
     const d = await api.post('/api/daily/import-sales', { locationId, date, csv });
     setMsg(`${t('sales.imported')}: ${d.imported}` + (d.skipped?.length ? ` — ${t('sales.skipped')}: ${d.skipped.join(', ')}` : ''));
     setCsv('');

@@ -31,6 +31,12 @@
     "noLocationForDirection": "La Direction voit les deux restaurants (pas de restaurant à choisir).",
     "createdInfo": "L'utilisateur devra définir son propre mot de passe à la première connexion."
   },
+  "confirm": {
+    "record": "Confirmer l'enregistrement pour {loc} — journée du {date} ?",
+    "order": "Confirmer la commande pour {loc} — commande du {date} ?",
+    "initialStock": "Définir le stock initial pour {loc} au {date} ? Action unique, non modifiable.",
+    "send": "Confirmer l'envoi de la commande pour {loc} — commande du {date} ?"
+  },
   "common": {
     "location": "Restaurant",
     "date": "Date",
@@ -38,6 +44,7 @@
     "unit": "Unité",
     "qty": "Quantité",
     "save": "Enregistrer",
+    "saved": "Enregistré ✓",
     "cancel": "Annuler",
     "edit": "Modifier",
     "add": "Ajouter",
@@ -135,6 +142,7 @@
   },
   "emballage": {
     "hint": "Saisissez les quantités d'emballage à commander. Indice basé sur l'historique — vide = non commandé.",
+    "forOrder": "Cette saisie alimente la commande du {date} (le lendemain de votre journée).",
     "locked": "La commande est déjà confirmée envoyée — non modifiable.",
     "saved": "Emballages enregistrés.",
     "save": "Enregistrer la commande d'emballage"

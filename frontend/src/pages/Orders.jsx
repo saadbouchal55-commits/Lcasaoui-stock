@@ -53,8 +53,9 @@ export default function Orders() {
     await api.put('/api/orders/packaging', { locationId: g.locationId, date, items: g.primary.packaging.map((r) => ({ itemId: r.itemId, qty: pkgEdits[`${g.locationId}:${r.itemId}`] ?? '' })) });
     setMsg(t('orders.savePackaging')); refresh();
   };
+  const locStr = () => { const g = groups.find((x) => x.locationId === view); return g ? `${g.locationCode} — ${g.locationName}` : ''; };
   const confirm = async (orderId) => {
-    if (!orderId || !window.confirm(t('orders.confirmSent') + ' ?')) return;
+    if (!orderId || !window.confirm(t('confirm.send', { loc: locStr(), date }))) return;
     try { await api.post('/api/orders/confirm', { orderId }); setMsg(t('orders.confirmSent')); } catch (e) { setMsg(e.message); }
     refresh();
   };

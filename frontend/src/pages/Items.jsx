@@ -14,6 +14,7 @@ export default function Items() {
   const [form, setForm] = useState(blank);
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
+  const [msg, setMsg] = useState('');
 
   const load = () => {
     const params = new URLSearchParams();
@@ -32,7 +33,7 @@ export default function Items() {
   const reset = () => { setEditingId(null); setForm(blank); setError(''); };
 
   const save = async () => {
-    setError('');
+    setError(''); setMsg('');
     const payload = {
       ...form,
       packSize: form.packSize === '' ? null : Number(form.packSize),
@@ -43,6 +44,7 @@ export default function Items() {
       else await api.post('/api/items', payload);
       reset();
       load();
+      setMsg(t('common.saved'));
     } catch (e) {
       setError(e.data?.fields ? `${t('errors.validation')}: ${e.data.fields.join(', ')}` : e.message);
     }
@@ -82,6 +84,7 @@ export default function Items() {
           <button onClick={save}>{t('common.save')}</button>
           {editingId && <button className="secondary" onClick={reset}>{t('common.cancel')}</button>}
         </div>
+        {msg && <p className="muted">{msg}</p>}
         {error && <p className="error">{error}</p>}
       </div>
 

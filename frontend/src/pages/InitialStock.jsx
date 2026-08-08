@@ -28,7 +28,10 @@ export default function InitialStock() {
   }, [locationId]);
   useEffect(() => { loadStatus(); }, [loadStatus]);
 
+  const locStr = () => { const l = locations.find((x) => x.id === locationId); return l ? `${l.code} — ${l.name}` : ''; };
+
   const submit = async () => {
+    if (!window.confirm(t('confirm.initialStock', { loc: locStr(), date }))) return;
     setBusy(true); setError('');
     try {
       const d = await api.post('/api/daily/initial-stock', {

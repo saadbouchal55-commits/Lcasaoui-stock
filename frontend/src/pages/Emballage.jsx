@@ -2,28 +2,39 @@ import { useEffect, useState, useCallback } from 'react';
 import { api } from '../api.js';
 import { useI18n } from '../i18n.jsx';
 import { useAuth } from '../auth.jsx';
-import { useOrderDay } from '../lib/businessday.js';
+import { useBusinessDay } from '../lib/businessday.js';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 
 const today = () => new Date().toISOString().slice(0, 10);
+const addDay = (ymd) => {
+  if (!ymd) return ymd;
+  const d = new Date(`${ymd}T00:00:00.000Z`);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().slice(0, 10);
+};
 
-// "Commander Emballage" — manager enters packaging/consumable order quantities.
-// Non-binding history hint; blank = skipped (not sent). Food ordering is elsewhere.
+// "Commander Emballage" — a manager enters packaging quantities during their
+// business day. What they order is for the NEXT day (order day = business day + 1),
+// so the manager sees their business day but the data feeds the next-day order that
+// Direction reviews on the Commandes page. Blank = skipped (not sent).
 export default function Emballage() {
   const { t } = useI18n();
   const { isDirection } = useAuth();
-  const orderDay = useOrderDay();
+  const businessDay = useBusinessDay();
   const { locations, locationId, setLocationId } = useLocations();
-  const [date, setDate] = useState(today());
+  const [date, setDate] = useState(today()); // the manager's BUSINESS day (shown)
   const [rows, setRows] = useState([]);
   const [qty, setQty] = useState({});
   const [confirmedLock, setConfirmedLock] = useState(false);
   const [msg, setMsg] = useState('');
 
+  const orderDate = addDay(date); // the order this feeds (next day)
+  const locStr = () => { const l = locations.find((x) => x.id === locationId); return l ? `${l.code} — ${l.name}` : ''; };
+
   const load = useCallback(() => {
     if (!locationId || !date) return;
     setMsg('');
-    api.get(`/api/packaging?locationId=${locationId}&date=${date}`).then((d) => {
+    api.get(`/api/packaging?locationId=${locationId}&date=${addDay(date)}`).then((d) => {
       setRows(d.rows);
       setConfirmedLock(d.locked);
       const q = {};
@@ -32,16 +43,16 @@ export default function Emballage() {
     });
   }, [locationId, date]);
   useEffect(() => { load(); }, [load]);
-  // Order pages roll over at 07:00 (production start), not 11:00. Everyone lands on
-  // the current order day; Direction can change it, managers are locked to it.
-  useEffect(() => { if (orderDay) setDate(orderDay); }, [orderDay]);
+  // The manager always works on the current business day; Direction can change it.
+  useEffect(() => { if (businessDay) setDate(businessDay); }, [businessDay]);
 
-  const readOnly = !!orderDay && !isDirection && date !== orderDay;
+  const readOnly = !!businessDay && !isDirection && date !== businessDay;
   const locked = confirmedLock || readOnly; // locked if order already sent OR a past day
 
   const save = async () => {
+    if (!window.confirm(t('confirm.order', { loc: locStr(), date: orderDate }))) return;
     await api.put('/api/packaging', {
-      locationId, date,
+      locationId, date: orderDate,
       items: rows.map((r) => ({ itemId: r.itemId, qty: qty[r.itemId] ?? '' })),
     });
     setMsg(t('emballage.saved'));
@@ -54,9 +65,10 @@ export default function Emballage() {
       <div className="card">
         <div className="row">
           <LocationPicker locations={locations} locationId={locationId} onChange={setLocationId} />
-          <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
+          <label>{t('common.date')}<input type="date" value={date} disabled={!isDirection} onChange={(e) => setDate(e.target.value)} /></label>
         </div>
         <p className="muted">{t('emballage.hint')}</p>
+        <p className="flag">📦 {t('emballage.forOrder', { date: orderDate })}</p>
         {readOnly && <p className="flag">🔒 {t('common.readOnlyDay')}</p>}
         {confirmedLock && !readOnly && <p className="flag">🔒 {t('emballage.locked')}</p>}
         {msg && <p className="muted">{msg}</p>}

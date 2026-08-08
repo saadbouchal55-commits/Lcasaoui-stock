@@ -27,9 +27,13 @@ export function I18nProvider({ children }) {
 
   const setLang = (l) => setLangState(l);
 
-  const t = (key) => {
+  const t = (key, params) => {
     if (!strings) return '';
-    return key.split('.').reduce((o, k) => (o && o[k] != null ? o[k] : null), strings) ?? key;
+    let s = key.split('.').reduce((o, k) => (o && o[k] != null ? o[k] : null), strings) ?? key;
+    if (params && typeof s === 'string') {
+      s = s.replace(/\{(\w+)\}/g, (m, k) => (params[k] != null ? params[k] : m));
+    }
+    return s;
   };
 
   if (!strings) return null; // brief blank while the first language loads

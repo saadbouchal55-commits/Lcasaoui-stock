@@ -15,9 +15,9 @@ export const config = {
   business: {
     tz: process.env.BUSINESS_TZ || 'Africa/Casablanca',
     startHour: num(process.env.BUSINESS_DAY_START_HOUR, 11),
-    // The ORDER/production day rolls earlier — production starts at 07:00, so the
-    // order pages (Commandes + Commander Emballage) show the new day from 07:00.
-    orderStartHour: num(process.env.ORDER_DAY_START_HOUR, 7),
+    // The ORDER day is the NEXT business day: an order placed during business day D
+    // is for D+1 (produced next morning at 07:00, delivered midday). Commandes +
+    // Commander Emballage target this next-day order. (See lib/businessday.js.)
   },
 
   // ── Security ───────────────────────────────────────────────────────────────
@@ -47,10 +47,9 @@ export const config = {
     // Recent weeks weigh more: index 0 = the most recent same-weekday.
     weekdayWeights: [4, 3, 2, 1],
 
-    // The order placed on business day D is delivered midday D+1, so the demand
-    // it must cover is the NEXT day's weekday pattern (Friday-night order covers
-    // Saturday). Offset from the order date to the consumption day it targets.
-    targetOffsetDays: num(process.env.ORDER_TARGET_OFFSET_DAYS, 1),
+    // The order is DATED by the day it covers (order day = business day + 1), so it
+    // targets its own date's weekday — offset 0. (Kept configurable for tuning.)
+    targetOffsetDays: num(process.env.ORDER_TARGET_OFFSET_DAYS, 0),
 
     // Guardrail: a generated qty above this multiple of the item's recent max
     // daily need is treated as absurd (likely a typo) → the order is HELD for review.

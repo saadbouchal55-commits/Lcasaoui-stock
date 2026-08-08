@@ -39,9 +39,12 @@ export default function Pertes() {
 
   const options = refType === 'ITEM' ? items : dishes;
 
+  const locStr = () => { const l = locations.find((x) => x.id === locationId); return l ? `${l.code} — ${l.name}` : ''; };
+
   const submit = async () => {
     setError(''); setMsg('');
     if (!refId || !(Number(qty) > 0)) { setError(t('errors.validation')); return; }
+    if (!window.confirm(t('confirm.record', { loc: locStr(), date }))) return;
     try {
       await api.post('/api/waste-declarations', {
         locationId, date, refType,

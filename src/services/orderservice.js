@@ -199,10 +199,10 @@ export async function computeSuggestions(locationId, date) {
   // A saved Buffer row is a Direction override (even 0); absence = smart default.
   const bufferByItem = new Map(buffers.map((b) => [b.itemId, b.pct]));
 
-  // The order placed on day D is delivered midday D+1 — predict for the weekday
-  // of the day it actually covers.
+  // The order is dated by the day it covers (order day = business day + 1), so it
+  // targets its own date's weekday. targetOffsetDays defaults to 0.
   const target = new Date(date);
-  target.setUTCDate(target.getUTCDate() + (cfg.targetOffsetDays ?? 1));
+  target.setUTCDate(target.getUTCDate() + (cfg.targetOffsetDays ?? 0));
   const targetYmd = ymd(target);
 
   const food = [];
@@ -305,11 +305,16 @@ export async function generateOrder(locationId, date, generatedBy = null) {
   // ── Guardrails ────────────────────────────────────────────────────────────
   const holdReasons = [];
 
+  // The order is DATED by the day it covers (business day + 1) and placed once the
+  // previous business day closes. Its learning input is that closed day's sales —
+  // check them (not the future coverage day, which has no sales yet).
+  const bizDay = new Date(date);
+  bizDay.setUTCDate(bizDay.getUTCDate() - 1);
   const entry = await prisma.dailyEntry.findUnique({
-    where: { locationId_date: { locationId, date } },
+    where: { locationId_date: { locationId, date: bizDay } },
     include: { salesLines: true },
   });
-  if (!entry || entry.salesLines.length === 0) holdReasons.push('ventes du jour manquantes');
+  if (!entry || entry.salesLines.length === 0) holdReasons.push('ventes de la veille manquantes');
 
   const ledgerCount = await prisma.stockMovement.count({ where: { locationId, date: { lte: date } } });
   if (ledgerCount === 0) holdReasons.push('stock non initialisé / comptage manquant');

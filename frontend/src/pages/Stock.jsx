@@ -39,7 +39,10 @@ export default function Stock() {
   }, [locationId, date]);
   useEffect(() => { load(); }, [load]);
 
+  const locStr = () => { const l = locations.find((x) => x.id === locationId); return l ? `${l.code} — ${l.name}` : ''; };
+
   const submit = async () => {
+    if (!window.confirm(t('confirm.record', { loc: locStr(), date }))) return;
     setBusy(true); setMsg('');
     try {
       const d = await api.post('/api/daily/night-count', {
