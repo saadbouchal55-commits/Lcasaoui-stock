@@ -22,6 +22,8 @@
     "reset-admin": "node prisma/reset-admin.js",
     "add-yaourt": "node prisma/add-yaourt-grec.js",
     "inspect:day": "node prisma/inspect-day.js",
+    "inspect:item": "node prisma/inspect-item.js",
+    "convert:pieces": "node prisma/convert-to-pieces.js",
     "test": "node --test",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
