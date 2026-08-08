@@ -65,7 +65,7 @@ export default function Emballage() {
       <div className="card">
         <div className="row">
           <LocationPicker locations={locations} locationId={locationId} onChange={setLocationId} />
-          <label>{t('common.date')}<input type="date" value={date} disabled={!isDirection} onChange={(e) => setDate(e.target.value)} /></label>
+          <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
         </div>
         <p className="muted">{t('emballage.hint')}</p>
         <p className="flag">📦 {t('emballage.forOrder', { date: orderDate })}</p>

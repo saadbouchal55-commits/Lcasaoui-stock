@@ -1,23 +1,29 @@
-// One-off correction: the go-live night was recorded on the wrong calendar day.
-// Moves a location's SALES (daily entry), WASTE (declarations + ledger movements)
-// and INITIAL STOCK (COUNT_SET) from FROM -> TO. The packaging ORDER intentionally
-// STAYS on FROM: under the "order = next business day" rule, an order placed during
-// business-day TO is correctly the FROM-dated order, so it must not move.
+// One-off correction for the go-live night that was recorded on the wrong day.
 //
-// DRY-RUN by default — prints what it WOULD do and refuses to touch anything unless
-// the target day is empty. Pass --apply to write.
+// Default mode: move a location's SALES (daily entry), WASTE (declarations +
+// ledger movements) and INITIAL STOCK (COUNT_SET) from FROM -> TO. The packaging
+// ORDER stays put (under "order = next business day" it is already the right day).
+// WASTE ledger movements posted after the initial count are dropped (the physical
+// count already reflects them); the waste declarations are kept as a record.
 //
-//   node prisma/fix-misdated-day.js [LOCATION] [FROM] [TO]            (dry run)
-//   node prisma/fix-misdated-day.js [LOCATION] [FROM] [TO] --apply    (execute)
-//   defaults: L1  2026-08-08 -> 2026-08-07
+// --order-only mode: move ONLY the OrderSuggestion(s) (and any RECEIVED movements
+// tied to them) FROM -> TO. Use this when the order itself is on the wrong day
+// (e.g. L2's go-live order sits on 07/08 but, being the next-day order, belongs
+// on 08/08).
 //
-// ALWAYS take a fresh backup first:  npm run export:data
+// DRY-RUN by default; pass --apply to write. ALWAYS back up first: npm run export:data
+//
+//   node prisma/fix-misdated-day.js L1 2026-08-08 2026-08-07            (dry run, default)
+//   node prisma/fix-misdated-day.js L1 2026-08-08 2026-08-07 --apply
+//   node prisma/fix-misdated-day.js L2 2026-08-07 2026-08-08 --order-only
+//   node prisma/fix-misdated-day.js L2 2026-08-07 2026-08-08 --order-only --apply
 import '../src/lib/loadenv.js';
 import prisma from '../src/lib/prisma.js';
 
 const argv = process.argv.slice(2);
 const APPLY = argv.includes('--apply');
-const pos = argv.filter((a) => a !== '--apply');
+const ORDER_ONLY = argv.includes('--order-only');
+const pos = argv.filter((a) => !a.startsWith('--'));
 const CODE = (pos.find((a) => /^L\d+$/i.test(a)) || 'L1').toUpperCase();
 const ymds = pos.filter((a) => /^\d{4}-\d{2}-\d{2}$/.test(a));
 const FROM = ymds[0] || '2026-08-08';
@@ -32,10 +38,34 @@ async function main() {
   if (!loc) { console.log(`Location ${CODE} not found.`); return; }
   const fromR = rangeOf(FROM);
   const toR = rangeOf(TO);
+  const toDate = dayStart(TO);
   console.log(`\n${APPLY ? '*** APPLY ***' : 'DRY RUN'}  ${CODE} — ${loc.name}  ${FROM}  ->  ${TO}`);
+
+  // ── --order-only: move just the OrderSuggestion(s) + their RECEIVED movements ────
+  if (ORDER_ONLY) {
+    console.log('Mode: ORDER ONLY (move the packaging/food order to its correct day).\n');
+    const clashOrder = await prisma.orderSuggestion.count({ where: { locationId: loc.id, date: toR } });
+    if (clashOrder > 0) { console.log(`ABORT — ${TO} already has ${clashOrder} order(s) for ${CODE}. Refusing to merge.`); return; }
+    const orders = await prisma.orderSuggestion.findMany({ where: { locationId: loc.id, date: fromR }, include: { lines: true } });
+    if (orders.length === 0) { console.log(`No orders on ${FROM} for ${CODE} — nothing to move.`); return; }
+    console.log(`Orders on ${FROM} to move: ${orders.length}`);
+    orders.forEach((o) => console.log(`   - ORDER #${o.id} seq=${o.seq} status=${o.status} lines=${o.lines.length}`));
+    const orderRefs = orders.map((o) => `order:${o.id}`);
+    const received = await prisma.stockMovement.count({ where: { locationId: loc.id, type: 'RECEIVED', ref: { in: orderRefs }, date: fromR } });
+    console.log(`RECEIVED movements tied to these orders on ${FROM}: ${received}`);
+    if (!APPLY) { console.log('\nDRY RUN — nothing changed. Add --apply to execute.\n'); return; }
+    const ops = [prisma.orderSuggestion.updateMany({ where: { locationId: loc.id, date: fromR }, data: { date: toDate } })];
+    if (received > 0) ops.push(prisma.stockMovement.updateMany({ where: { locationId: loc.id, type: 'RECEIVED', ref: { in: orderRefs }, date: fromR }, data: { date: toDate } }));
+    const r = await prisma.$transaction(ops);
+    console.log('\nApplied. [ordersMoved' + (received > 0 ? ', receivedMoved' : '') + ']:', r.map((x) => x.count));
+    console.log(`\nVerify with:  npm run inspect:day ${CODE} ${FROM} ${TO}\n`);
+    return;
+  }
+
+  // ── Default: move SALES + WASTE + INITIAL STOCK; keep the order. ─────────────────
   console.log('Moving: SALES + WASTE + INITIAL STOCK.  Packaging ORDER stays on ' + FROM + '.\n');
 
-  // ── Guard: the target day MUST be empty (for the things we move). ────────────────
+  // Guard: the target day MUST be empty (for the things we move).
   const clash = {
     dailyEntry: await prisma.dailyEntry.count({ where: { locationId: loc.id, date: toR } }),
     movement: await prisma.stockMovement.count({ where: { locationId: loc.id, date: toR } }),
@@ -49,7 +79,6 @@ async function main() {
   }
   console.log(`Target day ${TO}: empty ✓`);
 
-  // ── What will move (and what stays) ─────────────────────────────────────────────
   const counts = {
     dailyEntry: await prisma.dailyEntry.count({ where: { locationId: loc.id, date: fromR } }),
     movement: await prisma.stockMovement.count({ where: { locationId: loc.id, date: fromR } }),
@@ -59,7 +88,6 @@ async function main() {
   console.log(`\nRows to shift from ${FROM}:`, counts);
   console.log(`Orders staying on ${FROM} (not moved): ${ordersStaying}`);
 
-  // ── Safety: never move an order-related RECEIVED movement by accident. ───────────
   const receivedOnDay = await prisma.stockMovement.count({ where: { locationId: loc.id, date: fromR, type: 'RECEIVED' } });
   if (receivedOnDay > 0) {
     console.log(`\n⚠ ${receivedOnDay} RECEIVED movement(s) on ${FROM} — these belong to a CONFIRMED order.`);
@@ -67,9 +95,8 @@ async function main() {
     if (APPLY) { console.log('   ABORT (RECEIVED present).'); return; }
   }
 
-  // ── Ledger-ordering check: for items with BOTH an initial-stock COUNT_SET and a
-  //    WASTE that night, on-hand = the LAST COUNT_SET (physical count) as long as it
-  //    comes after the WASTE. If a WASTE has a higher id, it would double-subtract. ─
+  // Ledger-ordering check: WASTE posted after an item's initial COUNT_SET would
+  // double-subtract from next-day opening — drop those (the count already reflects them).
   const moves = await prisma.stockMovement.findMany({ where: { locationId: loc.id, date: fromR }, orderBy: { id: 'asc' } });
   const items = new Map((await prisma.item.findMany()).map((i) => [i.id, i.name]));
   const byItem = new Map();
@@ -83,9 +110,6 @@ async function main() {
     const laterWaste = list.filter((m) => m.type === 'WASTE' && lastCount && m.id > lastCount.id);
     if (lastCount && laterWaste.length) dbl.push({ item: items.get(itemId), countId: lastCount.id, wasteIds: laterWaste.map((w) => w.id) });
   }
-  // These WASTE ledger movements are already baked into the physical initial count
-  // (they were declared after it), so they must be DROPPED — otherwise they double-
-  // subtract from the next day's opening. The WASTE *declarations* are kept as record.
   const dropWasteIds = dbl.flatMap((d) => d.wasteIds);
   if (dbl.length) {
     console.log('\n⚠ WASTE posted AFTER the initial count — these ledger movements will be DROPPED');
@@ -93,7 +117,7 @@ async function main() {
     dbl.forEach((d) => console.log(`   - ${d.item}: keep COUNT_SET#${d.countId}, DROP WASTE#${d.wasteIds.join(',')}`));
     console.log('   The waste DECLARATIONS are kept (moved to ' + TO + ') as a record.');
   } else {
-    console.log('\nLedger order OK ✓ — the initial count supersedes that night\'s waste (nothing to drop).');
+    console.log('\nLedger order OK ✓ — nothing to drop.');
   }
 
   if (!APPLY) {
@@ -101,10 +125,6 @@ async function main() {
     return;
   }
 
-  // ── Apply: shift the daily entry, waste declarations and stock movements (except
-  //    the double-counting WASTE movements, which are dropped). OrderSuggestion is
-  //    deliberately NOT moved (it is the next-day order). ───────────────────────────
-  const toDate = dayStart(TO);
   const moveMoves = dropWasteIds.length
     ? prisma.stockMovement.updateMany({ where: { locationId: loc.id, date: fromR, id: { notIn: dropWasteIds } }, data: { date: toDate } })
     : prisma.stockMovement.updateMany({ where: { locationId: loc.id, date: fromR }, data: { date: toDate } });
