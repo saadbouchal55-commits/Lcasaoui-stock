@@ -46,17 +46,19 @@ export function recipeQtyToNative(item, qty, unitNote) {
 
 /**
  * Round a quantity sensibly for display / ordering in the item's native unit.
- * Weight & volume keep decimals; countable things are whole.
+ * Weight, volume AND packages keep decimals (an opened Cheddar box is 0.4 of a
+ * package; consuming 10 of 88 slices = 0.114 package — rounding that to a whole
+ * number would report 0 consumption). Units/pieces are physically whole.
  */
 export function roundNative(unit, qty) {
   const q = Number(qty) || 0;
   switch (unit) {
     case 'KG':
     case 'L':
-      return Math.round(q * 1000) / 1000; // 3 decimals is plenty (grams / ml)
+    case 'PACKAGE':
+      return Math.round(q * 1000) / 1000; // 3 decimals is plenty
     case 'UNIT':
     case 'PIECE':
-    case 'PACKAGE':
       return Math.round(q);
     default:
       return q;
