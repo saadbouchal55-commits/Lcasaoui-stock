@@ -113,7 +113,7 @@ router.get(
  * PRIMARY orders. Read-only — this is what the central kitchen must prepare.
  * @returns {Array} rows [{itemId,name,unit,storageZone,subCategory,suggested,ordered}]
  */
-async function buildCombined(date) {
+async function buildCombined(date, { includeZero = false } = {}) {
   const locations = await prisma.location.findMany({ where: { active: true }, orderBy: { code: 'asc' } });
   const byItem = new Map();
   const bump = (it, key, add) => {
@@ -124,11 +124,15 @@ async function buildCombined(date) {
   for (const loc of locations) {
     const view = await buildPrimaryView(loc.id, date);
     for (const f of view.food) { bump(f, 'suggested', f.suggestedQty); bump(f, 'ordered', f.orderedQty); }
-    for (const p of view.packaging) if ((p.orderedQty ?? 0) > 0) bump(p, 'ordered', p.orderedQty);
+    for (const p of view.packaging) {
+      if (includeZero) bump(p, 'ordered', p.orderedQty ?? 0);
+      else if ((p.orderedQty ?? 0) > 0) bump(p, 'ordered', p.orderedQty);
+    }
   }
-  return [...byItem.values()]
-    .map((r) => ({ ...r, suggested: Math.round(r.suggested * 1000) / 1000, ordered: Math.round(r.ordered * 1000) / 1000 }))
-    .filter((r) => r.ordered > 0 || r.suggested > 0);
+  const rows = [...byItem.values()]
+    .map((r) => ({ ...r, suggested: Math.round(r.suggested * 1000) / 1000, ordered: Math.round(r.ordered * 1000) / 1000 }));
+  // On-screen view filters to what's ordered; the Bon Excel keeps everything (0 shown).
+  return includeZero ? rows : rows.filter((r) => r.ordered > 0 || r.suggested > 0);
 }
 
 // Combined total for all restaurants (kitchen prep). Read-only.
@@ -333,11 +337,12 @@ router.get(
     const view = await buildPrimaryView(locationId, date);
     const location = await prisma.location.findUnique({ where: { id: locationId } });
 
-    // Items actually being ordered (qty > 0), food + packaging, with zone info.
-    // Packaging has no system suggestion, so its "Suggéré" is left blank.
+    // FULL checklist: every tracked food + packaging item, printing 0 where nothing
+    // is ordered (so a 0 is explicit, never a dropped row). Packaging has no system
+    // suggestion, so its "Suggéré" stays blank.
     const lines = [];
-    for (const f of view.food) if (f.orderedQty > 0) lines.push({ name: f.name, unit: UNIT_FR[f.unit] || f.unit, suggested: f.suggestedQty, ordered: f.orderedQty, storageZone: f.storageZone, subCategory: f.subCategory });
-    for (const p of view.packaging) if ((p.orderedQty ?? 0) > 0) lines.push({ name: p.name, unit: UNIT_FR[p.unit] || p.unit, suggested: '', ordered: p.orderedQty, storageZone: p.storageZone, subCategory: p.subCategory });
+    for (const f of view.food) lines.push({ name: f.name, unit: UNIT_FR[f.unit] || f.unit, suggested: f.suggestedQty, ordered: f.orderedQty ?? 0, storageZone: f.storageZone, subCategory: f.subCategory });
+    for (const p of view.packaging) lines.push({ name: p.name, unit: UNIT_FR[p.unit] || p.unit, suggested: '', ordered: p.orderedQty ?? 0, storageZone: p.storageZone, subCategory: p.subCategory });
 
     const groups = groupByZoneSub(lines);
     const versionLabel = `${version === 'sent' ? t('bon.sent') : t('bon.proposed')} (${t(`orderStatus.${view.status}`)})`;
@@ -360,9 +365,8 @@ router.get(
   ah(async (req, res) => {
     const date = parseDate(req.query.date);
     if (!date) return res.status(400).json({ error: t('errors.validation') });
-    const rows = await buildCombined(date);
+    const rows = await buildCombined(date, { includeZero: true });
     const lines = rows
-      .filter((r) => r.ordered > 0)
       .map((r) => ({ name: r.name, unit: UNIT_FR[r.unit] || r.unit, suggested: r.suggested || '', ordered: r.ordered, storageZone: r.storageZone, subCategory: r.subCategory }));
     const groups = groupByZoneSub(lines);
 
