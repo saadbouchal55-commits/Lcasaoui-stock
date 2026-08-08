@@ -197,6 +197,8 @@
     "status": "Statut",
     "generate": "Générer la commande",
     "regenerateFood": "Régénérer (aliments)",
+    "saveChanges": "Enregistrer les modifications",
+    "saved": "Modifications enregistrées.",
     "confirmSent": "Confirmer l'envoi",
     "confirmedInfo": "Commande confirmée envoyée — c'est le registre officiel et la base d'apprentissage.",
     "heldAlert": "Commande en attente — à vérifier par la Direction avant envoi :",

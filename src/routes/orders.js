@@ -257,6 +257,39 @@ router.put(
   }),
 );
 
+// Bulk set FOOD lines on the primary order — "register modifications" before
+// printing/sending, so the whole order is saved in one action. qty 0 keeps the
+// line at 0 (still printed on the bon); items with no existing line and qty 0 are
+// left out. Does NOT send — status stays GENERATED/HELD.
+router.put(
+  '/food-lines',
+  ah(async (req, res) => {
+    const locationId = assertLocationAccess(req.user, req.body.locationId);
+    const date = parseDate(req.body.date);
+    const items = Array.isArray(req.body.items) ? req.body.items : [];
+    if (!date) return res.status(400).json({ error: t('errors.validation') });
+
+    let order = await prisma.orderSuggestion.findUnique({ where: { locationId_date_seq: { locationId, date, seq: 1 } } });
+    if (order?.status === 'CONFIRMED_SENT') return res.status(409).json({ error: 'Commande déjà confirmée — non modifiable.' });
+    if (!order) order = await prisma.orderSuggestion.create({ data: { locationId, date, seq: 1, status: 'GENERATED' } });
+
+    const existing = await prisma.orderLine.findMany({ where: { suggestionId: order.id } });
+    const byItem = new Map(existing.map((l) => [l.itemId, l]));
+    const ops = [];
+    for (const it of items) {
+      const itemId = Number(it.itemId);
+      const qty = Math.max(0, Number(it.qty));
+      if (!itemId || Number.isNaN(qty)) continue;
+      const line = byItem.get(itemId);
+      if (line) ops.push(prisma.orderLine.update({ where: { id: line.id }, data: { orderedQty: qty } }));
+      else if (qty > 0) ops.push(prisma.orderLine.create({ data: { suggestionId: order.id, itemId, suggestedQty: 0, orderedQty: qty } }));
+    }
+    ops.push(prisma.orderSuggestion.update({ where: { id: order.id }, data: { editedBy: req.user.id } }));
+    await prisma.$transaction(ops);
+    res.json({ ok: true });
+  }),
+);
+
 // Set packaging quantities on the PRIMARY order (manual). Blank/0 => skipped.
 router.put(
   '/packaging',

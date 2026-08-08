@@ -18,6 +18,7 @@ export default function Orders() {
   const [combined, setCombined] = useState([]);
   const [items, setItems] = useState([]);
   const [pkgEdits, setPkgEdits] = useState({});
+  const [foodEdits, setFoodEdits] = useState({});
   const [addSel, setAddSel] = useState({});
   const [msg, setMsg] = useState('');
 
@@ -31,10 +32,13 @@ export default function Orders() {
       setGroups(d.orders);
       setView((v) => (v == null && d.orders.length ? d.orders[0].locationId : v));
       const p = {};
-      d.orders.forEach((g) => (g.primary.packaging || []).forEach((r) => {
-        if (r.orderedQty != null) p[`${g.locationId}:${r.itemId}`] = String(r.orderedQty);
-      }));
+      const f = {};
+      d.orders.forEach((g) => {
+        (g.primary.packaging || []).forEach((r) => { if (r.orderedQty != null) p[`${g.locationId}:${r.itemId}`] = String(r.orderedQty); });
+        (g.primary.food || []).forEach((r) => { f[`${g.locationId}:${r.itemId}`] = String(r.orderedQty ?? ''); });
+      });
       setPkgEdits(p);
+      setFoodEdits(f);
     });
   }, [date]);
   useEffect(() => { load(); }, [load]);
@@ -48,15 +52,25 @@ export default function Orders() {
   const refresh = () => { load(); loadCombined(); };
   const generate = async (locationId) => { try { await api.post('/api/orders/generate', { locationId, date }); setMsg('OK'); } catch (e) { setMsg(e.message); } refresh(); };
   const saveLine = async (lineId, patch) => { if (lineId) { await api.put(`/api/orders/line/${lineId}`, patch); refresh(); } };
-  const saveFood = async (locationId, itemId, qty) => { await api.put('/api/orders/food-line', { locationId, date, itemId, qty: Number(qty) }); refresh(); };
-  const savePackaging = async (g) => {
+  // Save ALL edits (food + packaging) on a restaurant's primary order — WITHOUT
+  // sending — so the order can be printed on the bon and reviewed before confirming.
+  const saveAll = async (g) => {
+    const foodItems = g.primary.food.map((r) => ({ itemId: r.itemId, qty: Number(foodEdits[`${g.locationId}:${r.itemId}`] ?? r.orderedQty ?? 0) || 0 }));
+    await api.put('/api/orders/food-lines', { locationId: g.locationId, date, items: foodItems });
     await api.put('/api/orders/packaging', { locationId: g.locationId, date, items: g.primary.packaging.map((r) => ({ itemId: r.itemId, qty: pkgEdits[`${g.locationId}:${r.itemId}`] ?? '' })) });
-    setMsg(t('orders.savePackaging')); refresh();
   };
+  const registerChanges = async (g) => { try { await saveAll(g); setMsg(t('orders.saved')); } catch (e) { setMsg(e.message); } refresh(); };
   const locStr = () => { const g = groups.find((x) => x.locationId === view); return g ? `${g.locationCode} — ${g.locationName}` : ''; };
+  // Supplementary orders (by orderId).
   const confirm = async (orderId) => {
     if (!orderId || !window.confirm(t('confirm.send', { loc: locStr(), date }))) return;
     try { await api.post('/api/orders/confirm', { orderId }); setMsg(t('orders.confirmSent')); } catch (e) { setMsg(e.message); }
+    refresh();
+  };
+  // Primary order: save current edits first, then send (so nothing is lost).
+  const confirmPrimary = async (g) => {
+    if (!window.confirm(t('confirm.send', { loc: locStr(), date }))) return;
+    try { await saveAll(g); await api.post('/api/orders/confirm', { locationId: g.locationId, date }); setMsg(t('orders.confirmSent')); } catch (e) { setMsg(e.message); }
     refresh();
   };
   const newSupplement = async (locationId) => { await api.post('/api/orders/supplementary', { locationId, date }); load(); };
@@ -135,7 +149,8 @@ export default function Orders() {
                 <span className={`badge ${pConfirmed ? 'green' : p.status === 'HELD' ? 'warn' : 'gray'}`}>{t(`orderStatus.${p.status}`)}</span>
                 <div style={{ flex: 1 }} />
                 {!pConfirmed && <button className="secondary" onClick={() => generate(g.locationId)}>{p.exists ? t('orders.regenerateFood') : t('orders.generate')}</button>}
-                {p.id && !pConfirmed && <button onClick={() => confirm(p.id)}>{t('orders.confirmSent')}</button>}
+                {!pConfirmed && <button onClick={() => registerChanges(g)}>{t('orders.saveChanges')}</button>}
+                {p.id && !pConfirmed && <button onClick={() => confirmPrimary(g)}>{t('orders.confirmSent')}</button>}
                 <button className="secondary" onClick={() => downloadExport(`/api/orders/bon?locationId=${g.locationId}&date=${date}&version=proposed`)}>{t('orders.bonProposed')}</button>
                 {pConfirmed && <button className="secondary" onClick={() => downloadExport(`/api/orders/bon?locationId=${g.locationId}&date=${date}&version=sent`)}>{t('orders.bonSent')}</button>}
               </div>
@@ -160,8 +175,9 @@ export default function Orders() {
                             <td className="num muted" data-label={t('orders.suggested')} title={r.reason}>{r.suggestedQty}</td>
                             <td className="num" data-label={t('orders.ordered')}>
                               {!pConfirmed
-                                ? <input key={`${r.itemId}-${r.orderedQty}`} className="qty" type="number" inputMode="decimal" step="any" defaultValue={r.orderedQty}
-                                    onBlur={(e) => { const v = e.target.value; if (v !== '' && Number(v) !== r.orderedQty) saveFood(g.locationId, r.itemId, v); }} />
+                                ? <input className="qty" type="number" inputMode="decimal" step="any"
+                                    value={foodEdits[`${g.locationId}:${r.itemId}`] ?? ''}
+                                    onChange={(e) => setFoodEdits((s) => ({ ...s, [`${g.locationId}:${r.itemId}`]: e.target.value }))} />
                                 : <strong>{r.orderedQty}</strong>}
                             </td>
                           </tr>
@@ -200,7 +216,7 @@ export default function Orders() {
                   </div>
                 </div>
               )))}
-              {!pConfirmed && <div className="actions"><button className="secondary" onClick={() => savePackaging(g)}>{t('orders.savePackaging')}</button></div>}
+              {!pConfirmed && <div className="actions"><button onClick={() => registerChanges(g)}>{t('orders.saveChanges')}</button></div>}
             </div>
 
             {/* SUPPLEMENTARY ORDERS */}
