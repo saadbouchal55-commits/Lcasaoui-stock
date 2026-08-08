@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { api } from '../api.js';
 import { useI18n } from '../i18n.jsx';
 import { useAuth } from '../auth.jsx';
-import { useBusinessDay } from '../lib/businessday.js';
+import { useOrderDay } from '../lib/businessday.js';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -12,7 +12,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 export default function Emballage() {
   const { t } = useI18n();
   const { isDirection } = useAuth();
-  const businessDay = useBusinessDay();
+  const orderDay = useOrderDay();
   const { locations, locationId, setLocationId } = useLocations();
   const [date, setDate] = useState(today());
   const [rows, setRows] = useState([]);
@@ -32,9 +32,11 @@ export default function Emballage() {
     });
   }, [locationId, date]);
   useEffect(() => { load(); }, [load]);
-  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+  // Order pages roll over at 07:00 (production start), not 11:00. Everyone lands on
+  // the current order day; Direction can change it, managers are locked to it.
+  useEffect(() => { if (orderDay) setDate(orderDay); }, [orderDay]);
 
-  const readOnly = !!businessDay && !isDirection && date !== businessDay;
+  const readOnly = !!orderDay && !isDirection && date !== orderDay;
   const locked = confirmedLock || readOnly; // locked if order already sent OR a past day
 
   const save = async () => {

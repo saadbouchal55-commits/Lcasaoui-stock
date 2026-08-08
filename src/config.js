@@ -15,6 +15,9 @@ export const config = {
   business: {
     tz: process.env.BUSINESS_TZ || 'Africa/Casablanca',
     startHour: num(process.env.BUSINESS_DAY_START_HOUR, 11),
+    // The ORDER/production day rolls earlier — production starts at 07:00, so the
+    // order pages (Commandes + Commander Emballage) show the new day from 07:00.
+    orderStartHour: num(process.env.ORDER_DAY_START_HOUR, 7),
   },
 
   // ── Security ───────────────────────────────────────────────────────────────

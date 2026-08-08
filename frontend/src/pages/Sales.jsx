@@ -19,8 +19,9 @@ export default function Sales() {
   const [csv, setCsv] = useState('');
   const [msg, setMsg] = useState('');
 
-  // Managers land on (and can only edit) the current business day.
-  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+  // Everyone lands on the current business day by default (before 11:00 that is
+  // still yesterday); Direction can then change it, managers are locked to it.
+  useEffect(() => { if (businessDay) setDate(businessDay); }, [businessDay]);
   const readOnly = !!businessDay && !isDirection && date !== businessDay;
 
   useEffect(() => { api.get('/api/dishes').then((d) => setDishes(d.dishes)); }, []);

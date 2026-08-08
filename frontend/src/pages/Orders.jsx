@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { api, downloadExport } from '../api.js';
 import { useI18n } from '../i18n.jsx';
+import { useOrderDay } from '../lib/businessday.js';
 import { groupByZone } from '../lib/grouping.js';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -10,6 +11,7 @@ const today = () => new Date().toISOString().slice(0, 10);
 //  - "Total" → read-only sum across all restaurants (kitchen prep), export only.
 export default function Orders() {
   const { t } = useI18n();
+  const orderDay = useOrderDay();
   const [date, setDate] = useState(today());
   const [groups, setGroups] = useState([]);
   const [view, setView] = useState(null); // locationId (number) or 'ALL'
@@ -20,6 +22,8 @@ export default function Orders() {
   const [msg, setMsg] = useState('');
 
   useEffect(() => { api.get('/api/orders/items').then((d) => setItems(d.items)); }, []);
+  // Orders roll over at 07:00 (production start): default to the current order day.
+  useEffect(() => { if (orderDay) setDate(orderDay); }, [orderDay]);
 
   const load = useCallback(() => {
     setMsg('');

@@ -34,7 +34,7 @@ export default function Pertes() {
     api.get(`/api/waste-declarations${q}`).then((d) => setRecent(d.declarations.slice(0, 15)));
   }, [locationId]);
   useEffect(() => { loadRecent(); }, [loadRecent]);
-  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+  useEffect(() => { if (businessDay) setDate(businessDay); }, [businessDay]);
   const readOnly = !!businessDay && !isDirection && date !== businessDay;
 
   const options = refType === 'ITEM' ? items : dishes;

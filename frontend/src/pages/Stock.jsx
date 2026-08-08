@@ -52,7 +52,7 @@ export default function Stock() {
     } catch (e) { setMsg(e.message); } finally { setBusy(false); }
   };
 
-  useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
+  useEffect(() => { if (businessDay) setDate(businessDay); }, [businessDay]);
   const readOnly = !!businessDay && !isDirection && date !== businessDay;
 
   // Initial stock is set ONLY by Direction (separate page). Here, block counting

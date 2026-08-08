@@ -14,29 +14,38 @@ function localParts(date, tz) {
   return { y: +p.year, m: +p.month, d: +p.day, hour: +p.hour };
 }
 
-/** Current business day as 'YYYY-MM-DD'. Before startHour we're still in yesterday. */
-export function currentBusinessDay(now = new Date()) {
-  const { tz, startHour } = config.business;
+/** Day (YYYY-MM-DD) for an instant given a start-hour boundary; before it, yesterday. */
+function dayFor(now, startHour) {
+  const { tz } = config.business;
   const { y, m, d, hour } = localParts(now, tz);
   const dt = new Date(Date.UTC(y, m - 1, d));
   if (hour < startHour) dt.setUTCDate(dt.getUTCDate() - 1);
   return dt.toISOString().slice(0, 10);
 }
 
-/**
- * Throw 403 if a non-Direction user tries to edit a day other than the current
- * business day. Direction may edit any day.
- * @param {{role:string}} user
- * @param {Date|string} date  target date (Date or 'YYYY-MM-DD')
- */
-export function assertManagerEditableDate(user, date) {
-  if (user.role === 'DIRECTION') return;
+/** Business/service day (11:00 boundary) — Ventes, Stock, Pertes. */
+export const currentBusinessDay = (now = new Date()) => dayFor(now, config.business.startHour);
+/** Order/production day (07:00 boundary) — Commandes + Commander Emballage. */
+export const currentOrderDay = (now = new Date()) => dayFor(now, config.business.orderStartHour);
+
+function assertEditable(user, date, currentDay, msg) {
+  if (user.role === 'DIRECTION') return; // Direction may edit any day
   const target = typeof date === 'string' ? date.slice(0, 10) : ymd(date);
-  if (target !== currentBusinessDay()) {
-    const e = new Error('Vous ne pouvez modifier que la journée en cours (historique en lecture seule).');
+  if (target !== currentDay()) {
+    const e = new Error(msg);
     e.status = 403;
     throw e;
   }
 }
 
-export default { currentBusinessDay, assertManagerEditableDate };
+/** Non-Direction may only edit the current BUSINESS day (Ventes/Stock/Pertes). */
+export function assertManagerEditableDate(user, date) {
+  assertEditable(user, date, currentBusinessDay, 'Vous ne pouvez modifier que la journée en cours (historique en lecture seule).');
+}
+
+/** Non-Direction may only edit the current ORDER day (Commander Emballage). */
+export function assertOrderEditableDate(user, date) {
+  assertEditable(user, date, currentOrderDay, 'Vous ne pouvez modifier que la commande du jour en cours.');
+}
+
+export default { currentBusinessDay, currentOrderDay, assertManagerEditableDate, assertOrderEditableDate };
