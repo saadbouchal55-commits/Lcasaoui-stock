@@ -83,12 +83,17 @@ async function main() {
     const laterWaste = list.filter((m) => m.type === 'WASTE' && lastCount && m.id > lastCount.id);
     if (lastCount && laterWaste.length) dbl.push({ item: items.get(itemId), countId: lastCount.id, wasteIds: laterWaste.map((w) => w.id) });
   }
+  // These WASTE ledger movements are already baked into the physical initial count
+  // (they were declared after it), so they must be DROPPED — otherwise they double-
+  // subtract from the next day's opening. The WASTE *declarations* are kept as record.
+  const dropWasteIds = dbl.flatMap((d) => d.wasteIds);
   if (dbl.length) {
-    console.log('\n⚠ WASTE posted AFTER the initial count (would double-subtract from next-day opening):');
-    dbl.forEach((d) => console.log(`   - ${d.item}: COUNT_SET#${d.countId} then WASTE#${d.wasteIds.join(',')}`));
-    console.log('   (Tell me — we may drop those WASTE movements since the physical count already reflects them.)');
+    console.log('\n⚠ WASTE posted AFTER the initial count — these ledger movements will be DROPPED');
+    console.log('   (the physical initial count already reflects them; keeping them double-subtracts):');
+    dbl.forEach((d) => console.log(`   - ${d.item}: keep COUNT_SET#${d.countId}, DROP WASTE#${d.wasteIds.join(',')}`));
+    console.log('   The waste DECLARATIONS are kept (moved to ' + TO + ') as a record.');
   } else {
-    console.log('\nLedger order OK ✓ — the initial count supersedes that night\'s waste (no double-subtraction).');
+    console.log('\nLedger order OK ✓ — the initial count supersedes that night\'s waste (nothing to drop).');
   }
 
   if (!APPLY) {
@@ -96,15 +101,20 @@ async function main() {
     return;
   }
 
-  // ── Apply: shift only movements, waste declarations and the daily entry. ─────────
-  // NOTE: OrderSuggestion is deliberately NOT moved (it is the next-day order).
+  // ── Apply: shift the daily entry, waste declarations and stock movements (except
+  //    the double-counting WASTE movements, which are dropped). OrderSuggestion is
+  //    deliberately NOT moved (it is the next-day order). ───────────────────────────
   const toDate = dayStart(TO);
+  const moveMoves = dropWasteIds.length
+    ? prisma.stockMovement.updateMany({ where: { locationId: loc.id, date: fromR, id: { notIn: dropWasteIds } }, data: { date: toDate } })
+    : prisma.stockMovement.updateMany({ where: { locationId: loc.id, date: fromR }, data: { date: toDate } });
   const r = await prisma.$transaction([
-    prisma.stockMovement.updateMany({ where: { locationId: loc.id, date: fromR }, data: { date: toDate } }),
+    moveMoves,
+    prisma.stockMovement.deleteMany({ where: { id: { in: dropWasteIds } } }),
     prisma.wasteDeclaration.updateMany({ where: { locationId: loc.id, date: fromR }, data: { date: toDate } }),
     prisma.dailyEntry.updateMany({ where: { locationId: loc.id, date: fromR }, data: { date: toDate } }),
   ]);
-  console.log('\nApplied. Updated counts [movements, wasteDecls, entries]:', r.map((x) => x.count));
+  console.log('\nApplied. [movementsMoved, wasteMovementsDropped, wasteDeclsMoved, entriesMoved]:', r.map((x) => x.count));
   console.log(`\nVerify with:  npm run inspect:day ${CODE} ${TO} ${FROM}\n`);
 }
 
