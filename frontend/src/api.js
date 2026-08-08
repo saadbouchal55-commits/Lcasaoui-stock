@@ -1,5 +1,7 @@
 // Thin fetch wrapper. Session cookie is sent with every request (same-origin in
 // prod; via Vite proxy in dev).
+import { toast } from './toast.js';
+
 async function request(method, url, body) {
   const opts = { method, credentials: 'include', headers: {} };
   if (body !== undefined) {
@@ -20,6 +22,8 @@ async function request(method, url, body) {
     err.data = data;
     throw err;
   }
+  // Faint on-screen confirmation for every write (not reads, not login/logout).
+  if (method !== 'GET' && !url.includes('/auth/')) toast('common.saved');
   return data;
 }
 
