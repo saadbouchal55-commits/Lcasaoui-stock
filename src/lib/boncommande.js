@@ -10,7 +10,7 @@ const ZONE_FILL = 'FFCDE2D6';   // zone heading row
 const SUB_FILL = 'FFEDF3EF';    // subcategory heading row
 const THIN = { style: 'thin', color: { argb: 'FF8A968E' } };
 const BORDER = { top: THIN, left: THIN, bottom: THIN, right: THIN };
-const NCOLS = 5;
+const NCOLS = 4;
 
 /**
  * @param {object} o
@@ -31,10 +31,9 @@ export async function buildBonCommande({ title, establishment, dateStr, versionL
     pageSetup: { orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 2, margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.3, footer: 0.3 } },
   });
   ws.getColumn(1).width = 34; // Article
-  ws.getColumn(2).width = 10; // Unité
-  ws.getColumn(3).width = 11; // Suggéré
-  ws.getColumn(4).width = 11; // Commandé
-  ws.getColumn(5).width = 18; // Réellement envoyé
+  ws.getColumn(2).width = 12; // Unité
+  ws.getColumn(3).width = 13; // Commandé
+  ws.getColumn(4).width = 20; // Réellement envoyé
 
   let r = 1;
   const banner = (text, { size = 11, align = 'center' } = {}) => {
@@ -63,7 +62,7 @@ export async function buildBonCommande({ title, establishment, dateStr, versionL
   };
 
   // Column header row.
-  ['Article', 'Unité', 'Suggéré', 'Commandé', 'Réellement envoyé'].forEach((h, i) => {
+  ['Article', 'Unité', 'Commandé', 'Réellement envoyé'].forEach((h, i) => {
     const c = ws.getCell(r, i + 1);
     c.value = h;
     c.font = { bold: true, color: { argb: 'FFFFFFFF' } };
@@ -84,9 +83,8 @@ export async function buildBonCommande({ title, establishment, dateStr, versionL
     for (const it of g.items) {
       ws.getCell(r, 1).value = it.name;
       ws.getCell(r, 2).value = it.unit;
-      ws.getCell(r, 3).value = it.suggested ?? '';
-      ws.getCell(r, 4).value = it.ordered ?? '';
-      ws.getCell(r, 5).value = ''; // Réellement envoyé — filled by hand
+      ws.getCell(r, 3).value = it.ordered ?? '';
+      ws.getCell(r, 4).value = ''; // Réellement envoyé — filled by hand
       ws.getCell(r, 1).alignment = { horizontal: 'left' };
       for (let c = 2; c <= NCOLS; c++) ws.getCell(r, c).alignment = { horizontal: 'center' };
       borderRow(r);
