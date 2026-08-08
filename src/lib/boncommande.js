@@ -26,7 +26,9 @@ export async function buildBonCommande({ title, establishment, dateStr, versionL
   const wb = new ExcelJS.Workbook();
   wb.creator = "L'Casaoui";
   const ws = wb.addWorksheet('Bon de Commande', {
-    pageSetup: { orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 0, margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.3, footer: 0.3 } },
+    // Scale to fit 1 page wide × 2 pages tall — Excel shrinks the print just enough
+    // to fit two pages (won't stretch a short bon). fitToHeight:0 let it overflow.
+    pageSetup: { orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 2, margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.3, footer: 0.3 } },
   });
   ws.getColumn(1).width = 34; // Article
   ws.getColumn(2).width = 10; // Unité
