@@ -2,39 +2,32 @@ import { useEffect, useState, useCallback } from 'react';
 import { api } from '../api.js';
 import { useI18n } from '../i18n.jsx';
 import { useAuth } from '../auth.jsx';
-import { useBusinessDay } from '../lib/businessday.js';
+import { useOrderDay } from '../lib/businessday.js';
 import { useLocations, LocationPicker } from '../components/LocationPicker.jsx';
 
 const today = () => new Date().toISOString().slice(0, 10);
-const addDay = (ymd) => {
-  if (!ymd) return ymd;
-  const d = new Date(`${ymd}T00:00:00.000Z`);
-  d.setUTCDate(d.getUTCDate() + 1);
-  return d.toISOString().slice(0, 10);
-};
 
-// "Commander Emballage" — a manager enters packaging quantities during their
-// business day. What they order is for the NEXT day (order day = business day + 1),
-// so the manager sees their business day but the data feeds the next-day order that
-// Direction reviews on the Commandes page. Blank = skipped (not sent).
+// "Commander Emballage" — a manager enters packaging quantities for the current
+// ORDER day (rolls at 07:00, production start — same day the Commandes page uses,
+// so the two always match). Managers are locked to the current order day but can
+// change the date to VIEW a past order (read-only). Blank = skipped (not sent).
 export default function Emballage() {
   const { t } = useI18n();
   const { isDirection } = useAuth();
-  const businessDay = useBusinessDay();
+  const orderDay = useOrderDay();
   const { locations, locationId, setLocationId } = useLocations();
-  const [date, setDate] = useState(today()); // the manager's BUSINESS day (shown)
+  const [date, setDate] = useState(today()); // the ORDER day (07:00 boundary)
   const [rows, setRows] = useState([]);
   const [qty, setQty] = useState({});
   const [confirmedLock, setConfirmedLock] = useState(false);
   const [msg, setMsg] = useState('');
 
-  const orderDate = addDay(date); // the order this feeds (next day)
   const locStr = () => { const l = locations.find((x) => x.id === locationId); return l ? `${l.code} — ${l.name}` : ''; };
 
   const load = useCallback(() => {
     if (!locationId || !date) return;
     setMsg('');
-    api.get(`/api/packaging?locationId=${locationId}&date=${addDay(date)}`).then((d) => {
+    api.get(`/api/packaging?locationId=${locationId}&date=${date}`).then((d) => {
       setRows(d.rows);
       setConfirmedLock(d.locked);
       const q = {};
@@ -43,16 +36,17 @@ export default function Emballage() {
     });
   }, [locationId, date]);
   useEffect(() => { load(); }, [load]);
-  // The manager always works on the current business day; Direction can change it.
-  useEffect(() => { if (businessDay) setDate(businessDay); }, [businessDay]);
+  // Everyone lands on the current order day (07:00 boundary); Direction can change
+  // it, and a manager can change it to view a past order (read-only).
+  useEffect(() => { if (orderDay) setDate(orderDay); }, [orderDay]);
 
-  const readOnly = !!businessDay && !isDirection && date !== businessDay;
-  const locked = confirmedLock || readOnly; // locked if order already sent OR a past day
+  const readOnly = !!orderDay && !isDirection && date !== orderDay;
+  const locked = confirmedLock || readOnly; // locked if order already sent OR not the current order day
 
   const save = async () => {
-    if (!window.confirm(t('confirm.order', { loc: locStr(), date: orderDate }))) return;
+    if (!window.confirm(t('confirm.order', { loc: locStr(), date }))) return;
     await api.put('/api/packaging', {
-      locationId, date: orderDate,
+      locationId, date,
       items: rows.map((r) => ({ itemId: r.itemId, qty: qty[r.itemId] ?? '' })),
     });
     setMsg(t('emballage.saved'));
@@ -68,7 +62,6 @@ export default function Emballage() {
           <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
         </div>
         <p className="muted">{t('emballage.hint')}</p>
-        <p className="flag">📦 {t('emballage.forOrder', { date: orderDate })}</p>
         {readOnly && <p className="flag">🔒 {t('common.readOnlyDay')}</p>}
         {confirmedLock && !readOnly && <p className="flag">🔒 {t('emballage.locked')}</p>}
         {msg && <p className="muted">{msg}</p>}

@@ -15,9 +15,10 @@ export const config = {
   business: {
     tz: process.env.BUSINESS_TZ || 'Africa/Casablanca',
     startHour: num(process.env.BUSINESS_DAY_START_HOUR, 11),
-    // The ORDER day is the NEXT business day: an order placed during business day D
-    // is for D+1 (produced next morning at 07:00, delivered midday). Commandes +
-    // Commander Emballage target this next-day order. (See lib/businessday.js.)
+    // The ORDER day rolls at 07:00 (production start), NOT at the 11:00 business-day
+    // boundary: at 11:00 today the order still shows today, and only rolls to the
+    // next day at 07:00 next morning. Commandes + Commander Emballage use this.
+    orderStartHour: num(process.env.ORDER_DAY_START_HOUR, 7),
   },
 
   // ── Security ───────────────────────────────────────────────────────────────

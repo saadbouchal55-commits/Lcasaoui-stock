@@ -27,15 +27,23 @@ function dayFor(now, startHour) {
 export const currentBusinessDay = (now = new Date()) => dayFor(now, config.business.startHour);
 
 /**
- * Order day = the NEXT business day. An order placed during business day D is for
- * D+1 (produced next morning at 07:00, delivered midday). Commandes + Commander
- * Emballage target this next-day order. Computed from the business day so it is
- * correct at night too: at 02:00 the business day is still D, so the order is D+1.
+ * Order/production day — rolls at 07:00 (when production starts), NOT at the 11:00
+ * business boundary. So at 11:00 today it still reads today, and only rolls to the
+ * next day at 07:00 the next morning. Used by Commandes + Commander Emballage.
  */
-export function currentOrderDay(now = new Date()) {
-  const d = new Date(`${currentBusinessDay(now)}T00:00:00.000Z`);
-  d.setUTCDate(d.getUTCDate() + 1);
-  return d.toISOString().slice(0, 10);
+export const currentOrderDay = (now = new Date()) => dayFor(now, config.business.orderStartHour);
+
+/**
+ * The order day to (auto)generate for — the run of the NEXT 07:00 production start.
+ * The nightly job runs before 07:00, so this is today's date; if run after 07:00 it
+ * is tomorrow. Keeps the auto-order ready before production begins.
+ */
+export function upcomingOrderDay(now = new Date()) {
+  const { tz, orderStartHour } = config.business;
+  const { y, m, d, hour } = localParts(now, tz);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  if (hour >= orderStartHour) dt.setUTCDate(dt.getUTCDate() + 1);
+  return dt.toISOString().slice(0, 10);
 }
 
 function assertEditable(user, date, currentDay, msg) {
@@ -58,4 +66,4 @@ export function assertOrderEditableDate(user, date) {
   assertEditable(user, date, currentOrderDay, 'Vous ne pouvez modifier que la commande du jour en cours.');
 }
 
-export default { currentBusinessDay, currentOrderDay, assertManagerEditableDate, assertOrderEditableDate };
+export default { currentBusinessDay, currentOrderDay, upcomingOrderDay, assertManagerEditableDate, assertOrderEditableDate };
