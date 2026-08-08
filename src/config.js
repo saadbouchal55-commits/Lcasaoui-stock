@@ -41,10 +41,51 @@ export const config = {
     // until there are enough same-weekday samples, so it works from day one.
     sameWeekdayCount: num(process.env.SAME_WEEKDAY_COUNT, 4), // how many past same-weekdays
     minSamples: num(process.env.WEEKDAY_MIN_SAMPLES, 2), // need at least this many, else fallback
+    // Recent weeks weigh more: index 0 = the most recent same-weekday.
+    weekdayWeights: [4, 3, 2, 1],
+
+    // The order placed on business day D is delivered midday D+1, so the demand
+    // it must cover is the NEXT day's weekday pattern (Friday-night order covers
+    // Saturday). Offset from the order date to the consumption day it targets.
+    targetOffsetDays: num(process.env.ORDER_TARGET_OFFSET_DAYS, 1),
 
     // Guardrail: a generated qty above this multiple of the item's recent max
     // daily need is treated as absurd (likely a typo) → the order is HELD for review.
     absurdFactor: num(process.env.ORDER_ABSURD_FACTOR, 3),
+
+    // Correction factor: recipe-based use vs ACTUAL usage from stock counts
+    // (opening + received − closing − declared waste). Applied only once enough
+    // stable count-days exist; median ratio, clamped so one bad count can't blow up.
+    correction: {
+      minCountDays: num(process.env.CORRECTION_MIN_COUNT_DAYS, 10),
+      window: num(process.env.CORRECTION_WINDOW, 20), // recent count-days considered
+      clampMin: num(process.env.CORRECTION_CLAMP_MIN, 0.7),
+      clampMax: num(process.env.CORRECTION_CLAMP_MAX, 1.5),
+      maxStd: num(process.env.CORRECTION_MAX_STD, 0.35), // ratio spread above this = unstable counts
+    },
+
+    // Smart per-item buffer default (Direction's saved buffer always overrides):
+    // pct = day-to-day variability (CV) × cvFactor, capped by storage zone —
+    // perishables (fridge R) keep a small buffer, ambient (A) tolerates more.
+    smartBuffer: {
+      cvFactor: num(process.env.BUFFER_CV_FACTOR, 25),
+      zoneCap: {
+        R: num(process.env.BUFFER_CAP_R, 10),
+        C: num(process.env.BUFFER_CAP_C, 20),
+        A: num(process.env.BUFFER_CAP_A, 30),
+      },
+      min: num(process.env.BUFFER_MIN, 0),
+    },
+
+    // Order-unit rounding: kg/L rounded UP to this increment (packages/units are
+    // always whole, rounded up).
+    rounding: { kgIncrement: num(process.env.ORDER_KG_INCREMENT, 0.5) },
+
+    // Confidence gate: flag a line (and HOLD the order) instead of guessing.
+    confidence: {
+      deviationHigh: num(process.env.CONF_DEV_HIGH, 2), // predicted > 2× recent norm
+      deviationLow: num(process.env.CONF_DEV_LOW, 0.5), // predicted < 0.5× recent norm
+    },
 
     // Bulk classification: an item is "periodic-bulk" (order lumpy, whole
     // packages, overstock OK) rather than "daily" when it is used on few days

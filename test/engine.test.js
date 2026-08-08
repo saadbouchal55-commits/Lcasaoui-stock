@@ -4,7 +4,10 @@ import assert from 'node:assert/strict';
 
 import { recipeQtyToNative, roundOrderQty } from '../src/engine/units.js';
 import { reconcile } from '../src/engine/reconciliation.js';
-import { classify, suggestOrder } from '../src/engine/autoorder.js';
+import {
+  classify, suggestOrder, weightedWeekdayAverage, correctionFromRatios,
+  smartBufferDefault, assessConfidence,
+} from '../src/engine/autoorder.js';
 import { onHandFromMovements } from '../src/lib/stock.js';
 import { config } from '../src/config.js';
 
@@ -34,8 +37,11 @@ test('UNIT and L pass through; UNTRACKED is zero', () => {
   assert.equal(recipeQtyToNative({ unit: 'UNTRACKED' }, 5, 'g'), 0);
 });
 
-test('order rounding: weight to 0.1, countables round up', () => {
-  assert.equal(roundOrderQty('KG', 9.44), 9.4);
+test('order rounding: weight UP to the increment, countables round up', () => {
+  assert.equal(roundOrderQty('KG', 9.44), 9.5); // default 0.5 increment
+  assert.equal(roundOrderQty('KG', 9.5), 9.5); // exact multiple stays
+  assert.equal(roundOrderQty('KG', 9.44, 0.1), 9.5);
+  assert.equal(roundOrderQty('KG', 9.1, 1), 10);
   assert.equal(roundOrderQty('UNIT', 3.1), 4);
   assert.equal(roundOrderQty('PACKAGE', 0.2), 1);
   assert.equal(roundOrderQty('KG', -5), 0);
@@ -128,4 +134,103 @@ test('bulk suggestion tops up to target only when below reorder point', () => {
 
   const high = suggestOrder({ item, history, currentStock: 40, bufferPct: 0, cfg: config.order });
   assert.equal(high.suggestedQty, 0); // above reorder point -> no order
+});
+
+// ── smart engine ─────────────────────────────────────────────────────────────
+
+// Build `count` consecutive days ending at endYmd, with values by weekday.
+function seriesByWeekday(endYmd, count, valueOf) {
+  const days = [];
+  const values = [];
+  const end = new Date(`${endYmd}T00:00:00Z`);
+  for (let i = count - 1; i >= 0; i--) {
+    const d = new Date(end);
+    d.setUTCDate(d.getUTCDate() - i);
+    const ymd = d.toISOString().slice(0, 10);
+    days.push(ymd);
+    values.push(valueOf(d.getUTCDay(), ymd));
+  }
+  return { days, values };
+}
+const nextOfWeekday = (fromYmd, dow) => {
+  const d = new Date(`${fromYmd}T00:00:00Z`);
+  do { d.setUTCDate(d.getUTCDate() + 1); } while (d.getUTCDay() !== dow);
+  return d.toISOString().slice(0, 10);
+};
+
+test('weighted weekday average: recent same-weekdays weigh more', () => {
+  // Mondays sell 20, other days 10 — target a Monday → 20.
+  const { days, values } = seriesByWeekday('2026-08-06', 28, (dow) => (dow === 1 ? 20 : 10));
+  const target = nextOfWeekday('2026-08-06', 1);
+  const flat = weightedWeekdayAverage(values, days, target, config.order);
+  assert.equal(flat.usedFallback, false);
+  assert.ok(Math.abs(flat.avg - 20) < 1e-9);
+
+  // Most recent Monday spikes to 40 → weighted (4×40 + 3×10 + 2×10 + 1×10)/10 = 22.
+  const spiked = values.slice();
+  for (let i = days.length - 1; i >= 0; i--) {
+    if (new Date(`${days[i]}T00:00:00Z`).getUTCDay() === 1) { spiked[i] = 40; break; }
+  }
+  for (let i = 0; i < days.length; i++) {
+    if (new Date(`${days[i]}T00:00:00Z`).getUTCDay() === 1 && spiked[i] === 20) spiked[i] = 10;
+  }
+  const w = weightedWeekdayAverage(spiked, days, target, config.order);
+  assert.ok(Math.abs(w.avg - 22) < 1e-9);
+});
+
+test('weekday average falls back (and says so) on tiny history', () => {
+  const { days, values } = seriesByWeekday('2026-08-06', 5, () => 10);
+  const target = nextOfWeekday('2026-08-06', 1);
+  const r = weightedWeekdayAverage(values, days, target, config.order);
+  assert.equal(r.usedFallback, true);
+  assert.equal(r.avg, 10);
+});
+
+test('correction: off until enough count days, off when unstable, clamped when stable', () => {
+  const few = correctionFromRatios([1.2, 1.1, 1.3], config.order);
+  assert.equal(few.applied, false);
+  assert.equal(few.factor, 1);
+
+  const wild = correctionFromRatios([0.3, 2.5, 0.4, 2.2, 0.5, 2.0, 0.3, 2.4, 0.6, 2.1, 0.4, 2.3], config.order);
+  assert.equal(wild.stable, false);
+  assert.equal(wild.factor, 1);
+
+  const steady = correctionFromRatios(Array(12).fill(1.1), config.order);
+  assert.equal(steady.applied, true);
+  assert.ok(Math.abs(steady.factor - 1.1) < 1e-9);
+
+  const extreme = correctionFromRatios(Array(12).fill(2.0), config.order);
+  assert.equal(extreme.factor, config.order.correction.clampMax); // clamped
+});
+
+test('smart buffer: variability-driven, capped smaller for perishables (zone R)', () => {
+  const steady = Array(14).fill(10);
+  assert.equal(smartBufferDefault({ history: steady, zone: 'A', cfg: config.order }), 0);
+
+  const variable = [5, 25, 5, 25, 5, 25, 5, 25]; // cv = 2/3 → ~16.7%
+  const fridge = smartBufferDefault({ history: variable, zone: 'R', cfg: config.order });
+  const ambient = smartBufferDefault({ history: variable, zone: 'A', cfg: config.order });
+  assert.equal(fridge, 10); // capped at the R zone cap
+  assert.ok(ambient > 10 && ambient <= 30);
+});
+
+test('confidence: flags fallback/absurd lines, stays quiet on zero lines', () => {
+  const quiet = assessConfidence({ mode: 'daily', samples: 0, usedFallback: true, correctionUnstable: false, predicted: 0, flatAvg: 0, recentMax: 0, suggestedQty: 0, cfg: config.order });
+  assert.equal(quiet.low, false);
+
+  const thin = assessConfidence({ mode: 'daily', samples: 1, usedFallback: true, correctionUnstable: false, predicted: 8, flatAvg: 8, recentMax: 10, suggestedQty: 7, cfg: config.order });
+  assert.equal(thin.low, true);
+
+  const absurd = assessConfidence({ mode: 'daily', samples: 4, usedFallback: false, correctionUnstable: false, predicted: 10, flatAvg: 10, recentMax: 10, suggestedQty: 40, cfg: config.order });
+  assert.equal(absurd.low, true);
+});
+
+test('suggestion subtracts pending inbound and applies correction', () => {
+  const item = { unit: 'KG' };
+  const history = Array(14).fill(10);
+  // predicted 10×1.2=12 ; ×1.25 couv = 15 ; −3 stock −5 inbound = 7 → 7.0
+  const r = suggestOrder({ item, history, currentStock: 3, pendingInbound: 5, bufferPct: 0, cfg: config.order, dailyAvgOverride: 10, correctionFactor: 1.2 });
+  assert.equal(r.suggestedQty, 7);
+  assert.ok(r.reason.includes('corr'));
+  assert.ok(r.reason.includes('en route'));
 });

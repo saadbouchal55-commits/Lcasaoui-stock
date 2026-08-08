@@ -36,6 +36,13 @@ async function buildPrimaryView(locationId, date) {
       currentStock: f.currentStock, avgDaily: f.avgDaily, mode: f.mode,
       suggestedQty: f.suggestedQty, orderedQty: line?.orderedQty ?? f.suggestedQty,
       flagged: line?.flagged ?? false, reason: f.reason,
+      // Smart-engine transparency for the reviewer:
+      lowConfidence: f.lowConfidence ?? false,
+      confidenceReasons: f.confidenceReasons ?? '',
+      correction: f.correction ?? 1,
+      bufferPct: f.bufferPct ?? 0,
+      bufferSource: f.bufferSource ?? 'auto',
+      pendingInbound: f.pendingInbound ?? 0,
     };
   });
   const packagingView = packaging.map((p) => {

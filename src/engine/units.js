@@ -64,19 +64,25 @@ export function roundNative(unit, qty) {
 }
 
 /**
- * Round a suggested ORDER quantity: never below zero, whole packages/pieces/units,
- * one decimal for weight/volume (you cannot order 0.001 kg meaningfully).
+ * Round a suggested ORDER quantity to real order units: never below zero,
+ * whole packages/pieces/units (rounded up), and weight/volume rounded UP to a
+ * sensible increment (default 0.5 kg/L — configurable). Rounding up means the
+ * rounding itself never causes an under-order.
  */
-export function roundOrderQty(unit, qty) {
+export function roundOrderQty(unit, qty, kgIncrement = 0.5) {
   const q = Math.max(0, Number(qty) || 0);
+  if (q === 0) return 0;
   switch (unit) {
     case 'KG':
-    case 'L':
-      return Math.round(q * 10) / 10;
+    case 'L': {
+      const inc = kgIncrement > 0 ? kgIncrement : 0.5;
+      // 1e-9 guards float noise so e.g. exactly 9.5 doesn't become 10.0.
+      return Math.round(Math.ceil(q / inc - 1e-9) * inc * 1000) / 1000;
+    }
     case 'UNIT':
     case 'PIECE':
     case 'PACKAGE':
-      return Math.ceil(q); // round up whole countable items
+      return Math.ceil(q - 1e-9); // whole countable items, rounded up
     default:
       return q;
   }

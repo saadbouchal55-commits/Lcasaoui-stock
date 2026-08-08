@@ -205,7 +205,8 @@
     "allLocations": "Toutes — Total cuisine",
     "combinedTitle": "Total à préparer (cuisine)",
     "combinedNote": "Somme de tous les restaurants — lecture seule. Choisissez un restaurant pour générer, modifier ou confirmer une commande.",
-    "bonCombined": "Bon de commande (cuisine — total)"
+    "bonCombined": "Bon de commande (cuisine — total)",
+    "lowConfidence": "Confiance faible — à vérifier"
   },
   "initialstock": {
     "title": "Stock initial",

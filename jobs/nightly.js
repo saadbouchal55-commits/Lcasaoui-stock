@@ -1,20 +1,17 @@
-// Nightly job — recompute & auto-send order suggestions for the next day at
-// every active location, using the latest learning (actual-sent + consumption).
-// Schedule with cron on shared hosting, e.g.:
-//   30 1 * * *  cd /home/USER/app && node jobs/nightly.js >> logs/nightly.log 2>&1
+// Nightly job — (re)generate the draft food order for every active location.
+// Orders are dated the CURRENT business day (11:00→11:00 — a 01:30 run still
+// belongs to the evening's business day, matching how the team dates orders in
+// the UI); the engine itself predicts demand for the day the delivery covers.
+// The order is NEVER auto-sent — low confidence / missing inputs mark it HELD.
+// Schedule with cron, e.g.:
+//   30 1 * * *  cd /var/www/Lcasaoui-stock && node jobs/nightly.js >> /var/log/lcasaoui-nightly.log 2>&1
 import '../src/lib/loadenv.js';
 import prisma from '../src/lib/prisma.js';
 import { generateOrder } from '../src/services/orderservice.js';
-
-function nextDayUtc() {
-  const d = new Date();
-  d.setUTCHours(0, 0, 0, 0);
-  d.setUTCDate(d.getUTCDate() + 1); // order tonight -> for tomorrow's delivery
-  return d;
-}
+import { currentBusinessDay } from '../src/lib/businessday.js';
 
 async function main() {
-  const date = nextDayUtc();
+  const date = new Date(`${currentBusinessDay()}T00:00:00Z`);
   const locations = await prisma.location.findMany({ where: { active: true } });
   for (const loc of locations) {
     const order = await generateOrder(loc.id, date);

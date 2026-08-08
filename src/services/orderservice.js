@@ -1,15 +1,18 @@
 // Order-suggestion service. Shared by the API route and the nightly job so the
 // learning + suggestion + guardrail logic lives in exactly one place.
 //
-// New order flow (batch 2):
-//  - Food orders are auto-GENERATED from sales × recipe learning, but NEVER
-//    auto-sent. If inputs are missing or a qty is absurd, the order is HELD and
-//    Direction is alerted.
-//  - Learning reads CONFIRMED-SENT order lines (the ActualSent table is gone).
+// Smart engine (see src/engine/autoorder.js):
+//  - Food is predicted per restaurant by same-weekday recent-weighted history,
+//    recipe baseline × count-derived correction, per-item smart buffer, minus
+//    stock on hand and inbound. Low-confidence lines HOLD the order for review.
+//  - Never auto-sent; learning reads counts, sales and confirmed-sent orders.
 import prisma from '../lib/prisma.js';
 import { ymd } from '../lib/http.js';
 import { getStockOnHand } from '../lib/stock.js';
-import { suggestOrder, weekdayAverage } from '../engine/autoorder.js';
+import {
+  suggestOrder, weightedWeekdayAverage, correctionFromRatios, smartBufferDefault,
+  assessConfidence, mean,
+} from '../engine/autoorder.js';
 import { computeConsumption } from '../engine/reconciliation.js';
 import { getEffectiveRecipeLines } from '../lib/recipes.js';
 import { config } from '../config.js';
@@ -98,6 +101,86 @@ export async function getItemHistories(locationId, endDate) {
 }
 
 /**
+ * Actual-vs-recipe usage ratios per item, one per COUNTED day (ledger-derived —
+ * no precomputed table needed). Reconciliation posts, with ref `entry:<id>`:
+ *   CONSUMPTION C (recipe-based), WASTE W (unexplained variance),
+ *   ADJUSTMENT A (counted more than expected), COUNT_SET (the count itself).
+ * Actual usage that day = C + W − A, so ratio = (C + W − A) / C. Declared waste
+ * (ref wastedecl:*) is excluded — it is loss, not usage.
+ * @returns {Map<number, number[]>} itemId -> ratios (oldest→newest)
+ */
+export async function getCorrectionRatios(locationId, endDate) {
+  const start = new Date(endDate);
+  start.setUTCDate(start.getUTCDate() - HISTORY_DAYS);
+
+  const movements = await prisma.stockMovement.findMany({
+    where: {
+      locationId,
+      ref: { startsWith: 'entry:' },
+      type: { in: ['COUNT_SET', 'CONSUMPTION', 'WASTE', 'ADJUSTMENT'] },
+      date: { gte: start, lt: endDate },
+    },
+    select: { itemId: true, type: true, qty: true, date: true },
+    orderBy: { date: 'asc' },
+  });
+
+  // Group per (item, day).
+  const byKey = new Map(); // `${itemId}:${ymd}` -> {counted, C, W, A}
+  for (const m of movements) {
+    const k = `${m.itemId}:${ymd(m.date)}`;
+    const g = byKey.get(k) || { counted: false, C: 0, W: 0, A: 0 };
+    if (m.type === 'COUNT_SET') g.counted = true;
+    else if (m.type === 'CONSUMPTION') g.C += m.qty;
+    else if (m.type === 'WASTE') g.W += m.qty;
+    else if (m.type === 'ADJUSTMENT') g.A += m.qty;
+    byKey.set(k, g);
+  }
+
+  const ratios = new Map();
+  for (const [k, g] of byKey) {
+    if (!g.counted || g.C <= 0) continue; // only counted days with real recipe use
+    const itemId = Number(k.split(':')[0]);
+    const ratio = Math.max(0, (g.C + g.W - g.A) / g.C);
+    if (!ratios.has(itemId)) ratios.set(itemId, []);
+    ratios.get(itemId).push(ratio);
+  }
+  return ratios;
+}
+
+/**
+ * Inbound already ordered but not yet in the ledger: confirmed-sent lines whose
+ * `order:<id>` RECEIVED movements are missing. In the current flow confirming an
+ * order posts its receipts immediately, so this is normally 0 — it exists so the
+ * engine can never double-order if confirmation and delivery ever separate.
+ * @returns {Map<number, number>} itemId -> pending qty
+ */
+export async function getPendingInbound(locationId, date) {
+  const from = new Date(date);
+  from.setUTCDate(from.getUTCDate() - 3);
+  const orders = await prisma.orderSuggestion.findMany({
+    where: { locationId, status: 'CONFIRMED_SENT', date: { gte: from, lte: date } },
+    include: { lines: true },
+  });
+  if (!orders.length) return new Map();
+
+  const refs = orders.map((o) => `order:${o.id}`);
+  const received = await prisma.stockMovement.findMany({
+    where: { locationId, type: 'RECEIVED', ref: { in: refs } },
+    select: { ref: true },
+  });
+  const receivedRefs = new Set(received.map((r) => r.ref));
+
+  const pending = new Map();
+  for (const o of orders) {
+    if (receivedRefs.has(`order:${o.id}`)) continue;
+    for (const l of o.lines) {
+      if ((l.orderedQty ?? 0) > 0) pending.set(l.itemId, (pending.get(l.itemId) || 0) + l.orderedQty);
+    }
+  }
+  return pending;
+}
+
+/**
  * Compute the order split:
  *  - food:      recipe items — system-SUGGESTED from sales (editable).
  *  - packaging: non-recipe items — NO auto-suggestion; a non-binding order-history
@@ -105,13 +188,22 @@ export async function getItemHistories(locationId, endDate) {
  * Also returns per-food-item `recentMax` so the caller can detect absurd quantities.
  */
 export async function computeSuggestions(locationId, date) {
-  const [{ items, histories, days }, stock, buffers] = await Promise.all([
+  const cfg = config.order;
+  const [{ items, histories, days }, stock, buffers, ratiosByItem, pendingByItem] = await Promise.all([
     getItemHistories(locationId, date),
     getStockOnHand(prisma, locationId),
     prisma.buffer.findMany({ where: { locationId } }),
+    getCorrectionRatios(locationId, date),
+    getPendingInbound(locationId, date),
   ]);
+  // A saved Buffer row is a Direction override (even 0); absence = smart default.
   const bufferByItem = new Map(buffers.map((b) => [b.itemId, b.pct]));
-  const targetYmd = ymd(date); // the day the order is for → its weekday drives the average
+
+  // The order placed on day D is delivered midday D+1 — predict for the weekday
+  // of the day it actually covers.
+  const target = new Date(date);
+  target.setUTCDate(target.getUTCDate() + (cfg.targetOffsetDays ?? 1));
+  const targetYmd = ymd(target);
 
   const food = [];
   const packaging = [];
@@ -122,10 +214,37 @@ export async function computeSuggestions(locationId, date) {
     const currentStock = stock.get(item.id) || 0;
 
     if (item.inRecipes) {
-      const bufferPct = bufferByItem.get(item.id) || 0;
-      // Weekday-aware daily average (falls back to flat average on small history).
-      const dailyAvgOverride = weekdayAverage(history, days, targetYmd, config.order);
-      const s = suggestOrder({ item, history, currentStock, bufferPct, cfg: config.order, dailyAvgOverride });
+      // 1. Weekday-aware, recent-weighted prediction (falls back on small history).
+      const wk = weightedWeekdayAverage(history, days, targetYmd, cfg);
+      // 2. Count-derived correction (1.0 until counts are stable enough).
+      const corr = correctionFromRatios(ratiosByItem.get(item.id) || [], cfg);
+      // 4. Buffer: Direction override wins, else smart perishable-aware default.
+      const hasOverride = bufferByItem.has(item.id);
+      const bufferPct = hasOverride
+        ? bufferByItem.get(item.id)
+        : smartBufferDefault({ history, zone: item.storageZone, cfg });
+      // 5. Subtract stock on hand + inbound not yet delivered.
+      const pendingInbound = pendingByItem.get(item.id) || 0;
+
+      const s = suggestOrder({
+        item, history, currentStock, pendingInbound, bufferPct, cfg,
+        dailyAvgOverride: wk.avg, correctionFactor: corr.factor,
+      });
+
+      // 7. Confidence gate — flag, don't guess.
+      const flatNz = history.filter((v) => v > 0).slice(-cfg.learningWindowDays);
+      const conf = assessConfidence({
+        mode: s.mode,
+        samples: wk.samples,
+        usedFallback: wk.usedFallback,
+        correctionUnstable: !corr.stable,
+        predicted: s.predicted,
+        flatAvg: flatNz.length ? mean(flatNz) : 0,
+        recentMax: Math.max(0, ...history),
+        suggestedQty: s.suggestedQty,
+        cfg,
+      });
+
       food.push({
         itemId: item.id,
         name: item.name,
@@ -134,12 +253,17 @@ export async function computeSuggestions(locationId, date) {
         storageZone: item.storageZone,
         subCategory: item.subCategory,
         currentStock: round(currentStock, 1000),
+        pendingInbound: round(pendingInbound, 1000),
         bufferPct,
+        bufferSource: hasOverride ? 'direction' : 'auto',
+        correction: corr.factor,
         suggestedQty: s.suggestedQty,
         mode: s.mode,
         avgDaily: round(s.avgDaily),
         reason: s.reason,
         recentMax: Math.max(0, ...history),
+        lowConfidence: conf.low,
+        confidenceReasons: conf.reasons.join(', '),
       });
     } else {
       const nonzero = history.filter((q) => q > 0);
@@ -190,9 +314,14 @@ export async function generateOrder(locationId, date, generatedBy = null) {
   const ledgerCount = await prisma.stockMovement.count({ where: { locationId, date: { lte: date } } });
   if (ledgerCount === 0) holdReasons.push('stock non initialisé / comptage manquant');
 
-  const absurd = food.filter((f) => f.recentMax > 0 && f.suggestedQty > config.order.absurdFactor * f.recentMax);
-  if (absurd.length) {
-    holdReasons.push(`quantité anormale: ${absurd.map((a) => a.name).join(', ')}`);
+  // Confidence gate: any low-confidence line HOLDs the order and names the items
+  // to check (includes the absurd-quantity case), so the reviewer knows exactly
+  // which lines the engine is unsure about.
+  const uncertain = food.filter((f) => f.lowConfidence);
+  if (uncertain.length) {
+    const names = uncertain.map((f) => f.name);
+    const shown = names.slice(0, 8).join(', ') + (names.length > 8 ? ` (+${names.length - 8})` : '');
+    holdReasons.push(`confiance faible: ${shown}`);
   }
 
   const status = holdReasons.length ? 'HELD' : 'GENERATED';

@@ -146,10 +146,13 @@ export default function Orders() {
                       <thead><tr><th>{t('common.item')}</th><th>{t('common.unit')}</th><th className="num">{t('orders.suggested')}</th><th className="num">{t('orders.ordered')}</th></tr></thead>
                       <tbody>
                         {sg.items.map((r) => (
-                          <tr key={r.itemId}>
-                            <td data-label={t('common.item')}>{r.name}</td>
+                          <tr key={r.itemId} style={r.lowConfidence ? { background: 'var(--warn-bg)' } : undefined}>
+                            <td data-label={t('common.item')} title={r.reason}>
+                              {r.name}
+                              {r.lowConfidence && <span className="flag" title={r.confidenceReasons}> ⚠ {t('orders.lowConfidence')}</span>}
+                            </td>
                             <td data-label={t('common.unit')}>{t(`units.${r.unit}`)}</td>
-                            <td className="num muted" data-label={t('orders.suggested')}>{r.suggestedQty}</td>
+                            <td className="num muted" data-label={t('orders.suggested')} title={r.reason}>{r.suggestedQty}</td>
                             <td className="num" data-label={t('orders.ordered')}>
                               {!pConfirmed
                                 ? <input key={`${r.itemId}-${r.orderedQty}`} className="qty" type="number" inputMode="decimal" step="any" defaultValue={r.orderedQty}
