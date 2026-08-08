@@ -95,7 +95,9 @@
   "bon": {
     "proposed": "Commande proposée",
     "sent": "Commande envoyée",
-    "combined": "Total cuisine — toutes"
+    "combined": "Total cuisine — toutes",
+    "food": "Aliments",
+    "packaging": "Emballages"
   },
   "units": {
     "KG": "kg",

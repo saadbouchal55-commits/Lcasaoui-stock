@@ -6,6 +6,7 @@
 import ExcelJS from 'exceljs';
 
 const GREEN = 'FF1F6F43';
+const SECTION_FILL = 'FF15532F'; // green-dark, section header (Aliments / Emballages)
 const ZONE_FILL = 'FFCDE2D6';   // zone heading row
 const SUB_FILL = 'FFEDF3EF';    // subcategory heading row
 const THIN = { style: 'thin', color: { argb: 'FF8A968E' } };
@@ -18,11 +19,12 @@ const NCOLS = 4;
  * @param {string} o.establishment
  * @param {string} o.dateStr
  * @param {string} o.versionLabel
- * @param {Array<{zone:string, zoneName:string, subCategory:string, items:Array<{name:string, unit:string, suggested?:number|string, ordered?:number|string}>}>} o.groups
+ * @param {Array<{title:string, groups:Array<{zone:string, zoneName:string, subCategory:string, items:Array<{name:string, unit:string, ordered?:number|string}>}>}>} o.sections
+ *        Ordered sections (e.g. Aliments then Emballages), each grouped by zone → subcategory.
  * @param {string} [o.remarque]
  * @returns {Promise<Buffer>}
  */
-export async function buildBonCommande({ title, establishment, dateStr, versionLabel, groups, remarque = 'Remarque :' }) {
+export async function buildBonCommande({ title, establishment, dateStr, versionLabel, sections = [], remarque = 'Remarque :' }) {
   const wb = new ExcelJS.Workbook();
   wb.creator = "L'Casaoui";
   const ws = wb.addWorksheet('Bon de Commande', {
@@ -60,6 +62,16 @@ export async function buildBonCommande({ title, establishment, dateStr, versionL
     borderRow(r);
     r += 1;
   };
+  const sectionHeadingRow = (text) => {
+    ws.mergeCells(r, 1, r, NCOLS);
+    const c = ws.getCell(r, 1);
+    c.value = text;
+    c.font = { bold: true, size: 12, color: { argb: 'FFFFFFFF' } };
+    c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: SECTION_FILL } };
+    c.alignment = { horizontal: 'left', vertical: 'middle' };
+    borderRow(r);
+    r += 1;
+  };
 
   // Column header row.
   ['Article', 'Unité', 'Commandé', 'Réellement envoyé'].forEach((h, i) => {
@@ -72,23 +84,28 @@ export async function buildBonCommande({ title, establishment, dateStr, versionL
   borderRow(r);
   r += 1;
 
-  // Grouped body: zone heading (on change) → subcategory heading → item rows.
-  let lastZone = null;
-  for (const g of groups) {
-    if (g.zone !== lastZone) {
-      lastZone = g.zone;
-      mergedHeadingRow(`${String(g.zoneName || g.zone).toUpperCase()} — ${g.zone}`, ZONE_FILL, { size: 12 });
-    }
-    mergedHeadingRow(g.subCategory || '—', SUB_FILL);
-    for (const it of g.items) {
-      ws.getCell(r, 1).value = it.name;
-      ws.getCell(r, 2).value = it.unit;
-      ws.getCell(r, 3).value = it.ordered ?? '';
-      ws.getCell(r, 4).value = ''; // Réellement envoyé — filled by hand
-      ws.getCell(r, 1).alignment = { horizontal: 'left' };
-      for (let c = 2; c <= NCOLS; c++) ws.getCell(r, c).alignment = { horizontal: 'center' };
-      borderRow(r);
-      r += 1;
+  // Body: one section per (Aliments / Emballages) — matching the Commande page —
+  // each with zone heading (on change) → subcategory heading → item rows.
+  for (const section of sections) {
+    if (!section.groups || !section.groups.length) continue;
+    sectionHeadingRow(section.title);
+    let lastZone = null;
+    for (const g of section.groups) {
+      if (g.zone !== lastZone) {
+        lastZone = g.zone;
+        mergedHeadingRow(`${String(g.zoneName || g.zone).toUpperCase()} — ${g.zone}`, ZONE_FILL, { size: 12 });
+      }
+      mergedHeadingRow(g.subCategory || '—', SUB_FILL);
+      for (const it of g.items) {
+        ws.getCell(r, 1).value = it.name;
+        ws.getCell(r, 2).value = it.unit;
+        ws.getCell(r, 3).value = it.ordered ?? '';
+        ws.getCell(r, 4).value = ''; // Réellement envoyé — filled by hand
+        ws.getCell(r, 1).alignment = { horizontal: 'left' };
+        for (let c = 2; c <= NCOLS; c++) ws.getCell(r, c).alignment = { horizontal: 'center' };
+        borderRow(r);
+        r += 1;
+      }
     }
   }
 

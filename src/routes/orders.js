@@ -116,17 +116,17 @@ router.get(
 async function buildCombined(date, { includeZero = false } = {}) {
   const locations = await prisma.location.findMany({ where: { active: true }, orderBy: { code: 'asc' } });
   const byItem = new Map();
-  const bump = (it, key, add) => {
-    const cur = byItem.get(it.itemId) || { itemId: it.itemId, name: it.name, unit: it.unit, storageZone: it.storageZone, subCategory: it.subCategory, suggested: 0, ordered: 0 };
+  const bump = (it, key, add, isFood) => {
+    const cur = byItem.get(it.itemId) || { itemId: it.itemId, name: it.name, unit: it.unit, storageZone: it.storageZone, subCategory: it.subCategory, suggested: 0, ordered: 0, food: !!isFood };
     cur[key] += add || 0;
     byItem.set(it.itemId, cur);
   };
   for (const loc of locations) {
     const view = await buildPrimaryView(loc.id, date);
-    for (const f of view.food) { bump(f, 'suggested', f.suggestedQty); bump(f, 'ordered', f.orderedQty); }
+    for (const f of view.food) { bump(f, 'suggested', f.suggestedQty, true); bump(f, 'ordered', f.orderedQty, true); }
     for (const p of view.packaging) {
-      if (includeZero) bump(p, 'ordered', p.orderedQty ?? 0);
-      else if ((p.orderedQty ?? 0) > 0) bump(p, 'ordered', p.orderedQty);
+      if (includeZero) bump(p, 'ordered', p.orderedQty ?? 0, false);
+      else if ((p.orderedQty ?? 0) > 0) bump(p, 'ordered', p.orderedQty, false);
     }
   }
   const rows = [...byItem.values()]
@@ -370,14 +370,13 @@ router.get(
     const view = await buildPrimaryView(locationId, date);
     const location = await prisma.location.findUnique({ where: { id: locationId } });
 
-    // FULL checklist: every tracked food + packaging item, printing 0 where nothing
-    // is ordered (so a 0 is explicit, never a dropped row). Packaging has no system
-    // suggestion, so its "Suggéré" stays blank.
-    const lines = [];
-    for (const f of view.food) lines.push({ name: f.name, unit: UNIT_FR[f.unit] || f.unit, suggested: f.suggestedQty, ordered: f.orderedQty ?? 0, storageZone: f.storageZone, subCategory: f.subCategory });
-    for (const p of view.packaging) lines.push({ name: p.name, unit: UNIT_FR[p.unit] || p.unit, suggested: '', ordered: p.orderedQty ?? 0, storageZone: p.storageZone, subCategory: p.subCategory });
-
-    const groups = groupByZoneSub(lines);
+    // FULL checklist, laid out like the Commande page: Aliments section (by zone)
+    // then Emballages section (by zone). 0 is printed explicitly (never a dropped row).
+    const foodLines = view.food.map((f) => ({ name: f.name, unit: UNIT_FR[f.unit] || f.unit, ordered: f.orderedQty ?? 0, storageZone: f.storageZone, subCategory: f.subCategory }));
+    const pkgLines = view.packaging.map((p) => ({ name: p.name, unit: UNIT_FR[p.unit] || p.unit, ordered: p.orderedQty ?? 0, storageZone: p.storageZone, subCategory: p.subCategory }));
+    const sections = [];
+    if (foodLines.length) sections.push({ title: t('bon.food'), groups: groupByZoneSub(foodLines) });
+    if (pkgLines.length) sections.push({ title: t('bon.packaging'), groups: groupByZoneSub(pkgLines) });
     const versionLabel = `${version === 'sent' ? t('bon.sent') : t('bon.proposed')} (${t(`orderStatus.${view.status}`)})`;
 
     const buffer = await buildBonCommande({
@@ -385,7 +384,7 @@ router.get(
       establishment: ESTABLISHMENT[location?.code] || location?.name || '',
       dateStr: ymd(date),
       versionLabel,
-      groups,
+      sections,
       remarque: 'Remarque :',
     });
     sendXlsx(res, `bon_commande_${location?.code}_${ymd(date)}_${version}.xlsx`, buffer);
@@ -399,16 +398,19 @@ router.get(
     const date = parseDate(req.query.date);
     if (!date) return res.status(400).json({ error: t('errors.validation') });
     const rows = await buildCombined(date, { includeZero: true });
-    const lines = rows
-      .map((r) => ({ name: r.name, unit: UNIT_FR[r.unit] || r.unit, suggested: r.suggested || '', ordered: r.ordered, storageZone: r.storageZone, subCategory: r.subCategory }));
-    const groups = groupByZoneSub(lines);
+    const toLine = (r) => ({ name: r.name, unit: UNIT_FR[r.unit] || r.unit, ordered: r.ordered, storageZone: r.storageZone, subCategory: r.subCategory });
+    const foodLines = rows.filter((r) => r.food).map(toLine);
+    const pkgLines = rows.filter((r) => !r.food).map(toLine);
+    const sections = [];
+    if (foodLines.length) sections.push({ title: t('bon.food'), groups: groupByZoneSub(foodLines) });
+    if (pkgLines.length) sections.push({ title: t('bon.packaging'), groups: groupByZoneSub(pkgLines) });
 
     const buffer = await buildBonCommande({
       title: 'Bon de Commande : Lcasaoui Original Food',
       establishment: 'TOTAL — toutes les cuisines',
       dateStr: ymd(date),
       versionLabel: t('bon.combined'),
-      groups,
+      sections,
       remarque: 'Remarque :',
     });
     sendXlsx(res, `bon_commande_TOTAL_${ymd(date)}.xlsx`, buffer);
