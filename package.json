@@ -21,6 +21,8 @@
     "set-password": "node prisma/set-password.js",
     "reset-admin": "node prisma/reset-admin.js",
     "add-yaourt": "node prisma/add-yaourt-grec.js",
+    "load:count-flags": "node prisma/load-count-flags.js",
+    "prisma:push": "prisma db push",
     "inspect:day": "node prisma/inspect-day.js",
     "inspect:item": "node prisma/inspect-item.js",
     "convert:pieces": "node prisma/convert-to-pieces.js",

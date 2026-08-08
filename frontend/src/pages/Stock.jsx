@@ -25,7 +25,9 @@ export default function Stock() {
   const [msg, setMsg] = useState('');
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => { api.get('/api/items').then((d) => setItems(d.items.filter((i) => i.isTracked))); }, []);
+  // Daily count shows only items counted every day (countedDaily). Packaging /
+  // disposables (and Glaçons, Mayonnaise) are excluded — see countFrequency.
+  useEffect(() => { api.get('/api/items').then((d) => setItems(d.items.filter((i) => i.isTracked && i.countedDaily))); }, []);
 
   const load = useCallback(() => {
     if (!locationId || !date) return;

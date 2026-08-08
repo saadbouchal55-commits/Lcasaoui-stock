@@ -30,7 +30,8 @@ router.get(
     const where = includeInactive ? {} : { active: true };
     if (req.query.q) where.name = { contains: String(req.query.q) };
     const items = await prisma.item.findMany({ where, orderBy: { name: 'asc' } });
-    res.json({ items });
+    // countedDaily = derived from the extensible countFrequency ("DAILY" vs the rest).
+    res.json({ items: items.map((i) => ({ ...i, countedDaily: i.countFrequency === 'DAILY' })) });
   }),
 );
 

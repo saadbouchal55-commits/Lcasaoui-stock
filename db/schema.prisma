@@ -83,6 +83,11 @@ model Item {
   storageZone StorageZone? // R|C|A physical storage zone (from item_categories.json)
   subCategory String?      // e.g. "Produits Laitiers & Fromages"
   active     Boolean      @default(true)
+  // Daily-count membership, kept as an extensible SCHEDULE string (not a rigid bool):
+  //   "DAILY" = counted every day (shown on the daily count screen)
+  //   "NONE"  = not counted daily (packaging/disposables, Glaçons, Mayonnaise)
+  // Future: "WEEKLY"/"CUSTOM" + a countDays field for scheduled counting — no rip-out.
+  countFrequency String @default("DAILY")
   recipeLines RecipeLine[]
   movements   StockMovement[]
   countLines  CountLine[]
