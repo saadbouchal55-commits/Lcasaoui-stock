@@ -119,7 +119,9 @@
     "saveBaseline": "Enregistrer le stock initial",
     "saveCount": "Enregistrer le comptage",
     "baselineSaved": "Stock initial enregistré. Il servira d'ouverture pour demain.",
-    "saved": "Comptage enregistré."
+    "saved": "Comptage enregistré.",
+    "notInitialized": "Le stock initial n'a pas encore été défini par la Direction pour ce restaurant.",
+    "initialDay": "Cette journée correspond au stock initial (défini par la Direction) — le comptage commence le lendemain."
   },
   "pertes": {
     "type": "Type",

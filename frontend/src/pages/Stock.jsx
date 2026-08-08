@@ -46,8 +46,8 @@ export default function Stock() {
         locationId, date,
         counts: Object.entries(counts).map(([itemId, q]) => ({ itemId: Number(itemId), countedQty: q })).filter((x) => x.countedQty !== ''),
       });
-      if (d.mode === 'baseline') setMsg(t('stock.baselineSaved'));
-      else { setWasteRows(d.rows || null); setMsg(t('stock.saved')); }
+      setWasteRows(d.rows || null);
+      setMsg(t('stock.saved'));
       load();
     } catch (e) { setMsg(e.message); } finally { setBusy(false); }
   };
@@ -55,7 +55,12 @@ export default function Stock() {
   useEffect(() => { if (businessDay && !isDirection) setDate(businessDay); }, [businessDay, isDirection]);
   const readOnly = !!businessDay && !isDirection && date !== businessDay;
 
-  const isBaseline = status?.isBaseline;
+  // Initial stock is set ONLY by Direction (separate page). Here, block counting
+  // if the restaurant isn't initialised yet, or if this is the initial day.
+  const notInitialized = status && !status.initialized;
+  const isInitialDay = status && status.isInitialDay;
+  const blocked = readOnly || notInitialized || isInitialDay;
+
   const zones = groupByZone(items);
   const toggle = (z) => setCollapsed((c) => ({ ...c, [z]: !c[z] }));
 
@@ -66,12 +71,14 @@ export default function Stock() {
         <div className="row">
           <LocationPicker locations={locations} locationId={locationId} onChange={setLocationId} />
           <label>{t('common.date')}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label>
-          {status && <span className={`badge ${isBaseline ? 'gray' : 'green'}`}>{isBaseline ? t('stock.baseline') : t('stock.closing')}</span>}
+          {status && <span className="badge green">{t('stock.closing')}</span>}
         </div>
-        <p className="muted">{isBaseline ? t('stock.baselineHint') : t('stock.blindHint')}</p>
+        <p className="muted">{t('stock.blindHint')}</p>
         {readOnly && <p className="flag">🔒 {t('common.readOnlyDay')}</p>}
+        {notInitialized && <p className="flag">⚠ {t('stock.notInitialized')}</p>}
+        {isInitialDay && !notInitialized && <p className="flag">⚠ {t('stock.initialDay')}</p>}
         {msg && <p className="muted">{msg}</p>}
-        <div className="actions"><button onClick={submit} disabled={busy || readOnly}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
+        <div className="actions"><button onClick={submit} disabled={busy || blocked}>{t('stock.saveCount')}</button></div>
       </div>
 
       {zones.map((zoneGrp) => (
@@ -90,7 +97,7 @@ export default function Stock() {
                       <tr key={it.id}>
                         <td data-label={t('common.item')}>{it.name} <span className="muted">({t(`units.${it.unit}`)})</span></td>
                         <td className="num" data-label={t('waste.counted')}>
-                          <input className="qty" type="number" inputMode="decimal" step="any" value={counts[it.id] ?? ''} disabled={readOnly}
+                          <input className="qty" type="number" inputMode="decimal" step="any" value={counts[it.id] ?? ''} disabled={blocked}
                             onChange={(e) => setCounts((c) => ({ ...c, [it.id]: e.target.value }))} />
                         </td>
                       </tr>
@@ -107,7 +114,7 @@ export default function Stock() {
         <div className="card"><h2>{t('waste.title')}</h2><WasteTable rows={wasteRows} /></div>
       )}
 
-      <div className="actions" style={{ marginBottom: 24 }}><button onClick={submit} disabled={busy || readOnly}>{isBaseline ? t('stock.saveBaseline') : t('stock.saveCount')}</button></div>
+      <div className="actions" style={{ marginBottom: 24 }}><button onClick={submit} disabled={busy || blocked}>{t('stock.saveCount')}</button></div>
     </>
   );
 }

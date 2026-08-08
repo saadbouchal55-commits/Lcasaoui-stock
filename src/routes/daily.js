@@ -286,7 +286,13 @@ router.post(
   }),
 );
 
-// ── night count: baseline on the first night, closing-count + reconcile after ───
+// ── night count: closing count + reconcile (initial stock is Direction-only) ────
+
+/** Earliest ledger movement date for a location (= its Stock-initial day), or null. */
+async function initializationDate(locationId) {
+  const first = await prisma.stockMovement.findFirst({ where: { locationId }, orderBy: { date: 'asc' }, select: { date: true } });
+  return first?.date || null;
+}
 
 router.get(
   '/night-status',
@@ -295,9 +301,16 @@ router.get(
     const locationId = resolveLocation(req);
     const date = parseDate(req.query.date);
     if (!date) return res.status(400).json({ error: t('errors.validation'), fields: ['date'] });
-    const baseline = await isBaseline(locationId, date);
+    const initDate = await initializationDate(locationId);
     const entry = await prisma.dailyEntry.findUnique({ where: { locationId_date: { locationId, date } }, include: { salesLines: true } });
-    res.json({ locationId, date: ymd(date), isBaseline: baseline, hasSales: (entry?.salesLines.length || 0) > 0, status: entry?.status || 'open' });
+    res.json({
+      locationId,
+      date: ymd(date),
+      initialized: !!initDate,
+      isInitialDay: initDate ? ymd(date) <= ymd(initDate) : false,
+      hasSales: (entry?.salesLines.length || 0) > 0,
+      status: entry?.status || 'open',
+    });
   }),
 );
 
@@ -311,13 +324,18 @@ router.post(
     assertManagerEditableDate(req.user, date);
     const counts = Array.isArray(req.body.counts) ? req.body.counts : [];
 
-    // First night ever at this location -> baseline only (no waste).
-    if (await isBaseline(locationId, date)) {
-      await persistBaseline(locationId, date, counts, req.user.id);
-      return res.json({ mode: 'baseline', date: ymd(date) });
+    // The opening baseline is set ONCE by Direction via "Stock initial" — never
+    // here. A closing count requires the restaurant to already be initialised, and
+    // may only cover a day AFTER the initial (you can't recount the baseline day).
+    const initDate = await initializationDate(locationId);
+    if (!initDate) {
+      return res.status(400).json({ error: 'Le stock initial n\'a pas encore été défini par la Direction.' });
+    }
+    if (ymd(date) <= ymd(initDate)) {
+      return res.status(400).json({ error: 'Cette journée correspond au stock initial (défini par la Direction).' });
     }
 
-    // Otherwise: this is the day's closing count -> save it and reconcile.
+    // Save the closing count and reconcile.
     const entry = await upsertEntry(locationId, date, req.user.id);
     await prisma.$transaction([
       prisma.countLine.deleteMany({ where: { dailyEntryId: entry.id } }),
