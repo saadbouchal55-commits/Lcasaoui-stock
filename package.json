@@ -21,6 +21,7 @@
     "set-password": "node prisma/set-password.js",
     "reset-admin": "node prisma/reset-admin.js",
     "add-yaourt": "node prisma/add-yaourt-grec.js",
+    "inspect:day": "node prisma/inspect-day.js",
     "test": "node --test",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
