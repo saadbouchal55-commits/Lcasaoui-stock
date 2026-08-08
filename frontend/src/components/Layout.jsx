@@ -22,6 +22,8 @@ export default function Layout({ children }) {
   const directionLinks = isDirection
     ? [
         ['/waste', t('nav.waste')],
+        ['/history-orders', t('nav.historyOrders')],
+        ['/history-stock', t('nav.historyStock')],
         ['/initial-stock', t('nav.initialstock')],
         ['/items', t('nav.items')],
         ['/recipes', t('nav.recipes')],

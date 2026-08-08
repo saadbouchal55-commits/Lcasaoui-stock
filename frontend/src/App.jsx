@@ -17,6 +17,8 @@ import Recipes from './pages/Recipes.jsx';
 import Buffers from './pages/Buffers.jsx';
 import Users from './pages/Users.jsx';
 import Audit from './pages/Audit.jsx';
+import HistoryOrders from './pages/HistoryOrders.jsx';
+import HistoryStock from './pages/HistoryStock.jsx';
 
 function RequireDirection({ children }) {
   const { isDirection } = useAuth();
@@ -52,6 +54,8 @@ export default function App() {
         <Route path="/orders" element={<RequireOrders><Orders /></RequireOrders>} />
         {/* Direction only */}
         <Route path="/waste" element={<RequireDirection><Waste /></RequireDirection>} />
+        <Route path="/history-orders" element={<RequireDirection><HistoryOrders /></RequireDirection>} />
+        <Route path="/history-stock" element={<RequireDirection><HistoryStock /></RequireDirection>} />
         <Route path="/initial-stock" element={<RequireDirection><InitialStock /></RequireDirection>} />
         <Route path="/items" element={<RequireDirection><Items /></RequireDirection>} />
         <Route path="/recipes" element={<RequireDirection><Recipes /></RequireDirection>} />

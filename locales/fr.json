@@ -18,8 +18,17 @@
     "initialstock": "Stock initial",
     "users": "Utilisateurs",
     "audit": "Journal des modifications",
+    "historyOrders": "Historique commandes",
+    "historyStock": "Historique stock",
     "changePassword": "Mot de passe",
     "logout": "Déconnexion"
+  },
+  "history": {
+    "ordersTitle": "Historique des commandes",
+    "stockTitle": "Historique du stock",
+    "source": "Type",
+    "initial": "Stock initial",
+    "count": "Comptage"
   },
   "users": {
     "title": "Utilisateurs",
